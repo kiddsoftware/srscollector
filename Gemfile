@@ -31,12 +31,17 @@ gem 'jbuilder', '~> 1.2'
 gem 'ember-rails'
 gem 'ember-source', '1.0.0'
 
+group :development do
+  gem 'foreman'
+  gem 'dotenv-rails'
+end
+
 group :development, :test do
   gem 'rspec-rails', '~> 2.0'
 end
 
 group :test do
-  gem 'capybara-webkit'
+  gem 'poltergeist'
 end
 
 group :doc do

@@ -4,9 +4,9 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 
-# Set up Capybara and WebKit for headless acceptance tests.
-require 'capybara/rspec'
-Capybara.javascript_driver = :webkit
+# Set up Capybara and Poltergeist for headless acceptance tests.
+require 'capybara/poltergeist'
+Capybara.javascript_driver = :poltergeist
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
