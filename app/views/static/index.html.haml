@@ -1,6 +1,12 @@
-%h1 SRS Collector
-%label
-  Front:
-  %br
-  %textarea
+.row
+  .col-md-4
+    %label
+      Front:
+      %br
+      %textarea(id="front" class="wysihtml5" style="width: 100%" rows=8
+                placeholder="Paste foreign language text here…")
+    %br
+    %button#lookup Lookup
 
+  .col-md-8
+    %iframe(id="dictionary" src="/placeholder" width="100%" height="600")
