@@ -1,6 +1,11 @@
 SrsCollector::Application.routes.draw do
   root "static#index"
 
+  StaticController::PAGES.each do |page|
+    next if page == "index"
+    get page => "static##{page}"
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
