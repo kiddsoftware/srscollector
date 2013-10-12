@@ -18,6 +18,11 @@ gem 'coffee-rails', '~> 4.0.0'
 # Use HAML for templates.
 gem 'haml-rails'
 
+# Use Boostrap 3 & a rich text editor that integrates nicely.
+gem('anjlab-bootstrap-rails', require: 'bootstrap-rails',
+    github: 'anjlab/bootstrap-rails')
+gem 'bootstrap-wysihtml5-rails'
+
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
