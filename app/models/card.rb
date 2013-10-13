@@ -1,6 +1,5 @@
 class Card < ActiveRecord::Base
   validates :front, presence: true
-
-  state_machine initial: :new do
-  end
+  validates(:state, presence: true,
+            inclusion: %w(new reviewed exported set_aside))
 end

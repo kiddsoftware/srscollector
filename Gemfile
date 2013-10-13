@@ -39,9 +39,6 @@ gem 'jbuilder', '~> 1.2'
 gem 'ember-rails'
 gem 'ember-source', '1.0.0'
 
-# State machines in models.
-gem 'state_machine'
-
 # Used to remove suspicious junk from HTML on cards.
 gem 'sanitize'
 

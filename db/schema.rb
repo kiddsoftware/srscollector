@@ -11,10 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131012233856) do
+ActiveRecord::Schema.define(version: 20131013142403) do
 
   create_table "cards", force: true do |t|
-    t.string   "state"
+    t.string   "state",      default: "new"
     t.text     "front"
     t.text     "back"
     t.text     "source"

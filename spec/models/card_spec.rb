@@ -12,9 +12,12 @@ describe Card do
   it { should_not validate_presence_of(:source) }
   it { should_not validate_presence_of(:source_url) }
 
-  describe ".state" do
-    it "should initially be new" do
-      card.should be_new
-    end
+  it { should validate_presence_of(:state) }
+  %w(new reviewed exported set_aside).each do |s|
+    it { should allow_value(s).for(:state) }
+  end
+  it { should_not allow_value("foo").for(:state) }
+  it ".state should initially be new" do
+    card.state.should == "new"
   end
 end
