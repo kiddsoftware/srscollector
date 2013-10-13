@@ -35,9 +35,10 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
-# Ember.js for client-side JavaScript.
+# Ember.js for client-side JavaScript.  Emblem gives us beautiful templates.
 gem 'ember-rails'
 gem 'ember-source', '1.0.0'
+gem 'emblem-rails'
 
 # Used to remove suspicious junk from HTML on cards.
 gem 'sanitize'

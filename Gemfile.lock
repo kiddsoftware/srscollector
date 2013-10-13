@@ -41,6 +41,9 @@ GEM
       ember-source
       execjs
       handlebars-source
+    barber-emblem (0.1.1)
+      barber (>= 0.4.1)
+      emblem-source
     bootstrap-wysihtml5-rails (0.3.1.23)
       railties (>= 3.0)
     builder (3.1.4)
@@ -74,6 +77,10 @@ GEM
       railties (>= 3.1)
     ember-source (1.0.0)
       handlebars-source (= 1.0.12)
+    emblem-rails (0.1.1)
+      barber-emblem (~> 0.1.1)
+      ember-rails (>= 0.11.1)
+    emblem-source (0.3.2)
     erubis (2.7.0)
     execjs (2.0.2)
     factory_girl (4.2.0)
@@ -195,6 +202,7 @@ DEPENDENCIES
   dotenv-rails
   ember-rails
   ember-source (= 1.0.0)
+  emblem-rails
   factory_girl_rails
   foreman
   haml-rails
