@@ -6,7 +6,7 @@ feature "Add definitions to a snippet", :js => true do
     visit "/"
     fill_in_html "#front", with: "suis"
     select_all "#front"
-    click_button("Lookup")
+    first(".rich-editor").click_link("Lookup")
     iframe_location.should == "http://fr.wiktionary.org/wiki/suis"
   end
 

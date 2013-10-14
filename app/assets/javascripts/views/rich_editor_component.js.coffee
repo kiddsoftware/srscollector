@@ -11,7 +11,7 @@ $.fn.wysihtml5.defaultOptions["image"] = false
 $.fn.wysihtml5.defaultOptions["color"] = true
 $.fn.wysihtml5.defaultOptions["toolbar"] =
   lookup: (locale, options) ->
-    "<li><a class='btn btn-default lookup' title='Look up the selected text'>Lookup</a></li>"
+    "<li><a class='btn btn-default lookup' title='Look up the selected text' href='javascript:;'>Lookup</a></li>"
 
 SrsCollector.RichEditorComponent = Ember.Component.extend
   classNames: ['rich-editor']
