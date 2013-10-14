@@ -104,6 +104,7 @@ GEM
       railties (>= 3.1, < 4.1)
     handlebars-source (1.0.12)
     hike (1.2.3)
+    http_accept_language (2.0.0)
     i18n (0.6.5)
     jbuilder (1.5.2)
       activesupport (>= 3.0.0)
@@ -213,6 +214,7 @@ DEPENDENCIES
   factory_girl_rails
   foreman
   haml-rails
+  http_accept_language
   jbuilder (~> 1.2)
   jquery-rails
   launchy

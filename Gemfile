@@ -43,6 +43,9 @@ gem 'emblem-rails'
 # Used to remove suspicious junk from HTML on cards.
 gem 'sanitize'
 
+# HTTP language detector.
+gem 'http_accept_language'
+
 # Compact language detector, courtesy of the Google Chrome team.
 gem 'cld'
 
