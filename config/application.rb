@@ -26,6 +26,8 @@ module SrsCollector
     # config.i18n.default_locale = :de
 
     config.generators do |g|
+      g.helper false
+      g.test_framework :rspec, fixtures: true, view_specs: false
       g.fixture_replacement :factory_girl
     end
   end
