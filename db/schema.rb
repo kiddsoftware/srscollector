@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131013142403) do
+ActiveRecord::Schema.define(version: 20131014172859) do
 
   create_table "cards", force: true do |t|
     t.string   "state",      default: "new"
@@ -19,6 +19,15 @@ ActiveRecord::Schema.define(version: 20131013142403) do
     t.text     "back"
     t.text     "source"
     t.text     "source_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "dictionaries", force: true do |t|
+    t.string   "name",        null: false
+    t.string   "from_lang",   null: false
+    t.string   "to_lang",     null: false
+    t.string   "url_pattern", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
