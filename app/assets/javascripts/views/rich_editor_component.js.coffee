@@ -1,7 +1,9 @@
+# Replace style names with single letters for size.
 $.fn.wysihtml5.locale.en.emphasis.bold = "B"
 $.fn.wysihtml5.locale.en.emphasis.italic = "I"
 $.fn.wysihtml5.locale.en.emphasis.underline = "U"
 
+# Configure toolbar.
 $.fn.wysihtml5.defaultOptions["font-styles"] = false
 $.fn.wysihtml5.defaultOptions["lists"] = false
 # Might implement as a for-pay feature some day.  Needs database support.
@@ -16,13 +18,20 @@ SrsCollector.RichEditorComponent = Ember.Component.extend
 
   didInsertElement: ->
     @$(".wysihtml5").wysihtml5()
-    @$(".btn.lookup").on("click", @lookup)
+    @editor = @$('.wysihtml5').data("wysihtml5").editor
+    @editor.on("change", @change.bind(this))
+    @$(".btn.lookup").on("click", @lookup.bind(this))
 
   willDestroyElement: ->
     @$(".btn.lookup").off("click")
+    @editor.off("change")
+    @editor = null
 
-  lookup: =>
-    editor = @$('.wysihtml5').data("wysihtml5").editor
-    text = editor.composer.selection.getText()
+  change: ->
+    # Copy this back manually.  We might need to tweak this some more.
+    @set("value", @editor.getValue())
+
+  lookup: ->
+    text = @editor.composer.selection.getText()
     url = "http://fr.wiktionary.org/wiki/#{encodeURIComponent(text)}"
     $("#dictionary").attr("src", url)

@@ -1,10 +1,5 @@
 .row
   .col-md-4
-    .card
-      label for="front" Front:
-      rich-editor ctrlId="front" placeholder="Paste foreign language text here…"
-
-      label for="back" Back:
-      rich-editor ctrlId="back" placeholder="Text to appear on the back of the card."
+    control card content
   .col-md-8
-    %iframe id="dictionary" src="/placeholder" width="100%" height="600"
+    iframe id="dictionary" src="/placeholder" width="100%" height="600"

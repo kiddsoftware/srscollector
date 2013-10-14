@@ -1,0 +1,6 @@
+.card
+  label for="front" Front:
+  rich-editor ctrlId="front" value=front placeholder="Paste foreign language text here…"
+
+  label for="back" Back:
+  rich-editor ctrlId="back" value=back placeholder="Text to appear on the back of the card."
