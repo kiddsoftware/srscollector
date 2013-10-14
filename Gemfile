@@ -43,6 +43,9 @@ gem 'emblem-rails'
 # Used to remove suspicious junk from HTML on cards.
 gem 'sanitize'
 
+# Compact language detector, courtesy of the Google Chrome team.
+gem 'cld'
+
 group :development do
   gem 'foreman'
   gem 'dotenv-rails'
@@ -56,6 +59,7 @@ group :test do
   gem 'poltergeist'
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
+  gem 'launchy'
 end
 
 group :doc do
