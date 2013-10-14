@@ -9,6 +9,7 @@ SrsCollector::Application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :cards
+      resources :dictionaries
       post "languages/detect"
     end
   end
