@@ -4,10 +4,6 @@ describe API::V1::CardsController do
   let!(:card1) { FactoryGirl.create(:card, front: "Card 1") }
   let!(:card2) { FactoryGirl.create(:card, front: "Card 2") }
 
-  def json
-    @json ||= JSON.parse(response.body)
-  end
-
   describe "GET 'index'" do
     it "returns all cards" do
       get 'index', format: 'json'

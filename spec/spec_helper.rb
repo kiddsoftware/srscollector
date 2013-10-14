@@ -43,4 +43,7 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+
+  # Some handy functions for testing controllers.
+  config.include ControllerSpecHelpers, :type => :controller
 end
