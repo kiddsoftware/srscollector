@@ -51,8 +51,9 @@ gem 'http_accept_language'
 # Compact language detector, courtesy of the Google Chrome team.
 gem 'cld'
 
-# A fast, threaded web server.
-gem 'puma'
+# A concurrent webserver.  We'd like to use Puma, but the configuration
+# instructions are contradictory.
+gem 'unicorn'
 
 group :production do
   gem 'pg'
