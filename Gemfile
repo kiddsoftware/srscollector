@@ -1,3 +1,5 @@
+ruby "2.0.0"
+
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -48,6 +50,14 @@ gem 'http_accept_language'
 
 # Compact language detector, courtesy of the Google Chrome team.
 gem 'cld'
+
+# A fast, threaded web server.
+gem 'puma'
+
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
+end
 
 group :development do
   gem 'foreman'
