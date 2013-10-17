@@ -16,6 +16,6 @@ SrsCollector.CardController = Ember.ObjectController.extend
     # Called when the user clicks "Next".
     nextCard: ->
       @set("state", "reviewed")
-      @get("transaction").commit()
+      @get("content").save()
       @get("controllers.export").send("refresh", true)
       @set("content", @store.createRecord('card'))
