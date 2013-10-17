@@ -1,10 +1,16 @@
 class API::V1::CardsController < ApplicationController
   respond_to :json
+  respond_to :csv, only: :index
 
   def index
     query = Card.all
     query = query.where(state: params[:state]) if params[:state]
-    respond_with :api, :v1, query
+    respond_with :api, :v1, query do |format|
+      format.csv do
+        send_data(Card.to_csv(query), type: "text/csv",
+                  filename: 'anki-cards.csv')
+      end
+    end
   end
 
   def show

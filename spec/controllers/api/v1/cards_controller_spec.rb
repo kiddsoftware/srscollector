@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe API::V1::CardsController do
-  let!(:card1) { FactoryGirl.create(:card, front: "Card 1", state: 'new') }
-  let!(:card2) { FactoryGirl.create(:card, front: "Card 2", state: 'reviewed') }
+  let!(:card1) { FactoryGirl.create(:card, front: "Card 1", state: 'reviewed') }
+  let!(:card2) { FactoryGirl.create(:card, front: "Card 2", state: 'new') }
 
   describe "GET 'index'" do
     it "returns all cards" do
@@ -16,6 +16,14 @@ describe API::V1::CardsController do
       get 'index', format: 'json', state: 'reviewed'
       response.should be_success
       json['cards'].length.should == 1
+    end
+
+    it "can return cards in CSV format" do
+      get 'index', format: 'csv', state: 'reviewed'
+      response.should be_success
+      response.body.should match(/Front,Back/)
+      response.body.should match(/Card 1/)
+      response.body.should_not match(/Card 2/)
     end
   end
 
