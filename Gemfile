@@ -40,6 +40,7 @@ gem 'jbuilder', '~> 1.2'
 # Ember.js for client-side JavaScript.  Emblem gives us beautiful templates.
 gem 'ember-rails'
 gem 'ember-source', '1.0.0'
+gem 'ember-data-source', '1.0.0.beta.3'
 gem 'emblem-rails'
 
 # Used to remove suspicious junk from HTML on cards.

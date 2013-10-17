@@ -1,11 +1,10 @@
 # http://emberjs.com/guides/models/defining-a-store/
 
-SrsCollector.Adapter = DS.RESTAdapter.extend
+inflector = Ember.Inflector.inflector
+inflector.irregular("dictionary", "dictionaries");
+
+DS.RESTAdapter.reopen
   namespace: 'api/v1'
 
-SrsCollector.Adapter.configure 'plurals',
-  dictionary: 'dictionaries'
-
-SrsCollector.Store = DS.Store.extend
-  revision: 11
-  adapter: SrsCollector.Adapter.create()
+#SrsCollector.Store = DS.Store.extend
+#  adapter: DS.RESTAdapter

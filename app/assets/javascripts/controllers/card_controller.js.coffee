@@ -18,4 +18,4 @@ SrsCollector.CardController = Ember.ObjectController.extend
       @set("state", "reviewed")
       @get("transaction").commit()
       @get("controllers.export").send("refresh", true)
-      @set("content", SrsCollector.Card.createRecord())
+      @set("content", @store.createRecord('card'))

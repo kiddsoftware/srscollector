@@ -15,7 +15,7 @@ SrsCollector.ExportController = Ember.Controller.extend
     # have changed.
     refresh: (haveCards='check') ->
       if haveCards == 'check'
-        @set("reviewed", SrsCollector.Card.find({ state: 'reviewed' }))
+        @set("reviewed", @store.find('card', { state: 'reviewed' }))
       else
         @set("canExport", haveCards)
 
