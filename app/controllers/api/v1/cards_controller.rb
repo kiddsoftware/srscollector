@@ -2,7 +2,9 @@ class API::V1::CardsController < ApplicationController
   respond_to :json
 
   def index
-    respond_with :api, :v1, Card.all
+    query = Card.all
+    query = query.where(state: params[:state]) if params[:state]
+    respond_with :api, :v1, query
   end
 
   def show

@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe API::V1::CardsController do
-  let!(:card1) { FactoryGirl.create(:card, front: "Card 1") }
-  let!(:card2) { FactoryGirl.create(:card, front: "Card 2") }
+  let!(:card1) { FactoryGirl.create(:card, front: "Card 1", state: 'new') }
+  let!(:card2) { FactoryGirl.create(:card, front: "Card 2", state: 'reviewed') }
 
   describe "GET 'index'" do
     it "returns all cards" do
@@ -10,6 +10,12 @@ describe API::V1::CardsController do
       response.should be_success
       json['cards'].length.should == 2
       json['cards'].map {|j| j['id'] }.should include(card1.id, card2.id)
+    end
+
+    it "can be queried for all cards in a specific state" do
+      get 'index', format: 'json', state: 'reviewed'
+      response.should be_success
+      json['cards'].length.should == 1
     end
   end
 

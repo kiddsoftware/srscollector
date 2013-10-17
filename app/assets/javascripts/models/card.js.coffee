@@ -1,7 +1,7 @@
 # for more details see: http://emberjs.com/guides/models/defining-models/
 
 SrsCollector.Card = DS.Model.extend
-  state: DS.attr('string')
+  state: DS.attr('string', defaultValue: 'new')
   front: DS.attr('string')
   back: DS.attr('string')
   source: DS.attr('string')

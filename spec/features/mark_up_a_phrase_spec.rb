@@ -14,14 +14,17 @@ feature "Add definitions to a snippet", :js => true do
                        score: 0.5)
   end
 
-  scenario "User pastes a phrase, selects a word and tried two dictionaries" do
+  scenario "User pastes a phrase, selects a word, tries two dictionaries" do
     visit "/"
     fill_in_html "#front", with: "suis"
     select_all "#front"
     first(".rich-editor").click_link("Lookup")
-    page.should have_xpath("//iframe[@src='http://example.com/d1/suis']")
+    expect_nested_page('http://example.com/d1/suis')
     select('Dict2', from: "Dictionary")
-    page.should have_xpath("//iframe[@src='http://example.com/d2/suis']")
+    expect_nested_page('http://example.com/d2/suis')
+    fill_in_html "#back", with: "am"
+    click_button "Next"
+    click_link "Export cards"
   end
 
   def fill_in_html(field, options)
@@ -31,6 +34,7 @@ feature "Add definitions to a snippet", :js => true do
   var wysihtml5 = $(#{field.to_json}).data("wysihtml5");
   var editor = wysihtml5.editor;
   editor.setValue(#{with.to_json});
+  editor.fire("change");
 })();
 EOD
   end
@@ -44,5 +48,9 @@ EOD
   selection.selectNode(selection.doc.documentElement);
 })();
 EOD
+  end
+
+  def expect_nested_page(src)
+    page.should have_xpath("//iframe[@src='#{src}']")
   end
 end
