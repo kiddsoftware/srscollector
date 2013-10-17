@@ -52,9 +52,9 @@ gem 'http_accept_language'
 # Compact language detector, courtesy of the Google Chrome team.
 gem 'cld'
 
-# A concurrent webserver.  We'd like to use Puma, but the configuration
-# instructions are contradictory.
-gem 'unicorn'
+# A concurrent webserver.
+# http://blog.codeship.io/2013/10/16/unleash-the-puma-on-heroku.html
+gem 'puma'
 
 group :production do
   gem 'pg'
