@@ -13,8 +13,17 @@ SrsCollector.ExportController = Ember.Controller.extend
   actions:
     # Send this event to let us know that the list of exportable cards may
     # have changed.
-    refresh: (haveCards=false) ->
-      if haveCards
-        @set("canExport", true)
-      else
+    refresh: (haveCards='check') ->
+      if haveCards == 'check'
         @set("reviewed", SrsCollector.Card.find({ state: 'reviewed' }))
+      else
+        @set("canExport", haveCards)
+
+    # OK, the user says we've exported everything.
+    confirmExport: ->
+      @send("refresh", false)
+      jqxhr = $.post("/api/v1/cards/mark_reviewed_as_exported")
+      jqxhr.fail =>
+        console.log("Couldn't mark cards as exported")
+      jqxhr.done =>
+        @transitionToRoute('index')

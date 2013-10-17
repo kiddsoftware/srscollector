@@ -44,6 +44,15 @@ describe API::V1::CardsController do
     end
   end
 
+  describe "POST 'mark_reviewed_as_exported'" do
+    it "marks all reviewed cards as exported" do
+      post 'mark_reviewed_as_exported', format: 'json'
+      response.should be_success
+      card1.reload
+      card1.state.should == 'exported'
+    end
+  end
+
   describe "PUT 'update'" do
     it "updates a card" do
       put 'update', format: 'json', id: card1.id, card: { back: "Via PUT" }

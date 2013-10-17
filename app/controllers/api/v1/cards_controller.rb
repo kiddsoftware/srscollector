@@ -21,6 +21,11 @@ class API::V1::CardsController < ApplicationController
     respond_with :api, :v1, Card.create(card_params)
   end
 
+  def mark_reviewed_as_exported
+    Card.where(state: 'reviewed').update_all(state: 'exported')
+    head :no_content
+  end
+
   def update
     respond_with :api, :v1, Card.update(params[:id], card_params)
   end

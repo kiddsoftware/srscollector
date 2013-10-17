@@ -25,6 +25,8 @@ feature "Add definitions to a snippet", :js => true do
     fill_in_html "#back", with: "am"
     click_button "Next"
     click_link "Export cards"
+    page.should have_text("Download cards as CSV")
+    click_button "Mark All Cards as Exported"
   end
 
   def fill_in_html(field, options)

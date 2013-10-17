@@ -1,7 +1,12 @@
 h2 Exporting cards
 
 p
-  ' Download the following file and import it into Anki. (More instructions
+  ' Download the following file and import it into Anki. Be sure to check
+  ' the box to allow HTML in the imported cards.  (More instructions
   ' will be added eventually; this is just a placeholder.)
 
-p (Link goes here.)
+p: a href='/api/v1/cards.csv?state=reviewed' Download cards as CSV
+
+p When done, click on the button below to resume adding cards:
+
+button.btn.btn-default{action 'confirmExport'} Mark All Cards as Exported
