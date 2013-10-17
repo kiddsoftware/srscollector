@@ -2,9 +2,9 @@
 
 FactoryGirl.define do
   factory :dictionary do
-    name "MyString"
-    from_lang "MyString"
-    to_lang "MyString"
-    url_pattern "MyString"
+    name "My Dictionary"
+    from_lang "en"
+    to_lang "en"
+    url_pattern "http://example.com/%s"
   end
 end

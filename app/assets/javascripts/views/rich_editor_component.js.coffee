@@ -19,19 +19,18 @@ SrsCollector.RichEditorComponent = Ember.Component.extend
   didInsertElement: ->
     @$(".wysihtml5").wysihtml5()
     @editor = @$('.wysihtml5').data("wysihtml5").editor
-    @editor.on("change", @change.bind(this))
-    @$(".btn.lookup").on("click", @lookup.bind(this))
+    @editor.on("change", @onChange.bind(this))
+    @$(".btn.lookup").on("click", @onLookup.bind(this))
 
   willDestroyElement: ->
     @$(".btn.lookup").off("click")
     @editor.off("change")
     @editor = null
 
-  change: ->
+  onChange: ->
     # Copy this back manually.  We might need to tweak this some more.
     @set("value", @editor.getValue())
 
-  lookup: ->
+  onLookup: ->
     text = @editor.composer.selection.getText()
-    url = "http://fr.wiktionary.org/wiki/#{encodeURIComponent(text)}"
-    $("#dictionary").attr("src", url)
+    @sendAction("lookup", text)

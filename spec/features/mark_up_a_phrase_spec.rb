@@ -2,12 +2,26 @@
 require "spec_helper"
 
 feature "Add definitions to a snippet", :js => true do
-  scenario "User pastes a phrase and selects a word" do
+  let!(:dict1) do
+    FactoryGirl.create(:dictionary, name: "Dict1", from_lang: "fr",
+                       to_lang: "fr", url_pattern: "http://example.com/d1/%s",
+                       score: 1.0)
+  end
+
+  let!(:dict2) do
+    FactoryGirl.create(:dictionary, name: "Dict2", from_lang: "fr",
+                       to_lang: "en", url_pattern: "http://example.com/d2/%s",
+                       score: 0.5)
+  end
+
+  scenario "User pastes a phrase, selects a word and tried two dictionaries" do
     visit "/"
     fill_in_html "#front", with: "suis"
     select_all "#front"
     first(".rich-editor").click_link("Lookup")
-    iframe_location.should == "http://fr.wiktionary.org/wiki/suis"
+    page.should have_xpath("//iframe[@src='http://example.com/d1/suis']")
+    select('Dict2', from: "Dictionary")
+    page.should have_xpath("//iframe[@src='http://example.com/d2/suis']")
   end
 
   def fill_in_html(field, options)
@@ -30,9 +44,5 @@ EOD
   selection.selectNode(selection.doc.documentElement);
 })();
 EOD
-  end
-
-  def iframe_location
-    page.evaluate_script("$('#dictionary').attr('src')")
   end
 end

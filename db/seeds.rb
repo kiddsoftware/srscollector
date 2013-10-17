@@ -24,18 +24,10 @@ dictionaries = [{
   to_lang: 'en',
   url_pattern: 'http://www.wordreference.com/fren/%s',
   score: 0.90
-}, {
-  name: "Google Translate",
-  from_lang: '*',
-  to_lang: '*',
-  url_pattern: 'http://translate.google.com/#auto|%t|%s',
-  score: 0.71
-}, {
-  name: "Google Images",
-  from_lang: 'fr',
-  to_lang: '*',
-  url_pattern: "https://www.google.fr/search?tbm=isch&q=%s",
-  score: 0.70
+
+# DO NOT WORK:
+#  Google Translate: X-SAME-ORIGIN (but a paid API is available)
+#  Google Images: X-SAME-ORIGIN (tried custom search engines, looks tricky)
 }]
 
 def create_or_update_dictionary(attrs)

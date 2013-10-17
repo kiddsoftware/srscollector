@@ -1,0 +1,13 @@
+label
+  | Dictionary:
+  Ember.Select contentBinding=content valueBinding="currentDictionary" optionLabelPath="content.name"
+
+if url
+  iframe.dictionary-viewer src=url
+else
+  h2 How to use this site
+  ol
+    li Paste a snippet of foreign language text on the front of the card.
+    li Highlight an unknown word and click <b>Lookup</b>.
+    li Copy definitions from the dictionary to the back of the card.
+    li Export your cards to Anki (soon).
