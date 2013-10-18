@@ -29,9 +29,18 @@ SrsCollector.CardController = Ember.ObjectController.extend
     else
       new Ember.RSVP.Promise (resolve, reject) => resolve()
 
+  insertDefinitionPlaceholder: (phrase) ->
+    back = @get("back") ? ""
+    unless back == ""
+      back += "<br><br>"
+    html = $('<div>').text(phrase).html()
+    console.log("back", back, html)
+    @set("back", back + html + " = ")
+
   actions:
     # Called when our rich text editors send a "lookup" event.
     lookup: (searchFor) ->
+      @insertDefinitionPlaceholder(searchFor)
       @set("searchFor", searchFor)
 
     # Called when the user clicks "Next".

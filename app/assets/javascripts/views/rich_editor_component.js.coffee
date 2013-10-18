@@ -44,4 +44,5 @@ SrsCollector.RichEditorComponent = Ember.Component.extend
   onLookup: ->
     text = @editor.composer.selection.getText()
     if text? && !text.match(/^\s*$/)
+      @editor.composer.commands.exec("bold")
       @sendAction("lookup", text)
