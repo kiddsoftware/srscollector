@@ -25,6 +25,22 @@ describe API::V1::CardsController do
       response.body.should match(/Card 1/)
       response.body.should_not match(/Card 2/)
     end
+
+    it "can return the next card to be reviewed, or none" do
+      get 'index', format: 'json', state: 'new', sort: 'age', limit: 1
+      response.should be_success
+      json['cards'].length.should == 1
+      card = json['cards'][0]
+      card['front'].should == 'Card 2'
+
+      card['state'] = 'reviewed'
+      put 'update', format: 'json', id: card['id'], card: card
+      response.should be_success
+
+      @json = nil # HACK: Clear JSON cache. Fix this cache to be smarter.
+      get 'index', format: 'json', state: 'new', sort: 'age', limit: 1
+      json['cards'].length.should == 0
+    end
   end
 
   describe "GET 'show'" do

@@ -5,6 +5,8 @@ class API::V1::CardsController < ApplicationController
   def index
     query = Card.all
     query = query.where(state: params[:state]) if params[:state]
+    query = query.order("created_at, id") if params[:sort] == 'age'
+    query = query.limit(params[:limit].to_i) if params[:limit]
     respond_with :api, :v1, query do |format|
       format.csv do
         send_data(Card.to_csv(query), type: "text/csv",

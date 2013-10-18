@@ -28,31 +28,4 @@ feature "Add definitions to a snippet", :js => true do
     page.should have_text("Download cards as CSV")
     click_button "Mark All Cards as Exported"
   end
-
-  def fill_in_html(field, options)
-    with = options[:with]
-    page.execute_script(<<"EOD")
-(function () {
-  var wysihtml5 = $(#{field.to_json}).data("wysihtml5");
-  var editor = wysihtml5.editor;
-  editor.setValue(#{with.to_json});
-  editor.fire("change");
-})();
-EOD
-  end
-
-  def select_all(field)
-    page.execute_script(<<"EOD")
-(function () {
-  var wysihtml5 = $(#{field.to_json}).data("wysihtml5");
-  var editor = wysihtml5.editor;
-  var selection = editor.composer.selection;
-  selection.selectNode(selection.doc.documentElement);
-})();
-EOD
-  end
-
-  def expect_nested_page(src)
-    page.should have_xpath("//iframe[@src='#{src}']")
-  end
 end
