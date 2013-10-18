@@ -22,11 +22,13 @@ SrsCollector.RichEditorComponent = Ember.Component.extend
     @$(".wysihtml5").wysihtml5()
     @editor = @$('.wysihtml5').data("wysihtml5").editor
     @editor.on("change", @onEditorChange.bind(this))
+    @editor.on("paste", @onPaste.bind(this))
     @$(".btn.lookup").on("click", @onLookup.bind(this))
 
   willDestroyElement: ->
     @$(".btn.lookup").off("click")
     #@editor.off("change")
+    #@editor.off("paste")
     @editor = null
 
   onModelChange: (->
@@ -42,6 +44,11 @@ SrsCollector.RichEditorComponent = Ember.Component.extend
   onEditorChange: ->
     # Copy this back manually.  We might need to tweak this some more.
     @set("value", @editor.getValue())
+
+  onPaste: ->
+    # Clean up nasty &nbsp; garbage that appears when we paste from some
+    # sites.
+    @editor.setValue(@editor.getValue().replace(/&nbsp;/g, ' '))
 
   onLookup: ->
     text = @editor.composer.selection.getText()
