@@ -6,7 +6,9 @@
   rich-editor ctrlId="back" value=back placeholder="Text to appear on the back of the card." lookup="lookup"
 
   if front
-    button.btn.btn-default{action 'nextCard'} Next
+    .btn-toolbar
+      button.btn.btn-default{action 'nextCard'} Next
+      button.btn.btn-default{action 'setAside'} tabindex='-1' Set Aside
   else
     if canExport
       linkTo 'export' | Export cards

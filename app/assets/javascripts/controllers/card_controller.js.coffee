@@ -37,6 +37,16 @@ SrsCollector.CardController = Ember.ObjectController.extend
     console.log("back", back, html)
     @set("back", back + html + " = ")
 
+  saveAndNext: (state) ->
+    @set("state", state)
+    @get("content").save()
+      .then =>
+        @get("controllers.export").send("refresh", true) if state == 'reviewed'
+        @refresh()
+      .fail (reason) =>
+        # TODO: Report error to user.
+        console.log("Failed to load next card:", reason)
+
   actions:
     # Called when our rich text editors send a "lookup" event.
     lookup: (searchFor) ->
@@ -45,14 +55,11 @@ SrsCollector.CardController = Ember.ObjectController.extend
 
     # Called when the user clicks "Next".
     nextCard: ->
-      @set("state", "reviewed")
-      @get("content").save()
-        .then =>
-          @get("controllers.export").send("refresh", true)
-          @refresh()
-        .fail (reason) =>
-          # TODO: Report error to user.
-          console.log("Failed to load next card:", reason)
+      @saveAndNext("reviewed")
+
+    # Called when the user clicks "Next".
+    setAside: ->
+      @saveAndNext("set_aside")
 
     refresh: ->
       @refresh()
