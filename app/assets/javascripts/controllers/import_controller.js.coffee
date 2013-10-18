@@ -15,8 +15,9 @@ SrsCollector.ImportController = Ember.Controller.extend
       # TODO: Lock GUI, improve transition.
       # Sigh. Ember Data 1.0 doesn't support bulk commit, so build the request
       # by hand and call jQuery directly.
+      div = $('<div>')
       cards = @get("value").split(/\n--\s*\n/).map (front) =>
-        { front: front }
+        { front: div.text(front.trim()).html() }
       promise = $.ajax
         method: 'POST'
         url: '/api/v1/cards.json',
