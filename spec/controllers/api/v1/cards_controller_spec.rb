@@ -42,6 +42,15 @@ describe API::V1::CardsController do
       response.should be_success
       Card.where(source: "Via POST").length.should == 1
     end
+
+    it "creates multiple cards if passed multiple records" do
+      attrs1 = FactoryGirl.attributes_for(:card, front: "Via POST 1")
+      attrs2 = FactoryGirl.attributes_for(:card, front: "Via POST 2")
+      post 'create', format: 'json', cards: [attrs1, attrs2]
+      response.should be_success
+      Card.where(front: "Via POST 1").length.should == 1
+      Card.where(front: "Via POST 2").length.should == 1
+    end
   end
 
   describe "POST 'mark_reviewed_as_exported'" do

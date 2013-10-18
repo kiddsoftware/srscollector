@@ -18,7 +18,14 @@ class API::V1::CardsController < ApplicationController
   end
 
   def create
-    respond_with :api, :v1, Card.create(card_params)
+    if params[:cards]
+      params[:cards].each do |card|
+        Card.create!(card.slice(:state, :front, :back, :source, :source_url))
+      end
+      head :created
+    else
+      respond_with :api, :v1, Card.create(card_params)
+    end
   end
 
   def mark_reviewed_as_exported
