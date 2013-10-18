@@ -10,6 +10,8 @@ $.fn.wysihtml5.defaultOptions["lists"] = false
 $.fn.wysihtml5.defaultOptions["image"] = false
 $.fn.wysihtml5.defaultOptions["color"] = true
 $.fn.wysihtml5.defaultOptions["toolbar"] =
+  formatting: (locale, options) ->
+    "<li><div class='btn-group'><a class='btn btn-default' data-wysihtml5-command='removeFormat' title='Plain text' tabindex='-1' href='javascript:;'>P</i></a><a class='btn btn-default' data-wysihtml5-command='unlink' title='Remove links' tabindex='-1' href='javascript:;'><i class='glyphicon glyphicon-minus-sign'></i></a></div></li>"
   lookup: (locale, options) ->
     "<li><a class='btn btn-default lookup' title='Look up the selected text' tabindex='-1' href='javascript:;'>Lookup</a></li>"
 
