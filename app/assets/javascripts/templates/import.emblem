@@ -6,8 +6,8 @@ label for="import-text" Text:
 Ember.TextArea id="import-text" valueBinding=value
 
 .btn-toolbar
-  .btn-group
-    button.btn.btn-default{action 'replaceBlankLines'}
-      | Replace Blank Lines With “--”
-  .btn-group
-    button.btn.btn-default{action 'import'} Import
+  button.btn.btn-default{action 'replaceBlankLines'}
+    | Replace Blank Lines With “--”
+  button.btn.btn-default{action 'parseQuotedSentences'}
+    | Sentences are Quoted
+  button.btn.btn-default{action 'import'} Import
