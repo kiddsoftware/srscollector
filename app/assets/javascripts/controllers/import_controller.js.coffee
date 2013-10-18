@@ -4,9 +4,11 @@ SrsCollector.ImportController = Ember.Controller.extend
   value: "Sample sentence 1.\n--\nThis time, there are two sentences together.  Separate sentences with \"--\" on a line by itself, like this:\n--\nSample sentence 3."
 
   actions:
-    # Replace blank lines with "--".
+    # Replace blank lines with "--".  We also strip leading and trailing
+    # quotes if they match up, to help with Moon+ Reader Pro output.
     replaceBlankLines: ->
-      @set("value", @get("value").replace(/\"?\n\s*\n\"?/, "\n--\n"))
+      blankRegex = /\n\s*\n|\"\n\s*\n\"/g
+      @set("value", @get("value").replace(blankRegex, "\n--\n"))
 
     # Import our new text.
     import: ->
