@@ -7,7 +7,6 @@ class Card < ActiveRecord::Base
 
   def self.to_csv(cards)
     CSV.generate do |csv|
-      csv << ["Front", "Back"]
       cards.each do |card|
         csv << [card.front, card.back]
       end
