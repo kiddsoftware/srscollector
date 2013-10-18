@@ -6,6 +6,8 @@
         span.icon-bar
         span.icon-bar
       a.navbar-brand href="/" SRS Collector
+      ul.nav.navbar-nav.navbar-right
+        li: linkTo 'import' | Bulk Import
       .collapse.navbar-collapse
 .container
   outlet

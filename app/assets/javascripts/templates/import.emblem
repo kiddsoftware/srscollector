@@ -1,0 +1,13 @@
+p
+ | You can import a whole bunch of sentences by pasting them in into the text
+   field below.
+
+label for="import-text" Text:
+Ember.TextArea id="import-text" valueBinding=value
+
+.btn-toolbar
+  .btn-group
+    button.btn.btn-default{action 'replaceBlankLines'}
+      | Replace Blank Lines With “--”
+  .btn-group
+    button.btn.btn-default{action 'import'} Import
