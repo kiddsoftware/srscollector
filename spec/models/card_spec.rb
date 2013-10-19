@@ -25,7 +25,6 @@ describe Card do
     it "should convert a list of cards to CSV format" do
       cards = [FactoryGirl.build(:card, front: "Example")]
       csv = Card.to_csv(cards)
-      csv.should match(/Front,Back/)
       csv.should match(/Example/)
     end
   end

@@ -21,7 +21,6 @@ describe API::V1::CardsController do
     it "can return cards in CSV format" do
       get 'index', format: 'csv', state: 'reviewed'
       response.should be_success
-      response.body.should match(/Front,Back/)
       response.body.should match(/Card 1/)
       response.body.should_not match(/Card 2/)
     end
