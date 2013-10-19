@@ -1,0 +1,5 @@
+ul
+  if new
+    li Cards to review: #{new}
+  if reviewed
+    li Ready for #{linkTo 'export' | export}: #{reviewed}

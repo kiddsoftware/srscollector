@@ -9,6 +9,3 @@
     .btn-toolbar
       button.btn.btn-default{action 'nextCard'} Next
       button.btn.btn-default{action 'setAside'} tabindex='-1' Set Aside
-  else
-    if canExport
-      linkTo 'export' | Export cards

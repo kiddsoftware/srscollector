@@ -13,8 +13,11 @@ Sentence 2.
 EOD
     click_button "Replace Blank Lines"
     click_button "Import"
+    page.should have_content("Cards to review: 2")
     expect_html_to_match('#front', /Sentence 1/)
     click_button "Next"
+    page.should have_content("Cards to review: 1")
+    page.should have_content("Ready for export: 1")
     expect_html_to_match('#front', /Sentence 2/)
   end
 end

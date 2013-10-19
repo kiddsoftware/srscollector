@@ -14,7 +14,7 @@ feature "Add definitions to a snippet", :js => true do
                        score: 0.5)
   end
 
-  scenario "User pastes a phrase, selects a word, tries two dictionaries" do
+  scenario "User pastes a phrase, looks up a word, exports" do
     visit "/"
     fill_in_html "#front", with: "suis"
     select_all "#front"
@@ -24,8 +24,10 @@ feature "Add definitions to a snippet", :js => true do
     expect_nested_page('http://example.com/d2/suis')
     fill_in_html "#back", with: "am"
     click_button "Next"
-    click_link "Export cards"
+    page.should have_content("Ready for export: 1")
+    click_link "export"
     page.should have_text("Download cards as CSV")
     click_button "Mark All Cards as Exported"
+    page.should_not have_content("Ready for export")
   end
 end

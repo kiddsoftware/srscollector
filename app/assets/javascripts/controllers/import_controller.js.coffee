@@ -1,5 +1,5 @@
 SrsCollector.ImportController = Ember.Controller.extend
-  needs: ['card']
+  needs: ['stats', 'card']
 
   value: "Sample sentence 1.\n--\nThis time, there are two sentences together.  Separate sentences with \"--\" on a line by itself, like this:\n--\nSample sentence 3."
 
@@ -30,7 +30,8 @@ SrsCollector.ImportController = Ember.Controller.extend
       promise
         .then =>
           @set("value", "")
-          @get('controllers.card').send("refresh")
+          @get('controllers.card').refresh()
+          @get('controllers.stats').refresh()
           @transitionToRoute('index')
         # TODO: Error-handling is special with jQuery promises. Verify this.
         .then null, (reason) =>

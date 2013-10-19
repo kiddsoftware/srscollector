@@ -1,5 +1,6 @@
 .row
   .col-md-4
     render card
+    render stats
   .col-md-8
     render dictionaries

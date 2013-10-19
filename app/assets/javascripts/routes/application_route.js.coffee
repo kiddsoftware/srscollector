@@ -7,6 +7,4 @@ SrsCollector.ApplicationRoute = Ember.Route.extend
       .fail (reason) =>
         # TODO: Report error to user.
         console.log("Failed to load first card:", reason)
-    # We can't call send() on ourselves yet.
-    # https://github.com/emberjs/ember.js/issues/2943
-    @controllerFor("export").send("refresh")
+    @controllerFor("stats").refresh()

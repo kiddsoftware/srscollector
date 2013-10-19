@@ -1,12 +1,9 @@
 SrsCollector.CardController = Ember.ObjectController.extend
-  needs: ['dictionaries', 'export']
+  needs: ['stats', 'dictionaries']
 
   # Link this local field to the correponding field in our dictionaries
   # controller.
   searchFor: Ember.computed.alias('controllers.dictionaries.searchFor')
-
-  # Do we have any cards to export?
-  canExport: Ember.computed.alias('controllers.export.canExport')
 
   # Can we discard the user's work in progress here?
   canDiscard: (->
@@ -38,7 +35,7 @@ SrsCollector.CardController = Ember.ObjectController.extend
     @set("state", state)
     @get("content").save()
       .then =>
-        @get("controllers.export").send("refresh", true) if state == 'reviewed'
+        @get("controllers.stats").refresh()
         @refresh()
       .fail (reason) =>
         # TODO: Report error to user.
@@ -57,6 +54,3 @@ SrsCollector.CardController = Ember.ObjectController.extend
     # Called when the user clicks "Next".
     setAside: ->
       @saveAndNext("set_aside")
-
-    refresh: ->
-      @refresh()
