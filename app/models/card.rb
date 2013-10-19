@@ -1,9 +1,10 @@
 require 'csv'
 
 class Card < ActiveRecord::Base
+  STATES = %w(new reviewed exported set_aside)
+
   validates :front, presence: true
-  validates(:state, presence: true,
-            inclusion: %w(new reviewed exported set_aside))
+  validates :state, presence: true, inclusion: STATES
 
   def self.to_csv(cards)
     CSV.generate do |csv|

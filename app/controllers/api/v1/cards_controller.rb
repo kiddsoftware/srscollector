@@ -15,6 +15,13 @@ class API::V1::CardsController < ApplicationController
     end
   end
 
+  def stats
+    states = Hash[Card::STATES.map {|s| [s, 0] }]
+    states.merge!(Card.group(:state).count)
+    stats = { stats: { state: states } }
+    respond_with stats
+  end
+
   def show
     respond_with :api, :v1, Card.find(params[:id])
   end

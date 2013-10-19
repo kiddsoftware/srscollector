@@ -10,6 +10,7 @@ SrsCollector::Application.routes.draw do
     namespace :v1 do
       resources :cards do
         collection do
+          get :stats
           post :mark_reviewed_as_exported
         end
       end

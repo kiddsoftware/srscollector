@@ -42,6 +42,16 @@ describe API::V1::CardsController do
     end
   end
 
+  describe "GET 'stats'" do
+    it "returns some interesting statistics about the available cards" do
+      get 'stats', format: 'json'
+      response.should be_success
+      json['stats']['state']['new'].should == 1
+      json['stats']['state']['reviewed'].should == 1
+      json['stats']['state']['exported'].should == 0
+    end
+  end
+
   describe "GET 'show'" do
     it "returns a single card" do
       get 'show', format: 'json', id: card1.to_param
