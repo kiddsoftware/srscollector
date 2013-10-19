@@ -20,9 +20,7 @@ SrsCollector.CardController = Ember.ObjectController.extend
 
   # Try to update our current content, if possible.  Returns a promise.
   refresh: ->
-    console.log("Trying to refresh...")
     if @get("canDiscard")
-      console.log("Refreshing...")
       SrsCollector.Card.next(@store).then (next) =>
         @set("content", next)
         return
@@ -34,7 +32,6 @@ SrsCollector.CardController = Ember.ObjectController.extend
     unless back == ""
       back += "<br><br>"
     html = $('<div>').text(phrase).html()
-    console.log("back", back, html)
     @set("back", back + html + " = ")
 
   saveAndNext: (state) ->

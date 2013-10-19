@@ -15,6 +15,7 @@ SrsCollector.ExportController = Ember.Controller.extend
     # have changed.
     refresh: (haveCards='check') ->
       if haveCards == 'check'
+        # TODO: Use a limit and a promise to update canExport directly.
         @set("reviewed", @store.find('card', { state: 'reviewed' }))
       else
         @set("canExport", haveCards)
