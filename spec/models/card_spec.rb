@@ -21,6 +21,31 @@ describe Card do
     card.state.should == "new"
   end
 
+  describe "#source_html" do
+    it "should be the source name linking to the source_url" do
+      card = FactoryGirl.build(:card, source: "a",
+                               source_url: "http://example.com")
+      card.source_html.should == '<a href="http://example.com">a</a>'
+    end
+
+    it "should be nil if source and source_url are nil" do
+      card = FactoryGirl.build(:card, source: nil, source_url: nil)
+      card.source_html.should be_nil
+    end
+
+    it "should be the source if we only have that" do
+      card = FactoryGirl.build(:card, source: "Testing & Stuff", source_url: nil)
+      card.source_html.should == "Testing &amp; Stuff"
+    end
+
+    it "should be the source_url as a link if we only have that" do
+      card = FactoryGirl.build(:card, source: nil,
+                               source_url: "http://example.com")
+      card.source_html.should ==
+        '<a href="http://example.com">http://example.com</a>'
+    end
+  end
+
   describe ".to_csv" do
     it "should convert a list of cards to CSV format" do
       cards = [FactoryGirl.build(:card, front: "Example")]
