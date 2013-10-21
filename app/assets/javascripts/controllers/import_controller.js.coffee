@@ -20,21 +20,20 @@ SrsCollector.ImportController = Ember.Controller.extend
       # by hand and call jQuery directly.
       div = $('<div>')
       cards = @get("value").split(/\n--\s*\n/).map (front) =>
-        { front: div.text(front.trim()).html() }
-      promise = $.ajax
+        { front: div.text(front.trim()).html().replace(/\n/, '<br>') }
+      jqxhr = $.ajax
         method: 'POST'
         url: '/api/v1/cards.json',
         data: JSON.stringify({ cards: cards })
         dataType: 'text' # Handle 201 CREATED responses.
         contentType: "application/json; charset=utf-8"
-      promise
+      Ember.RSVP.resolve(jqxhr)
         .then =>
           @set("value", "")
           @get('controllers.card').refresh()
           @get('controllers.stats').refresh()
           @transitionToRoute('index')
         # TODO: Error-handling is special with jQuery promises. Verify this.
-        .then null, (reason) =>
+        .fail (reason) =>
           # TODO: Report error to user.
           console.log("Error importing:", reason)
-          return
