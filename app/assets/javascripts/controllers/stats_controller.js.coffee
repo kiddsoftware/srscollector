@@ -4,5 +4,5 @@ SrsCollector.StatsController = Ember.ObjectController.extend
       .then (json) =>
         @set("content", Ember.Object.create(json['stats']['state']))
       .fail (reason) =>
-        # TODO: Report error to user.
-        console.log("Can't fetch statistics:", reason)
+        # We're not important enough to notify the user.
+        console.log("Couldn't fetch statistics", reason)

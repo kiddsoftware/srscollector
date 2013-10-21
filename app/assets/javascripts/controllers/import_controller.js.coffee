@@ -15,6 +15,7 @@ SrsCollector.ImportController = Ember.Controller.extend
 
     # Import our new text.
     import: ->
+      SrsCollector.clearError()
       # TODO: Lock GUI, improve transition.
       # Sigh. Ember Data 1.0 doesn't support bulk commit, so build the request
       # by hand and call jQuery directly.
@@ -35,5 +36,4 @@ SrsCollector.ImportController = Ember.Controller.extend
           @transitionToRoute('index')
         # TODO: Error-handling is special with jQuery promises. Verify this.
         .fail (reason) =>
-          # TODO: Report error to user.
-          console.log("Error importing:", reason)
+          SrsCollector.displayError("Couldn't import the cards", reason)

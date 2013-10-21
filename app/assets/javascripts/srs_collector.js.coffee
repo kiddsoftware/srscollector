@@ -1,8 +1,17 @@
-#= require ./store
-#= require_tree ./models
-#= require_tree ./controllers
-#= require_tree ./views
-#= require_tree ./templates
-#= require_tree ./routes
-#= require ./router
 #= require_self
+
+Application = Ember.Application.extend
+  # User-visible error message.
+  errorMessage: null
+
+  # Clear any error displayed in the GUI.
+  clearError: ->
+    @set("errorMessage", null)
+
+  # Display an error to the user.
+  displayError: (message, reason) ->
+    console.log(message, reason)
+    @set("errorMessage", message)
+
+# Instantiate our application class.
+window.SrsCollector = Application.create()

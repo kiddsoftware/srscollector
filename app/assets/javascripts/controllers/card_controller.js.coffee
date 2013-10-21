@@ -32,14 +32,14 @@ SrsCollector.CardController = Ember.ObjectController.extend
     @set("back", back + html + " = ")
 
   saveAndNext: (state) ->
+    SrsCollector.clearError()
     @set("state", state)
     @get("content").save()
       .then =>
         @get("controllers.stats").refresh()
         @refresh()
       .fail (reason) =>
-        # TODO: Report error to user.
-        console.log("Failed to load next card:", reason)
+        SrsCollector.displayError("Couldn't update card", reason)
 
   actions:
     # Called when our rich text editors send a "lookup" event.
