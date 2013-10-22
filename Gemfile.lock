@@ -55,6 +55,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-screenshot (0.3.14)
+      capybara (>= 1.0, < 3)
+      launchy
     cld (0.7.0)
       ffi
     cliver (0.2.2)
@@ -215,6 +218,7 @@ DEPENDENCIES
   anjlab-bootstrap-rails!
   bcrypt-ruby (~> 3.0.0)
   bootstrap-wysihtml5-rails
+  capybara-screenshot
   cld
   coffee-rails (~> 4.0.0)
   dotenv-rails

@@ -75,6 +75,7 @@ end
 
 group :test do
   gem 'poltergeist'
+  gem 'capybara-screenshot'
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem 'launchy'
