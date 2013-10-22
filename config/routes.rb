@@ -8,6 +8,9 @@ SrsCollector::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      post "sessions/create"
+      post "sessions/destroy"
+
       resources :users
       resources :cards do
         collection do

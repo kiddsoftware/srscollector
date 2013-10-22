@@ -5,8 +5,14 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def login_as(user)
+  def sign_in_as(user)
+    # Always reset session on sign in, as extra protection against session
+    # fixation attacks.
     reset_session
     session[:user_id] = user.id
+  end
+
+  def sign_out
+    reset_session    
   end
 end

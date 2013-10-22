@@ -3,7 +3,7 @@ class API::V1::UsersController < ApplicationController
 
   def create
     user = User.create(user_params)
-    login_as(user) if user.valid?
+    sign_in_as(user) if user.valid?
     respond_with :api, :v1, user
   end
 
