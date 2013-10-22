@@ -9,4 +9,5 @@ p: a href='/api/v1/cards.csv?state=reviewed' Download cards as CSV
 
 p When done, click on the button below to resume adding cards:
 
-button.btn.btn-default{action 'confirmExport'} Mark All Cards as Exported
+button.btn.btn-default{action 'confirmExport'} disabled=busy
+  | Mark All Cards as Exported

@@ -1,4 +1,4 @@
-SrsCollector.CardController = Ember.ObjectController.extend
+SrsCollector.CardController = Ember.ObjectController.extend SrsCollector.AsyncMixin,
   needs: ['stats', 'dictionaries']
 
   # Link this local field to the correponding field in our dictionaries
@@ -31,15 +31,19 @@ SrsCollector.CardController = Ember.ObjectController.extend
     html = $('<div>').text(phrase).html()
     @set("back", back + html + " = ")
 
+  loadFirst: (store) ->
+    @async "Couldn't load first card", =>
+      SrsCollector.Card.next(store)
+        .then (card) =>
+          @set("content", card)
+
   saveAndNext: (state) ->
-    SrsCollector.clearError()
     @set("state", state)
-    @get("content").save()
-      .then =>
-        @get("controllers.stats").refresh()
-        @refresh()
-      .fail (reason) =>
-        SrsCollector.displayError("Couldn't update card", reason)
+    @async "Couldn't update card", =>
+      @get("content").save()
+        .then =>
+          @get("controllers.stats").refresh()
+          @refresh()
 
   actions:
     # Called when our rich text editors send a "lookup" event.

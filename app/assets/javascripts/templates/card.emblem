@@ -7,5 +7,6 @@
 
   if front
     .btn-toolbar
-      button.btn.btn-default{action 'nextCard'} Next
-      button.btn.btn-default{action 'setAside'} tabindex='-1' Set Aside
+      button.btn.btn-default{action 'nextCard'} disabled=busy Next
+      button.btn.btn-default{action 'setAside'} disabled=busy tabindex='-1'
+        | Set Aside

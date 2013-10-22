@@ -1,4 +1,4 @@
-SrsCollector.ImportController = Ember.Controller.extend
+SrsCollector.ImportController = Ember.Controller.extend SrsCollector.AsyncMixin,
   needs: ['stats', 'card']
 
   value: "Sample sentence 1.\n--\nThis time, there are two sentences together.  Separate sentences with \"--\" on a line by itself, like this:\n--\nSample sentence 3."
@@ -15,25 +15,21 @@ SrsCollector.ImportController = Ember.Controller.extend
 
     # Import our new text.
     import: ->
-      SrsCollector.clearError()
-      # TODO: Lock GUI, improve transition.
-      # Sigh. Ember Data 1.0 doesn't support bulk commit, so build the request
-      # by hand and call jQuery directly.
-      div = $('<div>')
-      cards = @get("value").split(/\n--\s*\n/).map (front) =>
-        { front: div.text(front.trim()).html().replace(/\n/, '<br>') }
-      jqxhr = $.ajax
-        method: 'POST'
-        url: '/api/v1/cards.json',
-        data: JSON.stringify({ cards: cards })
-        dataType: 'text' # Handle 201 CREATED responses.
-        contentType: "application/json; charset=utf-8"
-      Ember.RSVP.resolve(jqxhr)
-        .then =>
-          @set("value", "")
-          @get('controllers.card').refresh()
-          @get('controllers.stats').refresh()
-          @transitionToRoute('index')
-        # TODO: Error-handling is special with jQuery promises. Verify this.
-        .fail (reason) =>
-          SrsCollector.displayError("Couldn't import the cards", reason)
+      @async "Couldn't import the cards", =>
+        # Sigh. Ember Data 1.0 doesn't support bulk commit, so build the request
+        # by hand and call jQuery directly.
+        div = $('<div>')
+        cards = @get("value").split(/\n--\s*\n/).map (front) =>
+          { front: div.text(front.trim()).html().replace(/\n/, '<br>') }
+        jqxhr = $.ajax
+          method: 'POST'
+          url: '/api/v1/cards.json',
+          data: JSON.stringify({ cards: cards })
+          dataType: 'text' # Handle 201 CREATED responses.
+          contentType: "application/json; charset=utf-8"
+        Ember.RSVP.resolve(jqxhr)
+          .then =>
+            @set("value", "")
+            @get('controllers.card').refresh()
+            @get('controllers.stats').refresh()
+            @transitionToRoute('index')
