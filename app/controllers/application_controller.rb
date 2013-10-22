@@ -13,6 +13,6 @@ class ApplicationController < ActionController::Base
   end
 
   def sign_out
-    reset_session    
+    reset_session
   end
 end
