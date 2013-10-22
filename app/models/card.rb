@@ -3,6 +3,8 @@ require 'csv'
 class Card < ActiveRecord::Base
   STATES = %w(new reviewed exported set_aside)
 
+  belongs_to :user
+
   validates :front, presence: true
   validates :state, presence: true, inclusion: STATES
 

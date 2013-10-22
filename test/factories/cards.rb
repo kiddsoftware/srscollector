@@ -2,7 +2,8 @@
 
 FactoryGirl.define do
   factory :card do
-    #state "MyString"
+    user
+    #state "new"
     front "Je demande pardon"
     back ""
     source ""

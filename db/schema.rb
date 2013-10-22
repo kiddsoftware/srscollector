@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131014193237) do
+ActiveRecord::Schema.define(version: 20131022101820) do
 
   create_table "cards", force: true do |t|
     t.string   "state",      default: "new"
@@ -21,7 +21,10 @@ ActiveRecord::Schema.define(version: 20131014193237) do
     t.text     "source_url"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
+
+  add_index "cards", ["user_id", "state", "created_at", "id"], name: "index_cards_on_user_id_and_state_and_created_at_and_id"
 
   create_table "dictionaries", force: true do |t|
     t.string   "name",                      null: false
@@ -31,6 +34,13 @@ ActiveRecord::Schema.define(version: 20131014193237) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "score",       default: 0.0, null: false
+  end
+
+  create_table "users", force: true do |t|
+    t.string   "email",           null: false
+    t.string   "password_digest", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

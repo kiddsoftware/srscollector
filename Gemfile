@@ -56,6 +56,9 @@ gem 'cld'
 # http://blog.codeship.io/2013/10/16/unleash-the-puma-on-heroku.html
 gem 'puma'
 
+# Password management.
+gem 'bcrypt-ruby', '~> 3.0.0'
+
 group :production do
   gem 'pg'
   gem 'rails_12factor'
