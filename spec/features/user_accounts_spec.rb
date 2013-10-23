@@ -1,6 +1,27 @@
 require "spec_helper"
 
 feature "User accounts", :js => true do
+  scenario "Test drive, then sign up" do
+    pending
+
+    # Start working on something.
+    visit '/'
+    page.should have_content("Sign Up")
+    fill_in_html "#front", with: "suis"
+    fill_in_html "#back", with: "suis = am"
+
+    # Go make an account.
+    first(:link, "Sign Up").click
+    find("input[placeholder='Email']").set("user@example.com")
+    find("input[placeholder='Password']").set("password")
+    find("input[placeholder='Password confirmation']").set("password")
+    click_button "Sign Up"
+
+    # Our content should still be there.
+    page.should have_content("Front:")
+    expect_html_to_match('#front', /suis/)
+  end
+
   scenario "Sign up, out and in" do
     visit '/'
 
