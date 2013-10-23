@@ -36,4 +36,9 @@ SrsCollector::Application.configure do
 
   # Select our Ember.js build.
   config.ember.variant = :development
+
+  # This isn't threadsafe, at least not when Capybara wants to share a
+  # database connection between the test and server threads, so just
+  # disable it for now.
+  config.middleware.delete "ActiveRecord::QueryCache"
 end

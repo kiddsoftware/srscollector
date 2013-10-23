@@ -1,5 +1,11 @@
 # See http://blog.plataformatec.com.br/2011/12/three-tips-to-improve-the-performance-of-your-test-suite/
 
+# Note that this will occasionally cause subtle bad things to happen during
+# tests.  One fix that we need is to put the following in
+# config/environments/test.rb:
+#
+#   config.middleware.delete "ActiveRecord::QueryCache"
+
 class ActiveRecord::Base
   mattr_accessor :shared_connection
   @@shared_connection = nil
