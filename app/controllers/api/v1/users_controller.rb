@@ -3,8 +3,12 @@ class API::V1::UsersController < ApplicationController
 
   def create
     user = User.create(user_params)
-    sign_in_as(user) if user.valid?
-    respond_with :api, :v1, user
+    if user.valid?
+      sign_in_as(user) 
+      render json: { user: user, csrf_token: form_authenticity_token }
+    else
+      respond_with :api, :v1, user
+    end
   end
 
   protected

@@ -15,6 +15,8 @@ describe API::V1::SessionsController do
       post 'create', format: 'json', session: credentials
       response.should be_success
       session[:user_id].should == user.id
+      json['user']['email'].should == user.email
+      json['csrf_token'].should_not be_nil
     end
 
     it "doesn't log the user in if the password is incorrect" do

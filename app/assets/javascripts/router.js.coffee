@@ -4,4 +4,5 @@ SrsCollector.Router.map ()->
   @route('index', path: '/')
   @route('import', path: '/import')
   @route('export', path: '/export')
-  @route('signUp', path: '/sign_up')
+  @route('sign_up', path: '/sign_up')
+  @route('sign_in', path: '/sign_in')

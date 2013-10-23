@@ -6,7 +6,7 @@ class API::V1::SessionsController < ApplicationController
       .try(:authenticate, session_params[:password])
     if user
       sign_in_as(user) 
-      respond_with :api, :v1, user
+      render json: { user: user, csrf_token: form_authenticity_token }
     else
       head :unauthorized
     end

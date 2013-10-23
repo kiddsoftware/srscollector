@@ -18,8 +18,7 @@ class API::V1::CardsController < ApplicationController
   def stats
     states = Hash[Card::STATES.map {|s| [s, 0] }]
     states.merge!(Card.group(:state).count)
-    stats = { stats: { state: states } }
-    respond_with stats
+    render json: { stats: { state: states } }
   end
 
   def show

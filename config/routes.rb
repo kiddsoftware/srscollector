@@ -8,8 +8,8 @@ SrsCollector::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      post "sessions/create"
-      post "sessions/destroy"
+      post "sessions/create(.:format)", defaults: { format: 'json' }
+      post "sessions/destroy(.:format)", defaults: { format: 'json' }
 
       resources :users
       resources :cards do

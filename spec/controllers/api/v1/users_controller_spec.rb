@@ -15,6 +15,8 @@ describe API::V1::UsersController do
       user.should_not be_nil
       user.authenticate("password").should == user
       session[:user_id].should == user.id
+      json['user']['email'].should == user.email
+      json['csrf_token'].should_not be_nil
     end
 
     it "fails if password is not confirmed" do

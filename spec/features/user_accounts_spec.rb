@@ -13,16 +13,17 @@ feature "User accounts", :js => true do
     page.should have_content("Your account has been created")
 
     click_link "Sign Out"
-    page.should have_content("Sign Up")
-    pending
+    page.should have_content("Sign In")
 
-    click_link "Sign In"
-    fill_in "Email", with: "user@example.com"
-    fill_in "Password", with: "password"
+    first(:link, "Sign In").click
+    find("input[placeholder='Email']").set("user@example.com")
+    find("input[placeholder='Password']").set("password")
     click_button "Sign In"
+    page.should have_content("Sign Out")
     page.should_not have_content("Sign Up")
-    page.should_not have_content("Sign Out")
   end
+
+  scenario "Sign in persists across page reload"
 
   scenario "Sign up with an existing account fails" do
     pending
