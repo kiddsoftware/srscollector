@@ -5,6 +5,19 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  attr_reader :current_user
+
+  # Call as a before_filter to make sure the user is signed in.
+  def authenticate_user!
+    if session[:user_id]
+      @current_user ||= User.find(session[:user_id]) 
+    end
+    unless @current_user
+      head :unauthorized
+    end
+  end
+
+  # Sign in as the specified user.
   def sign_in_as(user)
     # Always reset session on sign in, as extra protection against session
     # fixation attacks.
@@ -12,6 +25,7 @@ class ApplicationController < ActionController::Base
     session[:user_id] = user.id
   end
 
+  # Sign out.
   def sign_out
     reset_session
   end

@@ -5,6 +5,9 @@ SrsCollector.CardController = Ember.ObjectController.extend SrsCollector.AsyncMi
   # controller.
   searchFor: Ember.computed.alias('controllers.dictionaries.searchFor')
 
+  # Refresh ourselves when a user logs in or out.
+  userChanged: (-> @refresh()).observes("auth.user")
+
   # Can we discard the user's work in progress here?
   canDiscard: (->
     return true unless @get("isDirty")
@@ -18,7 +21,7 @@ SrsCollector.CardController = Ember.ObjectController.extend SrsCollector.AsyncMi
   # Try to update our current content, if possible.  Returns a promise.
   refresh: ->
     if @get("canDiscard")
-      SrsCollector.Card.next(@store).then (next) =>
+      SrsCollector.Card.nextPromise(@store, @auth).then (next) =>
         @set("content", next)
         return
     else
@@ -31,9 +34,9 @@ SrsCollector.CardController = Ember.ObjectController.extend SrsCollector.AsyncMi
     html = $('<div>').text(phrase).html()
     @set("back", back + html + " = ")
 
-  loadFirst: (store) ->
+  loadFirst: (store, auth) ->
     @async "Couldn't load first card.", =>
-      SrsCollector.Card.next(store)
+      SrsCollector.Card.nextPromise(store, @auth)
         .then (card) =>
           @set("content", card)
 

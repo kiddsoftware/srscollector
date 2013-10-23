@@ -1,9 +1,11 @@
 class API::V1::CardsController < ApplicationController
+  before_filter :authenticate_user!
+
   respond_to :json
   respond_to :csv, only: :index
 
   def index
-    query = Card.all
+    query = user_cards
     query = query.where(state: params[:state]) if params[:state]
     query = query.order("created_at, id") if params[:sort] == 'age'
     query = query.limit(params[:limit].to_i) if params[:limit]
@@ -17,39 +19,45 @@ class API::V1::CardsController < ApplicationController
 
   def stats
     states = Hash[Card::STATES.map {|s| [s, 0] }]
-    states.merge!(Card.group(:state).count)
+    states.merge!(user_cards.group(:state).count)
     render json: { stats: { state: states } }
   end
 
   def show
-    respond_with :api, :v1, Card.find(params[:id])
+    respond_with :api, :v1, user_cards.find(params[:id])
   end
 
   def create
     if params[:cards]
       params[:cards].each do |card|
-        Card.create!(card.slice(:state, :front, :back, :source, :source_url))
+        attrs = card.slice(:state, :front, :back, :source, :source_url)
+        user_cards.create!(attrs)
       end
       head :created
     else
-      respond_with :api, :v1, Card.create(card_params)
+      respond_with :api, :v1, user_cards.create(card_params)
     end
   end
 
   def mark_reviewed_as_exported
-    Card.where(state: 'reviewed').update_all(state: 'exported')
+    user_cards.where(state: 'reviewed').update_all(state: 'exported')
     head :no_content
   end
 
   def update
-    respond_with :api, :v1, Card.update(params[:id], card_params)
+    respond_with :api, :v1, user_cards.update(params[:id], card_params)
   end
 
   def destroy
-    respond_with :api, :v1, Card.destroy(params[:id])
+    respond_with :api, :v1, user_cards.destroy(params[:id])
   end
 
   protected
+
+  # Limit ourselves to the cards associated with this user.
+  def user_cards
+    current_user.cards
+  end
 
   # Specify legal parameters using the new Rails 4 "Strong Parameters."
   def card_params

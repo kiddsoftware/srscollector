@@ -1,7 +1,7 @@
 SrsCollector.ApplicationRoute = Ember.Route.extend
   setupController: (controller) ->
     @controllerFor("dictionaries").set("model", @store.find('dictionary'))
-    @controllerFor("card").loadFirst(@store)
+    @controllerFor("card").loadFirst(@store, @auth)
     @controllerFor("stats").refresh()
 
   actions:

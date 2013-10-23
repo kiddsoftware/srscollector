@@ -1,10 +1,27 @@
 require 'spec_helper'
 
 describe API::V1::CardsController do
-  let!(:card1) { FactoryGirl.create(:card, front: "Card 1", state: 'reviewed') }
-  let!(:card2) { FactoryGirl.create(:card, front: "Card 2", state: 'new') }
+  let!(:user) { FactoryGirl.create(:user) }
+  let!(:card1) do
+    FactoryGirl.create(:card, user: user, front: "Card 1", state: 'reviewed')
+  end
+  let!(:card2) do
+    FactoryGirl.create(:card, user: user, front: "Card 2", state: 'new')
+  end
+  let!(:not_my_card) do
+    FactoryGirl.create(:card)
+  end
+
+  before { sign_in(user) }
 
   describe "GET 'index'" do
+    it "fails if not logged in" do
+      sign_out(user)
+      get 'index', format: 'json'
+      response.should_not be_success
+      response.response_code.should == 401
+    end
+
     it "returns all cards" do
       get 'index', format: 'json'
       response.should be_success
