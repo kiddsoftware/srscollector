@@ -10,8 +10,8 @@ feature "User accounts", :js => true do
     find("input[placeholder='Password confirmation']").set("password")
     click_button "Sign Up"
     page.should have_content("Front:")
-    pending
     page.should have_content("Your account has been created")
+    pending
 
     click_link "Sign Out"
 

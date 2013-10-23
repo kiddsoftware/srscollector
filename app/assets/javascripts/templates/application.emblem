@@ -10,5 +10,5 @@
         li: linkTo 'import' | Bulk Import
       .collapse.navbar-collapse
 .container
-  render error
+  render flash
   outlet

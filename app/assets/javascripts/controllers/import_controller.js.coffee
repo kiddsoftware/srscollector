@@ -15,7 +15,7 @@ SrsCollector.ImportController = Ember.Controller.extend SrsCollector.AsyncMixin,
 
     # Import our new text.
     import: ->
-      @async "Couldn't import the cards", =>
+      @async "Couldn't import the cards.", =>
         # Sigh. Ember Data 1.0 doesn't support bulk commit, so build the request
         # by hand and call jQuery directly.
         div = $('<div>')

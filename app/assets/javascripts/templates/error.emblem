@@ -1,3 +1,0 @@
-if errorMessage
-  .error-box
-    p.error-message= errorMessage

@@ -5,7 +5,7 @@ SrsCollector.SignUpController = Ember.Controller.extend SrsCollector.AsyncMixin,
 
   actions:
     signUp: ->
-      @async "Error signing in", =>
+      @async "Error signing in.", =>
         user = @getProperties("email", "password", "password_confirmation")
         jqxhr = $.ajax
           method: 'POST'
@@ -14,4 +14,5 @@ SrsCollector.SignUpController = Ember.Controller.extend SrsCollector.AsyncMixin,
           data: JSON.stringify(user: user)
         Ember.RSVP.resolve(jqxhr)
           .then (json) =>
+            @displayNotice("Your account has been created.")
             @send("signedIn", json["user"])

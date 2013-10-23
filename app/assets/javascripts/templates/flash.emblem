@@ -1,0 +1,6 @@
+if noticeMessage
+  .flash-box.notice-box
+    p.message= noticeMessage
+if errorMessage
+  .flash-box.error-box
+    p.message= errorMessage

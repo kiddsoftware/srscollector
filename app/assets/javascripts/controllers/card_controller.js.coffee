@@ -32,14 +32,14 @@ SrsCollector.CardController = Ember.ObjectController.extend SrsCollector.AsyncMi
     @set("back", back + html + " = ")
 
   loadFirst: (store) ->
-    @async "Couldn't load first card", =>
+    @async "Couldn't load first card.", =>
       SrsCollector.Card.next(store)
         .then (card) =>
           @set("content", card)
 
   saveAndNext: (state) ->
     @set("state", state)
-    @async "Couldn't update card", =>
+    @async "Couldn't update card.", =>
       @get("content").save()
         .then =>
           @get("controllers.stats").refresh()

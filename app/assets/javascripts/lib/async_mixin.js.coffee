@@ -1,4 +1,6 @@
 SrsCollector.AsyncMixin = Ember.Mixin.create
+  needs: 'flash'
+
   # (Internal.) Do we have an active asyncBegin?
   asyncActive: false
 
@@ -9,7 +11,7 @@ SrsCollector.AsyncMixin = Ember.Mixin.create
   # Start a asynchronous operation.
   asyncBegin: ->
     @set("asyncActive", true)
-    SrsCollector.clearError()
+    @get("controllers.flash").clearFlash()
 
   # End an asynchronous operation successfully.
   asyncEndSuccess: ->
@@ -18,7 +20,11 @@ SrsCollector.AsyncMixin = Ember.Mixin.create
   # End an asynchronous operation unsuccessfully.
   asyncEndFailure: (message, reason) ->
     @set("asyncActive", false)
-    SrsCollector.displayError(message, reason)
+    @get("controllers.flash").displayError(message, reason)
+
+  # Display a notice after a successful operation.
+  displayNotice: (message) ->
+    @get("controllers.flash").displayNotice(message)
 
   # Run `func` asynchronously, displaying `errorMessage` if it fails.
   # `func` must return a promise.
