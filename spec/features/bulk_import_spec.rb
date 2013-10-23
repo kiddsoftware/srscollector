@@ -20,5 +20,7 @@ EOD
     page.should have_content("Cards to review: 1")
     page.should have_content("Ready for export: 1")
     expect_html_to_match('#front', /Sentence 2/)
+
+    wait_for_jquery
   end
 end

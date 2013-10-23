@@ -21,6 +21,8 @@ feature "User accounts", :js => true do
     click_button "Sign In"
     page.should have_content("Sign Out")
     page.should_not have_content("Sign Up")
+
+    wait_for_jquery
   end
 
   scenario "Sign in persists across page reload"

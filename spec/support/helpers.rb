@@ -14,6 +14,20 @@ module ControllerSpecHelpers
 end
 
 module FeatureSpecHelpers
+  # We have some asynchronous DOM requests that occasionally take a long
+  # time, but we can't finish a scenario until they're done using our web
+  # server, or we'll get weird database state.  We can call this at the end
+  # of a scenario if we want to rule out this problem and focus on other
+  # possible reasons for mysterious intermittent failures.
+  #
+  # We may try disabling this later, to see whether we still need it.
+  def wait_for_jquery
+    Timeout.timeout(Capybara.default_wait_time) do
+      until page.evaluate_script("$.active === 0")
+      end
+    end
+  end
+
   def sign_up
     visit "/"
     first(:link, "Sign Up").click
