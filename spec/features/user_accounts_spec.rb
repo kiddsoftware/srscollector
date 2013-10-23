@@ -2,8 +2,6 @@ require "spec_helper"
 
 feature "User accounts", :js => true do
   scenario "Test drive, then sign up" do
-    pending
-
     # Start working on something.
     visit '/'
     page.should have_content("Sign Up")

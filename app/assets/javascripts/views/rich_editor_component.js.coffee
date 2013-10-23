@@ -19,7 +19,9 @@ SrsCollector.RichEditorComponent = Ember.Component.extend
   classNames: ['rich-editor']
 
   didInsertElement: ->
-    @$(".wysihtml5").wysihtml5()
+    # We call 'val' here because sometimes the underlying textarea value
+    # gets lost when moving between routes.  This seems to fix it.
+    @$(".wysihtml5").val(@get("value")).wysihtml5()
     @editor = @$('.wysihtml5').data("wysihtml5").editor
     @editor.on("change", @onEditorChange.bind(this))
     @editor.on("paste", @onPaste.bind(this))
