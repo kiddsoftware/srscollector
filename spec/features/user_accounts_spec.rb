@@ -44,7 +44,13 @@ feature "User accounts", :js => true do
     wait_for_jquery
   end
 
-  scenario "Sign in persists across page reload"
+  scenario "Sign in persists across page reload" do
+    visit '/'
+    sign_up
+    # This will force a reload.
+    visit '/'
+    page.should have_content("Sign Out")
+  end
 
   scenario "Sign up with an existing account fails" do
     pending

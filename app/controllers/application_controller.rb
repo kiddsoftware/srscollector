@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  before_filter :load_user
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -7,11 +9,15 @@ class ApplicationController < ActionController::Base
 
   attr_reader :current_user
 
-  # Call as a before_filter to make sure the user is signed in.
-  def authenticate_user!
+  # Load the current user if available.
+  def load_user
     if session[:user_id]
       @current_user ||= User.find(session[:user_id]) 
     end
+  end
+
+  # Call as a before_filter to make sure the user is signed in.
+  def authenticate_user!
     unless @current_user
       head :unauthorized
     end

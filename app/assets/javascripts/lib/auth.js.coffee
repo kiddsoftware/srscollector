@@ -3,6 +3,11 @@ SrsCollector.Auth = Ember.Object.extend
   # The currently signed-in user, or null if we're not logged in.
   user: null
 
+  # Load user data from the page if present.
+  init: ->
+    if window.preloadedCurrentUser
+      @set("user", window.preloadedCurrentUser)
+
   # Record our user, and update our csrf_token appropriately so we can
   # continue making POST calls.
   _processUserData: (json) ->
