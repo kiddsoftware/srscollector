@@ -12,7 +12,7 @@ describe API::V1::SessionsController do
         email: user.email,
         password: user.password
       }
-      post 'create', format: 'json', session: credentials
+      xhr :post, 'create', format: 'json', session: credentials
       response.should be_success
       session[:user_id].should == user.id
       json['user']['email'].should == user.email
@@ -24,7 +24,7 @@ describe API::V1::SessionsController do
         email: user.email,
         password: "incorrect"
       }
-      post 'create', format: 'json', session: credentials
+      xhr :post, 'create', format: 'json', session: credentials
       response.should_not be_success
       session[:user_id].should == nil
     end
@@ -33,7 +33,7 @@ describe API::V1::SessionsController do
   describe "POST 'destroy'" do
     it "logs the user out" do
       sign_in(user)
-      post 'destroy', format: 'json'
+      xhr :post, 'destroy', format: 'json'
       response.should be_success
       session[:user_id].should be_nil
     end

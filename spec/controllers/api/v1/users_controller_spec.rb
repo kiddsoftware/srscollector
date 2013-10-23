@@ -9,7 +9,7 @@ describe API::V1::UsersController do
         password: "password",
         password_confirmation: "password"
       }
-      post 'create', format: 'json', user: user
+      xhr :post, 'create', format: 'json', user: user
       response.should be_success
       user = User.where(email: user[:email]).first
       user.should_not be_nil
@@ -25,7 +25,7 @@ describe API::V1::UsersController do
         password: "password",
         password_confirmation: "oops"
       }
-      post 'create', format: 'json', user: user
+      xhr :post, 'create', format: 'json', user: user
       response.should_not be_success
       User.where(email: user[:email]).should be_empty
       session[:user_id].should be_nil

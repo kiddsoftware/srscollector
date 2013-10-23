@@ -1,4 +1,6 @@
 class API::V1::LanguagesController < ApplicationController
+  before_filter :web_only_api
+
   respond_to :json
 
   def detect

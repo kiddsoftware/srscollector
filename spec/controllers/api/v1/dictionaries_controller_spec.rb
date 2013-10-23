@@ -5,7 +5,7 @@ describe API::V1::DictionariesController do
 
   describe "GET 'index'" do
     it "returns all dictionaries" do
-      get 'index', format: 'json'
+      xhr :get, 'index', format: 'json'
       response.should be_success
       json['dictionaries'].length.should == 1
       json['dictionaries'][0]['name'].should == "MyDict"

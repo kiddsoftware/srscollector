@@ -29,4 +29,12 @@ class ApplicationController < ActionController::Base
   def sign_out
     reset_session
   end
+
+  # Certain methods are only intended for use by the web UI, generally
+  # because they may change extensively without warning, or because they're
+  # relatively expensive.
+  def web_only_api
+    # Authentication won't help, so return :forbidden instead of :unauthorized.
+    head :forbidden unless request.xhr?
+  end
 end

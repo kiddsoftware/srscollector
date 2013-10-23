@@ -1,4 +1,8 @@
 class API::V1::UsersController < ApplicationController
+  # This API is web-only because I want signups to go through the web for
+  # now.  Talk to me if you have a use-case for this.
+  before_filter :web_only_api
+
   respond_to :json
 
   def create
