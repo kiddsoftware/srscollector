@@ -5,6 +5,13 @@ SrsCollector.ApplicationRoute = Ember.Route.extend
     @controllerFor("stats").refresh()
 
   actions:
-    signedIn: (user) ->
-      # TODO: Pass user to application controller (or something like that).
-      @transitionTo('index')
+    signOut: ->
+      jqxhr = $.ajax
+        method: 'POST'
+        url: '/api/v1/sessions/destroy.json'
+        dataType: 'text' # Handle 204 NO CONTENT responses.
+      Ember.RSVP.resolve(jqxhr)
+        .then =>
+          window.location.reload()
+        .fail =>
+          alert("Could not log out!")

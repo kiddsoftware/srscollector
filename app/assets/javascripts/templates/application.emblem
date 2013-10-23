@@ -1,14 +1,21 @@
-.navbar.navbar-inverse
-  .container
-    .navbar-header
-      button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"
-        span.icon-bar
-        span.icon-bar
-        span.icon-bar
-      a.navbar-brand href="/" SRS Collector
-      ul.nav.navbar-nav.navbar-right
+nav.navbar.navbar-inverse
+  .navbar-header
+    button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"
+      span.icon-bar
+      span.icon-bar
+      span.icon-bar
+    a.navbar-brand href="/" SRS Collector
+    ul.nav.navbar-nav.navbar-left
+      if auth.currentUser
         li: linkTo 'import' | Bulk Import
-      .collapse.navbar-collapse
+  .collapse.navbar-collapse
+    ul.nav.navbar-nav.navbar-right
+      if auth.currentUser
+        li: a{action signOut} href="#" Sign Out
+      else
+        li: linkTo 'signUp' | Sign Up
+
+
 .container
   render flash
   outlet

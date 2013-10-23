@@ -14,8 +14,9 @@ feature "Add definitions to a snippet", :js => true do
                        score: 0.5)
   end
 
+  before { sign_up }
+
   scenario "User pastes a phrase, looks up a word, exports" do
-    visit "/"
     fill_in_html "#front", with: "suis"
     select_all "#front"
     first(".rich-editor").click_link("Lookup")

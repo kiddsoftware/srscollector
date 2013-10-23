@@ -14,6 +14,16 @@ module ControllerSpecHelpers
 end
 
 module FeatureSpecHelpers
+  def sign_up
+    visit "/"
+    first(:link, "Sign Up").click
+    find("input[placeholder='Email']").set("user@example.com")
+    find("input[placeholder='Password']").set("password")
+    find("input[placeholder='Password confirmation']").set("password")
+    click_button "Sign Up"    
+    page.should have_text("Your account has been created")
+  end
+
   def fill_in_html(field, options)
     with = options[:with]
     page.execute_script(<<"EOD")

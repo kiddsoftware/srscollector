@@ -15,4 +15,5 @@ SrsCollector.SignUpController = Ember.Controller.extend SrsCollector.AsyncMixin,
         Ember.RSVP.resolve(jqxhr)
           .then (json) =>
             @displayNotice("Your account has been created.")
-            @send("signedIn", json["user"])
+            @auth.signIn(json["user"])
+            @transitionToRoute('index')

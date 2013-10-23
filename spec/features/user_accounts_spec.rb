@@ -4,16 +4,17 @@ feature "User accounts", :js => true do
   scenario "Sign up, out and in" do
     visit '/'
 
-    click_link "Sign Up"
+    first(:link, "Sign Up").click
     find("input[placeholder='Email']").set("user@example.com")
     find("input[placeholder='Password']").set("password")
     find("input[placeholder='Password confirmation']").set("password")
     click_button "Sign Up"
     page.should have_content("Front:")
     page.should have_content("Your account has been created")
-    pending
 
     click_link "Sign Out"
+    page.should have_content("Sign Up")
+    pending
 
     click_link "Sign In"
     fill_in "Email", with: "user@example.com"

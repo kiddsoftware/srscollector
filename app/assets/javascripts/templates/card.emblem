@@ -5,12 +5,13 @@
   label for="back" Back:
   rich-editor ctrlId="back" value=back placeholder="Text to appear on the back of the card." lookup="lookup"
 
-  if front
-    .btn-toolbar
-      button.btn.btn-default{action 'nextCard'} disabled=busy Next
-      button.btn.btn-default{action 'setAside'} disabled=busy tabindex='-1'
-        | Set Aside
-
-  p
-    | To save your card and export it to Anki, you can
-      #{linkTo 'sign_up' | Sign Up}.
+  if auth.currentUser
+    if front
+      .btn-toolbar
+        button.btn.btn-default{action 'nextCard'} disabled=busy Next
+        button.btn.btn-default{action 'setAside'} disabled=busy tabindex='-1'
+          | Set Aside
+  else
+    p
+      | To save your card and export it to Anki, you
+        can #{linkTo 'signUp' | Sign Up}.
