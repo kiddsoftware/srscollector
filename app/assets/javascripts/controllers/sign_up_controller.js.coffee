@@ -5,7 +5,7 @@ SrsCollector.SignUpController = Ember.Controller.extend SrsCollector.AsyncMixin,
 
   actions:
     signUp: ->
-      @async "Error signing in.", =>
+      @async "Could not create an account", =>
         user = @getProperties("email", "password", "password_confirmation")
         @auth.signUpPromise(user)
           .then =>

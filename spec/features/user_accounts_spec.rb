@@ -53,26 +53,23 @@ feature "User accounts", :js => true do
   end
 
   scenario "Sign up with an existing account fails" do
-    pending
-
     user = FactoryGirl.create(:user)
     visit '/'
 
-    click_link "Sign Up"
-    fill_in "Email", with: "user@example.com"
-    fill_in "Password", with: "password"
-    fill_in "Password confirmation", with: "password"
+    first(:link, "Sign Up").click
+    find("input[placeholder='Email']").set(user.email)
+    find("input[placeholder='Password']").set("password2")
+    find("input[placeholder='Password confirmation']").set("password2")
     click_button "Sign Up"
 
-    page.should have_content("Could not create an account")    
+    page.should have_content("Could not create an account")
   end
 
   scenario "Sign in to non-existant account fails" do
-    pending
-
-    click_link "Sign In"
-    fill_in "Email", with: "user@example.com"
-    fill_in "Password", with: "password"
+    visit '/'
+    first(:link, "Sign In").click
+    find("input[placeholder='Email']").set("user@example.com")
+    find("input[placeholder='Password']").set("password")
     click_button "Sign In"
     page.should have_content("Please double-check your username and password.")
   end
