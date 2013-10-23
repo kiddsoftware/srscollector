@@ -10,3 +10,7 @@
       button.btn.btn-default{action 'nextCard'} disabled=busy Next
       button.btn.btn-default{action 'setAside'} disabled=busy tabindex='-1'
         | Set Aside
+
+  p
+    | To save your card and export it to Anki, you can
+      #{linkTo 'sign_up' | Sign Up}.

@@ -1,0 +1,4 @@
+= input value=email placeholder="Email"
+= input type="password" value=password placeholder="Password"
+= input type="password" value=password_confirmation placeholder="Password confirmation"
+button{action signUp} Sign Up
