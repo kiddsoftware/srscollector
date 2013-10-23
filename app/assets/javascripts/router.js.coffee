@@ -1,5 +1,9 @@
 # For more information see: http://emberjs.com/guides/routing/
 
+SrsCollector.Router.reopen
+  # Use pretty URLs without "#/" if possible.
+  location: 'history'
+
 SrsCollector.Router.map ()->
   @route('index', path: '/')
   @route('import', path: '/import')

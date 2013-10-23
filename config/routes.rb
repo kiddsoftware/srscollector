@@ -1,11 +1,4 @@
 SrsCollector::Application.routes.draw do
-  root "static#index"
-
-  StaticController::PAGES.each do |page|
-    next if page == "index"
-    get page => "static##{page}"
-  end
-
   namespace :api do
     namespace :v1 do
       post "sessions/create(.:format)", defaults: { format: 'json' }
@@ -22,6 +15,17 @@ SrsCollector::Application.routes.draw do
       post "languages/detect"
     end
   end
+
+  StaticController::PAGES.each do |page|
+    next if page == "index"
+    get page => "static##{page}"
+  end
+
+  root "static#index"
+
+  # Wildcard routes: All non-API paths just serve up our app.
+  get "/api/*path", to: proc { [404, {}, ['']] }
+  get "/*path" => "static#index"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
