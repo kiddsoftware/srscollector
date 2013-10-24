@@ -7,5 +7,6 @@ SrsCollector.ExportController = Ember.Controller.extend SrsCollector.AsyncMixin,
       @async "Couldn't mark cards as exported.", =>
         Ember.RSVP.resolve($.post("/api/v1/cards/mark_reviewed_as_exported"))
           .then =>
+            @displayNotice("Your cards have been marked as exported.")
             @get('controllers.stats').refresh()
             @transitionToRoute('index')

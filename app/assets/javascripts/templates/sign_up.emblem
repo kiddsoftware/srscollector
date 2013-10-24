@@ -9,5 +9,6 @@
     label
       = input type="checkbox"
       ' I understand this is beta software, and it may have bugs! As a beta
-      ' tester, I agree to send feedback.
+      ' tester, I totally agree to send feedback, because programmers need
+      ' love, too.
   button.btn.btn-default.btn-primary{action signUp} disabled=buttonsDisabled Sign Up

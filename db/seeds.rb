@@ -24,6 +24,12 @@ dictionaries = [{
   to_lang: 'en',
   url_pattern: 'http://www.wordreference.com/fren/%s',
   score: 0.90
+}, {
+  name: "Bing Image Search",
+  from_lang: 'fr',
+  to_lang: '*',
+  url_pattern: 'http://www.bing.com/images/search?q=%s+language%3Afr',
+  score: 0.80
 
 # DO NOT WORK:
 #  Google Translate: X-SAME-ORIGIN (but a paid API is available)
