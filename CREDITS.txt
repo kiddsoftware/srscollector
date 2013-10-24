@@ -1,0 +1,8 @@
+The SVG clip icon was created by
+http://openclipart.org/user-detail/perpaola and placed in the public
+domain.  Our icon is a very loose derivative.
+
+The small icons used throughout the GUI are part of Bootstrap 3, and are
+provided by: http://glyphicons.com/
+
+Many thanks to the artists who made this possible!
