@@ -32,7 +32,7 @@ SrsCollector.CardController = Ember.ObjectController.extend SrsCollector.AsyncMi
     unless back == ""
       back += "<br><br>"
     html = $('<div>').text(phrase).html()
-    @set("back", back + html + " = ")
+    @set("back", back + html + " =&nbsp;")
 
   loadFirst: (store, auth) ->
     @async "Couldn't load first card.", =>
