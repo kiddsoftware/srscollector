@@ -11,6 +11,7 @@
         button.btn.btn-default{action 'nextCard'} disabled=isBusy Next
         button.btn.btn-default{action 'setAside'} disabled=isBusy tabindex='-1'
           | Set Aside
+        busy-spinner isBusy=isBusy
   else
     p
       ' To save your card and export it to Anki, you can

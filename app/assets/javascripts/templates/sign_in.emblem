@@ -4,3 +4,4 @@
   .form-group
     = input classNames="form-control" type="password" value=password placeholder="Password"
   button.btn.btn-default.btn-primary{action signIn} disabled=buttonsDisabled Sign In
+  busy-spinner isBusy=isBusy

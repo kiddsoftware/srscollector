@@ -11,3 +11,4 @@ Ember.TextArea id="import-text" valueBinding=value
   button.btn.btn-default{action 'parseQuotedSentences'}
     | Sentences are Quoted
   button.btn.btn-default{action 'import'} disabled=isBusy Import
+  busy-spinner isBusy=isBusy

@@ -12,3 +12,4 @@
       ' tester, I totally agree to send feedback, because programmers need
       ' love, too.
   button.btn.btn-default.btn-primary{action signUp} disabled=buttonsDisabled Sign Up
+  busy-spinner isBusy=isBusy
