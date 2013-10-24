@@ -4,8 +4,7 @@ describe Card do
   subject(:card) { FactoryGirl.build(:card) }
 
   it { should belong_to(:user) }
-  # TODO: Enable this once controller support is in place.
-  #it { should validate_presence_of(:user) }
+  it { should validate_presence_of(:user) }
 
   it { should validate_presence_of(:front) }
   it { should allow_value("text").for(:front) }
