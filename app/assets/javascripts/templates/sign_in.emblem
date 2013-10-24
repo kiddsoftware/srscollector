@@ -1,3 +1,6 @@
-= input value=email placeholder="Email"
-= input type="password" value=password placeholder="Password"
-button{action signIn} disabled=buttonsDisabled Sign In
+.well.centered-form-well
+  .form-group
+    = input classNames="form-control" value=email placeholder="Email"
+  .form-group
+    = input classNames="form-control" type="password" value=password placeholder="Password"
+  button.btn.btn-default.btn-primary{action signIn} disabled=buttonsDisabled Sign In
