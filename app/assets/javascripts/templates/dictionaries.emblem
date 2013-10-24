@@ -14,10 +14,9 @@ else
     li Highlight an unknown word and click <b>Lookup</b>.
     li Copy definitions from the dictionary to the back of the card.
     li Export your cards to Anki.
+  h3 Got a whole lot of snippets?
   p
-    ' Alternatively, you might want to gather a whole bunch of interesting
-    ' sentences in a text file somewhere as you read, and then use the
-    ' <b>Bulk Import</b> feature to add them all at once.  If you have
-    ' books in epub format, you can highlight sentences in
-    ' <a href="https://play.google.com/store/apps/details?id=com.flyersoft.moonreaderp">Moon+ Reader Pro</a>
-    ' and export them at the end of the book.
+    ' If you've gathered a whole lot of interesting snippets, either in
+    ' a text file or using an ebook reader like
+    ' <a href="https://play.google.com/store/apps/details?id=com.flyersoft.moonreaderp">Moon+ Reader Pro</a>,
+    ' you can import them with <b>Bulk Import</b>.
