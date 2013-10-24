@@ -11,3 +11,4 @@ p When done, click on the button below to resume adding cards:
 
 button.btn.btn-default{action 'confirmExport'} disabled=isBusy
   | Mark All Cards as Exported
+busy-spinner isBusy=isBusy
