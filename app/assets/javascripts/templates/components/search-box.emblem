@@ -1,0 +1,4 @@
+= input classNames="input-sm form-control" placeholder="Search" value=editedValue action="search"
+.input-group-btn
+  button.btn.btn-default.input-sm{action search} title="Search"
+    i.glyphicon.glyphicon-search

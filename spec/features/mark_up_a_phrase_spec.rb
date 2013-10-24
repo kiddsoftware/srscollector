@@ -21,8 +21,12 @@ feature "Add definitions to a snippet", :js => true do
     select_all "#front"
     first(".rich-editor").click_link("Lookup")
     expect_nested_page('http://example.com/d1/suis')
+    find("input[placeholder='Search']").value.should == "suis"
     select('Dict2', from: "Dictionary")
     expect_nested_page('http://example.com/d2/suis')
+    find("input[placeholder='Search']").set("est")
+    find("button[title='Search']").click
+    expect_nested_page('http://example.com/d2/est')
     fill_in_html "#back", with: "am"
     click_button "Next"
     page.should have_content("Ready for export: 1")

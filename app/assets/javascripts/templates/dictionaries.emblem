@@ -1,6 +1,9 @@
-label
-  | Dictionary:
-  Ember.Select contentBinding=content valueBinding="currentDictionary" optionLabelPath="content.name"
+.form-horizontal
+  .form-group
+    search-box classNames='col-sm-6' value=searchFor
+    label.control-label.col-sm-2 for="dictionary" Dictionary:
+    .input-group.col-sm-4
+      Ember.Select id="dictionary" contentBinding=content valueBinding="currentDictionary" optionLabelPath="content.name" classNames="input-sm form-control"
 
 if url
   iframe.dictionary-viewer src=url
