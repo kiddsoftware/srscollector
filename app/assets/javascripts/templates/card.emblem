@@ -8,8 +8,8 @@
   if auth.user
     if front
       .btn-toolbar
-        button.btn.btn-default{action 'nextCard'} disabled=busy Next
-        button.btn.btn-default{action 'setAside'} disabled=busy tabindex='-1'
+        button.btn.btn-default{action 'nextCard'} disabled=isBusy Next
+        button.btn.btn-default{action 'setAside'} disabled=isBusy tabindex='-1'
           | Set Aside
   else
     p

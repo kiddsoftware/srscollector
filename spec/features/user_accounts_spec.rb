@@ -75,52 +75,48 @@ feature "User accounts", :js => true do
   end
 
   scenario "Try to sign up with invalid information" do
-    pending
-
     visit '/'
-    click_link "Sign Up"
+    first(:link, "Sign Up").click
 
     # No data.
-    page.find_button("Sign Up").should be_disabled
+    page.find_button("Sign Up", disabled: true).should be_disabled
 
     # Email only.
-    fill_in "Email", with: "user@example.com"
-    page.find_button("Sign Up").should be_disabled
+    find("input[placeholder='Email']").set("user@example.com")
+    page.find_button("Sign Up", disabled: true).should be_disabled
 
     # Unconfirmed password.
-    fill_in "Password", with: "password"
-    page.find_button("Sign Up").should be_disabled
+    find("input[placeholder='Password']").set("password")
+    page.find_button("Sign Up", disabled: true).should be_disabled
 
     # Confirm password (can sign in).
-    fill_in "Password", with: "password"
+    find("input[placeholder='Password confirmation']").set("password")
     page.find_button("Sign Up").should_not be_disabled
 
     # Invalid email.
-    fill_in "Email", with: "user"
-    page.find_button("Sign Up").should be_disabled
+    find("input[placeholder='Email']").set("user")
+    page.find_button("Sign Up", disabled: true).should be_disabled
 
     # Email missing.
-    fill_in "Email", with: ""
-    page.find_button("Sign Up").should be_disabled
+    find("input[placeholder='Email']").set("")
+    page.find_button("Sign Up", disabled: true).should be_disabled
   end
 
   scenario "Try to sign in with invalid information" do
-    pending
-
     visit '/'
-    click_link "Sign In"
+    first(:link, "Sign In").click
 
     # No password.
-    fill_in "Email", with: "user@example.com"
-    page.find_button("Sign In").should be_disabled
+    find("input[placeholder='Email']").set("user@example.com")
+    page.find_button("Sign In", disabled: true).should be_disabled
 
     # Invalid email.
-    fill_in "Email", with: "user"
+    find("input[placeholder='Email']").set("user")
     fill_in "Password", with: "password"
-    page.find_button("Sign In").should be_disabled
+    page.find_button("Sign In", disabled: true).should be_disabled
 
     # No email.
-    fill_in "Email", with: ""
-    page.find_button("Sign In").should be_disabled
+    find("input[placeholder='Email']").set("")
+    page.find_button("Sign In", disabled: true).should be_disabled
   end
 end

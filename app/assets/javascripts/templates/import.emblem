@@ -10,4 +10,4 @@ Ember.TextArea id="import-text" valueBinding=value
     | Replace Blank Lines With “--”
   button.btn.btn-default{action 'parseQuotedSentences'}
     | Sentences are Quoted
-  button.btn.btn-default{action 'import'} disabled=busy Import
+  button.btn.btn-default{action 'import'} disabled=isBusy Import

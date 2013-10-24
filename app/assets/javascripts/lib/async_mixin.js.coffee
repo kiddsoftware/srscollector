@@ -6,7 +6,7 @@ SrsCollector.AsyncMixin = Ember.Mixin.create
 
   # Is this controller busy?  This field can be passed as the 'disabled'
   # attribute of <input> elements.
-  busy: Ember.computed.alias("asyncActive")
+  isBusy: Ember.computed.alias("asyncActive")
 
   # Start a asynchronous operation.
   asyncBegin: ->
