@@ -3,26 +3,41 @@
   <head>
     <title>SRS Collector</title>
     <style type="text/css">
+      html { width: 200px; font-family: "Arial"; font-size: 14px; }
+      p.site-link { margin: 0 0 8px 0; }
+      input[type="text"], input[type="password"] { width: 100%; }
+      input[type="submit"], button { margin: 4px 8px 0 0; }
+      img#spinner {
+        vertical-align: top;
+        width: 20px;
+        height: 20px;
+        margin-top: 4px;
+      }
+      h3 { margin: 16px 0 8px 0; }
     </style>
   </head>
   <body>
     <div id="loading">Loading…</div>
 
     <div style="display:none" id="sign-in">
-      <p><a target="_blank" href="http://www.srscollector.com/sign_up">Create
-      a new account</a></p>
+      <p class="site-link"><a target="_blank"
+      href="http://www.srscollector.com/sign_up" tabindex="4">Create a new
+      account</a></p>
 
-      <h3>Sign into an existing account</h3>
+      <h3>Sign In</h3>
 
       <form>
-        <input id="email" placeholder="Email">
-        <input id="password" type="password" placeholder="Password">
-        <input type="submit" value="Sign In">
+        <input id="email" type="text" placeholder="Email" tabindex="1">
+        <input id="password" type="password" placeholder="Password" tabindex="2">
+        <input type="submit" value="Sign In" tabindex="3">
         <img style="display:none" id="spinner" src="spinner.gif">
       </form>
     </div>
 
     <div style="display:none" id="index">
+      <p class="site-link"><a target="_blank"
+      href="http://www.srscollector.com/">Go to SRS Collector</a></p>
+
       <button id="sign-out-btn">Sign Out</button>
     </div>
 
