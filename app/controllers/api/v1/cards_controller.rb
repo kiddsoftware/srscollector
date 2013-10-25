@@ -1,5 +1,7 @@
 class API::V1::CardsController < ApplicationController
   prepend_before_filter :load_user_from_api_key, only: [:create, :stats]
+  skip_before_filter(:verify_authenticity_token, only: [:create, :stats],
+                     if: :have_api_key?)
   before_filter :authenticate_user!
 
   respond_to :json

@@ -9,6 +9,11 @@ class ApplicationController < ActionController::Base
 
   attr_reader :current_user
 
+  # Used to determine when we can bypass verify_authenticity_token.
+  def have_api_key?
+    params[:api_key].present?
+  end
+
   # Invoked via prepend_before_filter for methods we can call via the API.
   def load_user_from_api_key
     if params[:api_key]
