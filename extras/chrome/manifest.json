@@ -1,0 +1,34 @@
+{
+  "manifest_version": 2,
+
+  "name": "SRS Collector",
+  "description": "Save foreign-language text to srscollector.com for looking up unknown words.",
+  "version": "0.1",
+
+  "permissions": [
+    "http://www.srscollector.com/", // TODO: Change to https.
+    "contextMenus",
+    //"activeTab",
+    "notifications"
+  ],
+  "icons": {
+    "16": "16.png"
+  },
+  "background": {
+    "scripts": [
+      "jquery-1.10.2.min.js",
+      "rsvp-latest.js",
+      "background.js"
+    ]
+  },
+  "browser_action": {
+    "default_icon": "16.png",
+    "default_popup": "popup.html"
+  },
+
+  // Bug 134315: Make notification icon visible.  Change to 48.png when we
+  // have it.
+  "web_accessible_resources": [
+    "16.png"
+  ]
+}
