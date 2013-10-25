@@ -6,17 +6,25 @@ function notifyUser(title, text) {
   setTimeout(function () { notification.cancel(); }, 2500);
 }
 
-// Let the user know whether they need to log in.  Runs asynchronously.
-function updateBadge() {
+// Update our context menu and badge. Runs asynchronously.
+function updateUI() {
   ApiKey.getPromise().then(function (api_key) {
     if (api_key) {
       chrome.browserAction.setBadgeText({ text: "" });
+      chrome.contextMenus.create({
+        id: "save",
+        contexts: ["selection"],
+        title: "Save selection to SRS Collector",
+        onclick: onSaveSelection
+      });    
     } else {
+      chrome.contextMenus.removeAll();
+      // Let the user know they need to log in.
       chrome.browserAction.setBadgeBackgroundColor({ color: "#840" });
       chrome.browserAction.setBadgeText({ text: "!" });   
     }
   }).fail(function (reason) {
-    console.log("Unable to update badge:", reason);
+    console.log("Unable to update UI:", reason);
   });
 }
 
@@ -43,16 +51,6 @@ function onSaveSelection(info, tab) {
   });
 }
 
-// Install our context menu.
-function onSignedIn() {
-  chrome.contextMenus.create({
-    id: "save",
-    contexts: ["selection"],
-    title: "Save selection to SRS Collector",
-    onclick: onSaveSelection
-  });    
-}
-
 // Sign into our site.  Call 'callback' when we know one way or another.
 window.signInPromise = function (email, password) {
   var user = { email: email, password: password };
@@ -65,9 +63,8 @@ window.signInPromise = function (email, password) {
   return RSVP.resolve(jqxhr).then(function (json) {
     ApiKey.setPromise(json["user"]["api_key"]);
   }).then(function () {
-    onSignedIn();
     notifyUser("Signed In", "Whoo!");
-    updateBadge();
+    updateUI();
   }).fail(function (reason) {
     notifyUser("Sign In Failed", reason.status);
   });
@@ -75,11 +72,10 @@ window.signInPromise = function (email, password) {
 
 // Sign out of our site.
 window.signOutPromise = function () {
-  chrome.contextMenus.removeAll();
-  return ApiKey.setPromise(null).then(updateBadge()).fail(function (reason) {
+  return ApiKey.setPromise(null).then(updateUI()).fail(function (reason) {
     console.log("Unable to sign out:", reason);
   });
 };
 
-// Update our badge when we first run.
-updateBadge();
+// Update our UI when we first run.
+updateUI();
