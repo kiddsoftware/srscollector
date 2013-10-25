@@ -6,7 +6,7 @@
   "version": "0.1",
 
   "permissions": [
-    "http://www.srscollector.com/", // TODO: Change to https.
+    "http://www.srscollector.com/",
     "contextMenus",
     "activeTab",
     "notifications",
@@ -28,8 +28,6 @@
     "default_popup": "popup.html"
   },
 
-  // Bug 134315: Make notification icon visible.  Change to 48.png when we
-  // have it.
   "web_accessible_resources": [
     "16.png"
   ]
