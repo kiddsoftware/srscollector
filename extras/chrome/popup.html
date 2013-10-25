@@ -1,1 +1,32 @@
-<p>Testing.</p>
+<!doctype html>
+<html>
+  <head>
+    <title>SRS Collector</title>
+    <style type="text/css">
+    </style>
+  </head>
+  <body>
+    <div id="loading">Loading…</div>
+
+    <div style="display:none" id="sign-in">
+      <p><a target="_blank" href="http://www.srscollector.com/sign_up">Create
+      a new account</a></p>
+
+      <h3>Sign into an existing account</h3>
+
+      <form>
+        <input id="email" placeholder="Email">
+        <input id="password" type="password" placeholder="Password">
+        <input type="submit" value="Sign In">
+        <img style="display:none" id="spinner" src="spinner.gif">
+      </form>
+    </div>
+
+    <div style="display:none" id="index">
+      <button id="sign-out-btn">Sign Out</button>
+    </div>
+
+    <script type="text/javascript" src="vendor/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="popup.js"></script>
+  </body>
+</html>

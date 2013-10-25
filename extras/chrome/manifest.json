@@ -16,8 +16,8 @@
   },
   "background": {
     "scripts": [
-      "jquery-1.10.2.min.js",
-      "rsvp-latest.js",
+      "vendor/jquery-1.10.2.min.js",
+      "vendor/rsvp-latest.js",
       "background.js"
     ]
   },
