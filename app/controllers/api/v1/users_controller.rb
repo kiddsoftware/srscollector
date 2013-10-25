@@ -1,4 +1,10 @@
 class API::V1::UsersController < ApplicationController
+  # Let external programs fetch the API successfully.  We don't need to
+  # protect this route anyway, since it's safe for anyone to trigger as
+  # long as they don't get access to the results (and even then, they'd
+  # need full credentials to do anything).
+  skip_before_filter :verify_authenticity_token, only: :api_key
+
   respond_to :json
 
   def create
