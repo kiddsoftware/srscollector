@@ -4,28 +4,30 @@ function onSignIn() {
   $("#spinner").show();
   var email = $("#email").val();
   var password = $("#password").val();
-  if (email !== "" && password !== "") {
-    window.background.signIn(email, password, updateDisplay);
-  }
+  if (email !== "" && password !== "")
+    window.background.signInPromise(email, password).then(updateDisplay);
   return false;
 }
 
 function onSignOut() {
-  window.background.signOut();
-  updateDisplay();
+  window.background.signOutPromise().then(updateDisplay);
   return false;
 }
 
 function updateDisplay() {
-  $("#loading").hide();
-  $("#spinner").hide();
-  if (window.background.API_KEY) {
-    $("#sign-in").hide();
-    $("#index").show();
-  } else {
-    $("#index").hide();
-    $("#sign-in").show();
-  }
+  ApiKey.getPromise().then(function (api_key) {
+    $("#loading").hide();
+    $("#spinner").hide();
+    if (api_key) {
+      $("#sign-in").hide();
+      $("#index").show();
+    } else {
+      $("#index").hide();
+      $("#sign-in").show();
+    }
+  }).fail(function (reason) {
+    console.log("Unable to display:", reason);
+  });
 }
 
 $(function () {
