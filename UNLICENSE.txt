@@ -1,3 +1,9 @@
+This application includes a few third-party components whose licenses
+are described in LICENSE.txt.  For all other code in this project,
+please see the terms below.
+
+--
+
 This is free and unencumbered software released into the public domain.
 
 Anyone is free to copy, modify, publish, use, compile, sell, or
