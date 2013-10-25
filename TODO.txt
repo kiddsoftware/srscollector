@@ -1,0 +1,20 @@
+Short term
+
+  Convert sentences to HTML when clipping
+  Stupid Heroku database performance issues--count connections again
+  Control-Z shouldn't revert to text of previous card!
+  Why do we need to highlight and lookup twice?
+  Strip everything but boldface and italics when pasting HTML
+  Rename "Set Aside"
+  Make "plain text" actually do something useful
+  Import Kindle format clippings
+
+Medium term
+
+  Redo HTML button bar
+  Anki plugin
+  Cloze deletion
+  Image support
+
+  Forgot my password
+  Remember me
