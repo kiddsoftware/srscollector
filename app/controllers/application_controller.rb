@@ -9,6 +9,13 @@ class ApplicationController < ActionController::Base
 
   attr_reader :current_user
 
+  # Invoked via prepend_before_filter for methods we can call via the API.
+  def load_user_from_api_key
+    if params[:api_key]
+      @current_user ||= User.where(api_key: params[:api_key]).first
+    end
+  end
+
   # Load the current user if available.
   def load_user
     if session[:user_id]
@@ -34,13 +41,5 @@ class ApplicationController < ActionController::Base
   # Sign out.
   def sign_out
     reset_session
-  end
-
-  # Certain methods are only intended for use by the web UI, generally
-  # because they may change extensively without warning, or because they're
-  # relatively expensive.
-  def web_only_api
-    # Authentication won't help, so return :forbidden instead of :unauthorized.
-    head :forbidden unless request.xhr?
   end
 end

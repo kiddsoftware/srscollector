@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe API::V1::CardsController do
-  let!(:user) { FactoryGirl.create(:user) }
+  let!(:user) do
+    FactoryGirl.create(:user, password: "pw", password_confirmation: "pw")
+  end
   let!(:card1) do
     FactoryGirl.create(:card, user: user, front: "Card 1", state: 'reviewed')
   end
@@ -92,6 +94,15 @@ describe API::V1::CardsController do
       response.should be_success
       Card.where(front: "Via POST 1").length.should == 1
       Card.where(front: "Via POST 2").length.should == 1
+    end
+
+    it "can be called using an API key" do
+      sign_out(user)
+      user.ensure_api_key!
+      attrs = FactoryGirl.attributes_for(:card, front: "Via API POST")
+      post 'create', format: 'json', card: attrs, api_key: user.api_key
+      response.should be_success
+      Card.where(front: "Via API POST").length.should == 1
     end
   end
 

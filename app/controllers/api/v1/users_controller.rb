@@ -1,8 +1,4 @@
 class API::V1::UsersController < ApplicationController
-  # This API is web-only because I want signups to go through the web for
-  # now.  Talk to me if you have a use-case for this.
-  before_filter :web_only_api
-
   respond_to :json
 
   def create
@@ -12,6 +8,18 @@ class API::V1::UsersController < ApplicationController
       render json: { user: user, csrf_token: form_authenticity_token }
     else
       respond_with :api, :v1, user
+    end
+  end
+
+  # DANGER! Not yet final. Use at your own risk.
+  def api_key
+    user = User.find_by(email: user_params[:email])
+      .try(:authenticate, user_params[:password])
+    if user
+      user.ensure_api_key!
+      render json: { user: { api_key: user.api_key } }
+    else
+      head :unauthorized
     end
   end
 

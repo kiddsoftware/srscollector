@@ -4,7 +4,11 @@ SrsCollector::Application.routes.draw do
       post "sessions/create(.:format)", defaults: { format: 'json' }
       post "sessions/destroy(.:format)", defaults: { format: 'json' }
 
-      resources :users
+      resources :users do
+        collection do
+          post :api_key
+        end
+      end
       resources :cards do
         collection do
           get :stats

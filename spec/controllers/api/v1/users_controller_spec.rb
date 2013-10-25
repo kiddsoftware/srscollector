@@ -32,4 +32,24 @@ describe API::V1::UsersController do
     end
   end
 
+  describe "POST 'api_key'" do
+    let!(:user) do
+      FactoryGirl.create(:user, password: "pw", password_confirmation: "pw")
+    end
+
+    it "returns an API key which can be used to authenticate the user" do
+      credentials = { email: user.email, password: "pw" }
+      xhr :post, 'api_key', format: 'json', user: credentials
+      response.should be_success
+      user.reload
+      user.api_key.should_not be_nil
+      json['user']['api_key'].should == user.api_key
+    end
+
+    it "returns an error if the password is wrong" do
+      credentials = { user: user.email, password: "pw" }
+      xhr :post, 'api_key', format: 'json', user: credentials
+      response.should_not be_success
+    end
+  end
 end
