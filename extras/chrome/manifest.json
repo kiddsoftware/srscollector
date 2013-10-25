@@ -8,7 +8,7 @@
   "permissions": [
     "http://www.srscollector.com/", // TODO: Change to https.
     "contextMenus",
-    //"activeTab",
+    "activeTab",
     "notifications"
   ],
   "icons": {
