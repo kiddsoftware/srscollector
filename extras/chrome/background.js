@@ -36,10 +36,15 @@ function updateUI() {
 function onSaveSelection(info, tab) {
   var selection = info.selectionText;
   var card = {
-    front: selection,
-    source: tab.title, // Thanks to activeTab permission.
-    source_url: info.pageUrl
+    front: selection
   };
+  // In Incognito mode, we still save the text that the user asked us to
+  // save, because we received a direct command from the user to do so.  But
+  // we can at least avoid saving the page title and the source URL.
+  if (!tab.incognito) {
+    card["source"] = tab.title; // Thanks to activeTab permission.
+    card["source_url"] = info.pageUrl;    
+  }
   ApiKey.getPromise().then(function (api_key) {
     if (!api_key) {
       notifyUser("Please log in",
