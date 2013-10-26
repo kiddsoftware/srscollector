@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
 
   # Invoked via prepend_before_filter for methods we can call via the API.
   def load_user_from_api_key
-    if params[:api_key]
+    if have_api_key? && params[:api_key].length > 1
       @current_user ||= User.where(api_key: params[:api_key]).first
     end
   end
