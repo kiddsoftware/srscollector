@@ -1,4 +1,9 @@
-window.background = null;
+// Load our background process if it isn't running.
+function getBackgroundPagePromise() {
+  return new RSVP.Promise(function (resolve, reject) {
+    chrome.runtime.getBackgroundPage(resolve);
+  });
+}
 
 // Called when the user clicks "Sign In".
 function onSignIn() {
@@ -7,14 +12,18 @@ function onSignIn() {
   if (email !== "" && password !== "") {
     $("#sign-in input").prop("disabled", true);
     $("#spinner").show();
-    window.background.signInPromise(email, password).then(updateDisplay);
+    getBackgroundPagePromise().then(function (background) {
+      return background.signInPromise(email, password);
+    }).then(updateDisplay);
   }
   return false;
 }
 
 // Called when the user clicks "Sign Out".
 function onSignOut() {
-  window.background.signOutPromise().then(updateDisplay);
+  getBackgroundPagePromise().then(function (background) {
+    return background.signOutPromise();
+  }).then(updateDisplay);
   return false;
 }
 

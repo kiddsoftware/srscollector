@@ -1,6 +1,6 @@
 Short term
 
-  Convert sentences to HTML when clipping
+  Convert sentences to HTML when saving using the extension
   Stupid Heroku database performance issues--count connections again
   Control-Z shouldn't revert to text of previous card!
   Why do we need to highlight and lookup twice?
