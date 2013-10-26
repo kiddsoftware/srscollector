@@ -1,0 +1,74 @@
+{
+  "extName": {
+    "message": "SRS Collector",
+    "description": "The official name of this extension. Please keep 'SRS Collector' somewhere in the translation, or just leave it untranslated."
+  },
+  "extDescription": {
+    "message": "Save foreign-language text to srscollector.com for looking up unknown words.",
+    "description": "The description of this extension."
+  },
+  "contextMenuSave": {
+    "message": "Save selection to SRS Collector",
+    "description": "Appears in the context menu."
+  },
+  "noticeTitlePleaseLogIn": {
+    "message": "Please Log In",
+    "description": "A short window title on a popup notification."
+  },
+  "noticeTextLogInInstructions": {
+    "message": "Click on the clip icon at the top of the browser.",
+    "description": "Shown in the body of a popup notification."
+  },
+  "noticeTitleTextSaved": {
+    "message": "Text Saved",
+    "description": "A short window title on a popup notification."
+  },
+  "noticeTitleCantSaveText": {
+    "message": "Can't Save Text",
+    "description": "A short window title on a popup notification."
+  },
+  "noticeTitleSignedIn": {
+    "message": "Signed In",
+    "description": "A short window title on a popup notification."
+  },
+  "noticeTextExclamation": {
+    "message": "Whoo!",
+    "description": "A short happy noise, for when the user logs in."
+  },
+  "noticeTitleSignInFailed": {
+    "message": "Sign In Failed",
+    "description": "A short window title on a popup notification."
+  },
+  "loading": {
+    "message": "Loading…",
+    "description": "Shown when the page is loading."
+  },
+  "linkNewAccount": {
+    "message": "Create a new account",
+    "description": "Link to new account page on site."
+  },
+  "linkGoToSite": {
+    "message": "Go to SRS Collector",
+    "description": "Link to main page of site."
+  },
+  "titleSignIn": {
+    "message": "Sign In",
+    "description": "Title above sign-in form."
+  },
+  "formEmail": {
+    "message": "Email",
+    "description": "Placeholder for a form."
+  },
+  "formPassword": {
+    "message": "Password",
+    "description": "Placeholder for a form."
+  },
+  "formSignIn": {
+    "message": "Sign In",
+    "description": "Button label."
+  },
+  "formSignOut": {
+    "message": "Sign Out",
+    "description": "Button label."
+  }
+}

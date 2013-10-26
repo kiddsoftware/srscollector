@@ -12,7 +12,7 @@ function initializeUI() {
   chrome.contextMenus.create({
     id: "save",
     contexts: ["selection"],
-    title: "Save selection to SRS Collector"
+    title: chrome.i18n.getMessage("contextMenuSave")
   });
   updateUI();
 }
@@ -47,8 +47,8 @@ function onSaveSelection(info, tab) {
   }
   ApiKey.getPromise().then(function (api_key) {
     if (!api_key) {
-      notifyUser("Please log in",
-                 "Click on the clip icon at the top of the browser");
+      notifyUser(chrome.i18n.getMessage("noticeTitlePleaseLogIn"),
+                 chrome.i18n.getMessage("noticeTextLogInInstructions"));
     } else {
       var jqxhr = $.ajax({
         url: "http://www.srscollector.com/api/v1/cards.json",
@@ -57,9 +57,10 @@ function onSaveSelection(info, tab) {
         data: JSON.stringify({ card: card, api_key: api_key }),
         dataType: 'text' // Handle 201 CREATED responses.
       }).then(function () {
-        notifyUser("Text Saved", selection);
+        notifyUser(chrome.i18n.getMessage("noticeTitleTextSaved"), selection);
       }).fail(function (reason) {
-        notifyUser("Can't Save Text", reason.status);
+        notifyUser(chrome.i18n.getMessage("noticeTitleCantSaveText"),
+                   reason.status);
       }); 
     }
   });
@@ -77,10 +78,11 @@ window.signInPromise = function (email, password) {
   return RSVP.resolve(jqxhr).then(function (json) {
     ApiKey.setPromise(json["user"]["api_key"]);
   }).then(function () {
-    notifyUser("Signed In", "Whoo!");
+    notifyUser(chrome.i18n.getMessage("noticeTitleSignedIn"),
+               chrome.i18n.getMessage("noticeTextExclamation"));
     updateUI();
   }).fail(function (reason) {
-    notifyUser("Sign In Failed", reason.status);
+    notifyUser(chrome.i18n.getMessage("noticeTitleSignInFailed"), reason.status);
   });
 };
 

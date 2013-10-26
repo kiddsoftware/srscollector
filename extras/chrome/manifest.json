@@ -1,8 +1,9 @@
 {
   "manifest_version": 2,
+  "default_locale": "en",
 
-  "name": "SRS Collector",
-  "description": "Save foreign-language text to srscollector.com for looking up unknown words.",
+  "name": "__MSG_extName__",
+  "description": "__MSG_extDescription__",
   "version": "0.1",
 
   "permissions": [

@@ -5,6 +5,24 @@ function getBackgroundPagePromise() {
   });
 }
 
+// See http://developer.chrome.com/extensions/examples/api/downloads/download_manager/popup.js
+// for details about internationalization of HTML in extensions.
+function localize(css_selector, field, message) {
+  document.querySelector(css_selector)[field] = chrome.i18n.getMessage(message);
+}
+
+// Apply all our translations.
+function localizeAll() {
+  localize("#loading", "innerText", "loading");
+  localize("#sign-in .site-link a", "innerText", "linkNewAccount");
+  localize("#sign-in h3", "innerText", "titleSignIn");
+  localize("#index .site-link a", "innerText", "linkGoToSite");
+  localize("#email", "placeholder", "formEmail");
+  localize("#password", "placeholder", "formPassword");
+  localize("#sign-in-btn", "value", "formSignIn");
+  localize("#sign-out-btn", "innerText", "formSignOut");
+}
+
 // Called when the user clicks "Sign In".
 function onSignIn() {
   var email = $("#email").val();
@@ -46,8 +64,8 @@ function updateDisplay() {
 }
 
 $(function () {
-  // Show the appropriate page.
-  window.background = chrome.extension.getBackgroundPage();
+  // Apply our translations as soon as possible.
+  localizeAll();
 
   // Install our button handlers.
   $("#sign-in form").submit(onSignIn);
