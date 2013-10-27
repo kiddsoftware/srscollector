@@ -104,15 +104,6 @@ describe API::V1::CardsController do
       Card.where(front: "Via POST 1").length.should == 1
       Card.where(front: "Via POST 2").length.should == 1
     end
-
-    it "can be called using an API key" do
-      sign_out(user)
-      user.ensure_api_key!
-      attrs = FactoryGirl.attributes_for(:card, front: "Via API POST")
-      post 'create', format: 'json', card: attrs, api_key: user.api_key
-      response.should be_success
-      Card.where(front: "Via API POST").length.should == 1
-    end
   end
 
   describe "POST 'mark_reviewed_as_exported'" do
