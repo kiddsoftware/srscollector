@@ -5,7 +5,7 @@ class API::V1::SessionsController < ApplicationController
     user = User.find_by(email: session_params[:email])
       .try(:authenticate, session_params[:password])
     if user
-      sign_in_as(user) 
+      sign_in_as(user, session_params[:remember_me])
       render json: { user: user, csrf_token: form_authenticity_token }
     else
       head :unauthorized
@@ -18,6 +18,6 @@ class API::V1::SessionsController < ApplicationController
   end
 
   def session_params
-    params.required(:session).permit(:email, :password)
+    params.required(:session).permit(:email, :password, :remember_me)
   end
 end

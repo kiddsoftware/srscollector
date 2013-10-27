@@ -3,5 +3,9 @@
     = input classNames="form-control" value=email placeholder="Email"
   .form-group
     = input classNames="form-control" type="password" value=password placeholder="Password"
+  .checkbox
+    label
+      = input type="checkbox" checked=remember_me
+      ' Remember me on this computer
   button.btn.btn-default.btn-primary{action signIn} disabled=buttonsDisabled Sign In
   busy-spinner isBusy=isBusy

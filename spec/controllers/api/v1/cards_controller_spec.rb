@@ -59,6 +59,15 @@ describe API::V1::CardsController do
       get 'index', format: 'json', state: 'new', sort: 'age', limit: 1
       json['cards'].length.should == 0
     end
+
+    it "can be called using an auth_token" do
+      sign_out(user)
+      user.ensure_auth_token!
+      cookies[:auth_token] = user.auth_token
+      get 'index', format: 'json'
+      response.should be_success
+      session[:user_id].should == user.id
+    end
   end
 
   describe "GET 'stats'" do

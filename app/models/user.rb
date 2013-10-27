@@ -7,10 +7,25 @@ class User < ActiveRecord::Base
   # If it's there, it has to be unique.
   validates :api_key, uniqueness: true, allow_nil: true
 
-  # Make sure we have an API key, saving the object as necessary.
   def ensure_api_key!
-    unless api_key
-      self.api_key = SecureRandom.hex(16)
+    ensure_token!(:api_key)
+  end
+
+  def ensure_auth_token!
+    ensure_token!(:auth_token)
+  end
+
+  def clear_auth_token!
+    self.auth_token = nil
+    save!
+  end
+
+  protected
+
+  # Make sure we have the specified token, saving the object as necessary.
+  def ensure_token!(field)
+    unless send(field)
+      send("#{field}=", SecureRandom.hex(16))
       save!
     end
   end

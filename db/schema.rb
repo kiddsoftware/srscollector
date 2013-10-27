@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131025025823) do
+ActiveRecord::Schema.define(version: 20131026112719) do
 
   create_table "cards", force: true do |t|
     t.string   "state",      default: "new"
@@ -37,13 +37,18 @@ ActiveRecord::Schema.define(version: 20131025025823) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "email",           null: false
-    t.string   "password_digest", null: false
+    t.string   "email",                  null: false
+    t.string   "password_digest",        null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "api_key"
+    t.string   "auth_token"
+    t.string   "password_reset_token"
+    t.datetime "password_reset_sent_at"
   end
 
   add_index "users", ["api_key"], name: "index_users_on_api_key", unique: true
+  add_index "users", ["auth_token"], name: "index_users_on_auth_token", unique: true
+  add_index "users", ["password_reset_token"], name: "index_users_on_password_reset_token", unique: true
 
 end

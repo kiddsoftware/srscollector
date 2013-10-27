@@ -29,7 +29,6 @@ module FeatureSpecHelpers
   end
 
   def sign_up
-    visit "/"
     first(:link, "Sign Up").click
     find("input[placeholder='Email']").set("user@example.com")
     find("input[placeholder='Password']").set("password")

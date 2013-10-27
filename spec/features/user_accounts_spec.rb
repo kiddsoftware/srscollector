@@ -9,11 +9,7 @@ feature "User accounts", :js => true do
     fill_in_html "#back", with: "suis = am"
 
     # Go make an account.
-    first(:link, "Sign Up").click
-    find("input[placeholder='Email']").set("user@example.com")
-    find("input[placeholder='Password']").set("password")
-    find("input[placeholder='Password confirmation']").set("password")
-    click_button "Sign Up"
+    sign_up
 
     # Our content should still be there.
     page.should have_content("Front:")
@@ -48,6 +44,24 @@ feature "User accounts", :js => true do
     visit '/'
     sign_up
     # This will force a reload.
+    visit '/'
+    page.should have_content("Sign Out")
+  end
+
+  scenario "'Remember me' during sign in should cause sessions to persist" do
+    user = FactoryGirl.create(:user, password: "pw", password_confirmation: "pw")
+
+    # Sign in.
+    visit '/'
+    first(:link, "Sign In").click
+    find("input[placeholder='Email']").set(user.email)
+    find("input[placeholder='Password']").set("pw")
+    check "Remember me"
+    click_button "Sign In"
+    page.should have_content("Sign Out")
+
+    # Expire our session cookie and try again.
+    expire_cookies
     visit '/'
     page.should have_content("Sign Out")
   end

@@ -50,4 +50,5 @@ RSpec.configure do |config|
   # Some handy functions for specs.
   config.include ControllerSpecHelpers, :type => :controller
   config.include FeatureSpecHelpers, :type => :feature
+  config.include ShowMeTheCookies, :type => :feature
 end

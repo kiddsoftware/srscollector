@@ -3,6 +3,7 @@
 SrsCollector.SignInController = Ember.Controller.extend SrsCollector.AsyncMixin,
   email: null
   password: null
+  remember_me: false
 
   isValid: (->
     email = @get("email")
@@ -19,7 +20,7 @@ SrsCollector.SignInController = Ember.Controller.extend SrsCollector.AsyncMixin,
   actions:
     signIn: ->
       @async "Error signing in. Please double-check your username and password.", =>
-        credentials = @getProperties("email", "password")
+        credentials = @getProperties("email", "password", "remember_me")
         @auth.signInPromise(credentials)
           .then =>
             @transitionToRoute('index')
