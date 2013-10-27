@@ -1,7 +1,6 @@
 Short term
 
   Correctness
-    Convert sentences to HTML when saving using the extension
     Control-Z shouldn't revert to text of previous card!
 
   Frustrations

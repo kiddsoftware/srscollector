@@ -34,10 +34,10 @@ function updateUI() {
 
 // Save selection (called from context menu.
 function onSaveSelection(info, tab) {
-  var selection = info.selectionText;
-  var card = {
-    front: selection
-  };
+  var text = info.selectionText;
+  // Escape tags and convert newlines to <br>.
+  var html = $("<div>").text(text.trim()).html().replace(/\n/, '<br>');
+  var card = { front: html };
   // In Incognito mode, we still save the text that the user asked us to
   // save, because we received a direct command from the user to do so.  But
   // we can at least avoid saving the page title and the source URL.
@@ -57,7 +57,7 @@ function onSaveSelection(info, tab) {
         data: JSON.stringify({ card: card, api_key: api_key }),
         dataType: 'text' // Handle 201 CREATED responses.
       }).then(function () {
-        notifyUser(chrome.i18n.getMessage("noticeTitleTextSaved"), selection);
+        notifyUser(chrome.i18n.getMessage("noticeTitleTextSaved"), text);
       }).fail(function (reason) {
         notifyUser(chrome.i18n.getMessage("noticeTitleCantSaveText"),
                    reason.status);
