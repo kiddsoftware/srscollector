@@ -1,3 +1,5 @@
+# -*- mode: coffee -*-
+
 # Replace style names with single letters for size.
 $.fn.wysihtml5.locale.en.emphasis.bold = "B"
 $.fn.wysihtml5.locale.en.emphasis.italic = "I"
@@ -111,7 +113,8 @@ $.fn.wysihtml5.defaultOptions["parserRules"] =
     xml:
       remove: 1
 
-$.fn.wysihtml5.defaultOptions["stylesheets"] = ["/assets/wysihtml5.css"]
+$.fn.wysihtml5.defaultOptions["stylesheets"] =
+  [<%= asset_path('wysihtml5.css').to_json %>]
 
 SrsCollector.RichEditorComponent = Ember.Component.extend
   classNames: ['rich-editor']
