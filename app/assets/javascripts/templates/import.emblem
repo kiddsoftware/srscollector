@@ -1,14 +1,35 @@
 p
- | You can import a whole bunch of sentences by pasting them in into the text
-   field below.
+ ' You can import a whole bunch of sentences by pasting them into the text
+ ' field below.
 
-label for="import-text" Text:
-Ember.TextArea id="import-text" valueBinding=value
+.form-horizontal
 
-.btn-toolbar
-  button.btn.btn-default{action 'replaceBlankLines'}
-    | Replace Blank Lines With “--”
-  button.btn.btn-default{action 'parseQuotedSentences'}
-    | Sentences are Quoted
-  button.btn.btn-default{action 'import'} disabled=isBusy Import
-  busy-spinner isBusy=isBusy
+  .form-group
+    label.col-sm-2 for="import-text" Text:
+    .input-group.col-sm-10
+      Ember.TextArea id="import-text" classNames="form-control" valueBinding=value
+
+  .form-group
+    .btn-toolbar.col-sm-offset-2.col-sm-10
+      button.btn.btn-default{action 'replaceBlankLines'}
+        | Replace Blank Lines With “--”
+      button.btn.btn-default{action 'parseQuotedSentences'}
+        | Sentences are Quoted
+
+  .form-group
+    label.col-sm-2 for="source" Source Title:
+    .input-group.col-sm-10
+      = input classNames="form-control" id="source" value=source
+    p.help-block.col-sm-offset-2.col-sm-10
+      ' Optional. The title of the work in which you found these sentences.
+  .form-group
+    label.col-sm-2 for="source-url" Source URL:
+    .input-group.col-sm-10
+      = input classNames="form-control" id="source-url" value=sourceUrl
+    p.help-block.col-sm-offset-2.col-sm-10
+      ' Optional. The web address of the work in which you found these sentences.
+
+  .form-group
+    .btn-toolbar.col-sm-offset-2.col-sm-10
+      button.btn.btn-primary{action 'import'} disabled=isBusy Import
+      busy-spinner isBusy=isBusy

@@ -13,9 +13,12 @@ Sentence 1.
 Sentence 2.
 EOD
     click_button "Replace Blank Lines"
+    fill_in "Source Title", with: "Example.com"
+    fill_in "Source URL", with: "http://www.example.com/"
     click_button "Import"
     page.should have_content("Cards to review: 2")
     expect_html_to_match('#front', /Sentence 1/)
+    find("a[href='http://www.example.com/']").should have_content("Example.com")
     click_button "Next"
     page.should have_content("Cards to review: 1")
     page.should have_content("Ready for export: 1")

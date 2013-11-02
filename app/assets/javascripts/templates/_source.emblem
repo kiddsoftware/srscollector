@@ -1,0 +1,12 @@
+if sourceUrl
+  p.source-info
+    ' Source:
+    if source
+      a.source target="_blank" href=sourceUrl = source
+    else
+      a.source target="_blank" href=sourceUrl = sourceUrl
+else
+  if source
+    p.source-info
+      ' From:
+      span.source = source

@@ -2,6 +2,8 @@ SrsCollector.ImportController = Ember.Controller.extend SrsCollector.AsyncMixin,
   needs: ['stats', 'card']
 
   value: "Sample sentence 1.\n--\nThis time, there are two sentences together.  Separate sentences with \"--\" on a line by itself, like this:\n--\nSample sentence 3."
+  source: null
+  sourceUrl: null
 
   actions:
     # Replace blank lines with "--".
@@ -18,9 +20,15 @@ SrsCollector.ImportController = Ember.Controller.extend SrsCollector.AsyncMixin,
       @async "Couldn't import the cards.", =>
         # Sigh. Ember Data 1.0 doesn't support bulk commit, so build the request
         # by hand and call jQuery directly.
+        source = @get("source")
+        sourceUrl = @get("sourceUrl")
         div = $('<div>')
         cards = @get("value").split(/\n--\s*\n/).map (front) =>
-          { front: div.text(front.trim()).html().replace(/\n/, '<br>') }
+          card =
+            front: div.text(front.trim()).html().replace(/\n/, '<br>')
+            source: source
+            source_url: sourceUrl
+          card
         jqxhr = $.ajax
           method: 'POST'
           url: '/api/v1/cards.json',
