@@ -152,6 +152,7 @@ SrsCollector.RichEditorComponent = Ember.Component.extend
 
   onLookup: ->
     text = @editor.composer.selection.getText()
+    console.log("Lookup:", text)
     if text? && !text.match(/^\s*$/)
       @editor.composer.commands.exec("bold")
       # Fire a change event manually so boldface gets written to our model.
