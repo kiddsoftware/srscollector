@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131102193032) do
+ActiveRecord::Schema.define(version: 20131102212957) do
 
   create_table "cards", force: true do |t|
     t.string   "state",      default: "new"
@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 20131102193032) do
     t.string   "file_content_type"
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
+    t.string   "url"
+    t.string   "file_fingerprint"
   end
 
   add_index "media_files", ["card_id"], name: "index_media_files_on_card_id"

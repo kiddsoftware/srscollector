@@ -83,6 +83,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem 'launchy'
+  gem 'webmock'
 end
 
 group :doc do
