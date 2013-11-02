@@ -1,0 +1,74 @@
+{
+  "extName": {
+    "message": "SRS Collector",
+    "description": "The official name of this extension. Please keep 'SRS Collector' somewhere in the translation, or just leave it untranslated."
+  },
+  "extDescription": {
+    "message": "Enregistrer du texte dans une langue étrangère sur srscollector.com afin de chercher des mots inconnus dans un dictionnaire.",
+    "description": "The description of this extension."
+  },
+  "contextMenuSave": {
+    "message": "Enregistrer la sélection sur SRS Collector",
+    "description": "Appears in the context menu."
+  },
+  "noticeTitlePleaseLogIn": {
+    "message": "Please Log In",
+    "description": "A short window title on a popup notification."
+  },
+  "noticeTextLogInInstructions": {
+    "message": "Cliquer sur le bouton avec le pince-notes à la partie supérieure du navigateur.",
+    "description": "Shown in the body of a popup notification."
+  },
+  "noticeTitleTextSaved": {
+    "message": "Texte enregistré",
+    "description": "A short window title on a popup notification."
+  },
+  "noticeTitleCantSaveText": {
+    "message": "Impossible d'enregistrer le texte",
+    "description": "A short window title on a popup notification."
+  },
+  "noticeTitleSignedIn": {
+    "message": "Signed In",
+    "description": "A short window title on a popup notification."
+  },
+  "noticeTextExclamation": {
+    "message": "Youpi !",
+    "description": "A short happy noise, for when the user logs in."
+  },
+  "noticeTitleSignInFailed": {
+    "message": "Connexion échouée",
+    "description": "A short window title on a popup notification."
+  },
+  "loading": {
+    "message": "Chargement…",
+    "description": "Shown when the page is loading."
+  },
+  "linkNewAccount": {
+    "message": "S'inscrire",
+    "description": "Link to new account page on site."
+  },
+  "linkGoToSite": {
+    "message": "Ouvrir SRS Collector",
+    "description": "Link to main page of site."
+  },
+  "titleSignIn": {
+    "message": "Se connecter",
+    "description": "Title above sign-in form."
+  },
+  "formEmail": {
+    "message": "Email",
+    "description": "Placeholder for a form."
+  },
+  "formPassword": {
+    "message": "Mot de passe",
+    "description": "Placeholder for a form."
+  },
+  "formSignIn": {
+    "message": "Se connecter",
+    "description": "Button label."
+  },
+  "formSignOut": {
+    "message": "Se déconnecter",
+    "description": "Button label."
+  }
+}
