@@ -25,6 +25,9 @@ module SrsCollector
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+    # Compile these separately.
+    config.assets.precompile += ['wysihtml5.css']
+
     config.generators do |g|
       g.helper false
       g.test_framework :rspec, fixtures: true, view_specs: false
