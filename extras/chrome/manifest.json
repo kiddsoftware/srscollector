@@ -4,7 +4,7 @@
 
   "name": "__MSG_extName__",
   "description": "__MSG_extDescription__",
-  "version": "0.1",
+  "version": "0.1.1",
 
   "permissions": [
     "http://www.srscollector.com/",
