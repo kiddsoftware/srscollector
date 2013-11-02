@@ -6,6 +6,8 @@ describe Card do
   it { should belong_to(:user) }
   it { should validate_presence_of(:user) }
 
+  it { should have_many(:media_files) }
+
   it { should validate_presence_of(:front) }
   it { should allow_value("text").for(:front) }
 

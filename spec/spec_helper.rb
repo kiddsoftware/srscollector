@@ -11,6 +11,9 @@ Capybara.javascript_driver = :poltergeist
 # Take screenshots on test failure.
 require 'capybara-screenshot/rspec'
 
+# Support file attachments.
+require "paperclip/matchers"
+
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
@@ -52,4 +55,5 @@ RSpec.configure do |config|
   config.include ControllerSpecHelpers, :type => :request
   config.include FeatureSpecHelpers, :type => :feature
   config.include ShowMeTheCookies, :type => :feature
+  config.include Paperclip::Shoulda::Matchers
 end

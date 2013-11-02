@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131026112719) do
+ActiveRecord::Schema.define(version: 20131102193032) do
 
   create_table "cards", force: true do |t|
     t.string   "state",      default: "new"
@@ -35,6 +35,18 @@ ActiveRecord::Schema.define(version: 20131026112719) do
     t.datetime "updated_at"
     t.float    "score",       default: 0.0, null: false
   end
+
+  create_table "media_files", force: true do |t|
+    t.integer  "card_id",           null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+  end
+
+  add_index "media_files", ["card_id"], name: "index_media_files_on_card_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  null: false
