@@ -10,4 +10,17 @@ describe MediaFile do
          allowing('image/png', 'image/gif', 'image/jpg').
          rejecting('text/plain', 'text/html') }
   it { should validate_attachment_size(:file).less_than(128.kilobytes) }
+
+  describe "#file" do
+    let(:card) { FactoryGirl.create(:card) }
+    it "stores file data" do
+      path = File.expand_path('../../data/image.png', __FILE__)
+      File.open(path) do |f|
+        card.media_files.create!(file: f)
+      end
+      card.media_files.length.should == 1
+      card.media_files[0].file.url.should_not be_nil
+      card.media_files[0].file_content_type.should == 'image/png'
+    end
+  end
 end

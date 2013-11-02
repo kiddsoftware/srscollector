@@ -1,6 +1,7 @@
 class MediaFile < ActiveRecord::Base
   belongs_to :card
-  has_attached_file :file
+  has_attached_file :file,
+    styles: { original: "240x240>" }
 
   validates :card, presence: true
   validates_attachment :file,

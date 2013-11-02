@@ -16,3 +16,6 @@
 /tmp
 /.env
 /extras/chrome.zip
+
+# Paperclip unit-test stuff.
+/public/system
