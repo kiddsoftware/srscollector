@@ -105,7 +105,8 @@ describe Card do
       cards = [FactoryGirl.create(:card, front: "<img src='#{image_url}'>")]
       zip = Card.to_media_zip(cards)
       Zip::Archive.open_buffer(zip) do |ar|
-        ar.num_files.should == 1
+        ar.num_files.should == 2
+        ar.each {|f| f.size.should > 0 }
       end
     end
   end

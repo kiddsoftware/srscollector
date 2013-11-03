@@ -50,12 +50,16 @@ class Card < ActiveRecord::Base
   def self.to_media_zip(cards)
     seen = {}
     Zip::Archive.open_buffer(Zip::CREATE) do |ar|
+      ar.add_buffer("MEDIA-README.txt",
+                    "Merge this with your collection.media directory.")
       cards.each do |card|
         card.media_files.each do |mf|
           filename = mf.export_filename
           next if seen[filename]
           seen[filename] = true
-          mf.open_local {|f| ar.add_io("collection.media/#{filename}", f) }
+          mf.open_local do |f|
+            ar.add_buffer("collection.media/#{filename}", f.read)
+          end
         end
       end
     end  

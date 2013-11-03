@@ -30,6 +30,11 @@ $.fn.wysihtml5.defaultOptions["parserRules"] =
       rename_tag: "div"
     li:
       rename_tag: "div"
+    img:
+      check_attributes:
+        width: "numbers"
+        height: "numbers"
+        src: "url"
     # We don't actually need to remove these (they'll theoretically get
     # converted to span by default), but it's nice to remove them entirely.
     applet:
