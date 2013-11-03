@@ -59,6 +59,7 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 # File attachments.
 gem 'paperclip'
 gem 'aws-sdk'
+gem 'zipruby'
 
 group :production do
   gem 'pg'

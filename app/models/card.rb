@@ -35,12 +35,30 @@ class Card < ActiveRecord::Base
     end
   end
 
+  # Generate a CSV file suitable for import into Anki.
   def self.to_csv(cards)
     CSV.generate do |csv|
       cards.each do |card|
-        csv << [card.front, card.back, card.source_html]
+        csv << [card.front_for_anki, card.back_for_anki, card.source_html]
       end
     end
+  end
+
+  # Generate a zip file containing all the media needed for the specified
+  # cards.
+  # TODO: Fragile as can be.  Will eventually go away.
+  def self.to_media_zip(cards)
+    seen = {}
+    Zip::Archive.open_buffer(Zip::CREATE) do |ar|
+      cards.each do |card|
+        card.media_files.each do |mf|
+          filename = mf.export_filename
+          next if seen[filename]
+          seen[filename] = true
+          mf.open_local {|f| ar.add_io("collection.media/#{filename}", f) }
+        end
+      end
+    end  
   end
 
   private

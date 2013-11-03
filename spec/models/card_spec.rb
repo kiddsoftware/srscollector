@@ -36,12 +36,7 @@ describe Card do
     end
 
     it "makes local copies of images when possible" do
-      # Mock up an external web server.
-      image_url = "http://www.example.com/image.png"
-      image_path = File.expand_path('../../data/image.png', __FILE__)
-      stub_request(:get, image_url).
-        to_return(body: File.new(image_path),
-                  headers: { 'Content-Type' => 'image/png' })
+      image_url = stub_image_url
 
       # Make sure we cache each external image once.
       card.front = "<img src='#{image_url}'>"
@@ -102,5 +97,26 @@ describe Card do
       csv = Card.to_csv(cards)
       csv.should match(/Example/)
     end
+  end
+
+  describe ".to_media_zip" do
+    it "converts a list of cards into a zip file of the associated media" do
+      image_url = stub_image_url
+      cards = [FactoryGirl.create(:card, front: "<img src='#{image_url}'>")]
+      zip = Card.to_media_zip(cards)
+      Zip::Archive.open_buffer(zip) do |ar|
+        ar.num_files.should == 1
+      end
+    end
+  end
+
+  # Mock up an external web server.
+  def stub_image_url
+    image_url = "http://www.example.com/image.png"
+    image_path = File.expand_path('../../data/image.png', __FILE__)
+    stub_request(:get, image_url).
+      to_return(body: File.new(image_path),
+                headers: { 'Content-Type' => 'image/png' })
+    image_url
   end
 end

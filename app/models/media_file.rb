@@ -17,6 +17,17 @@ class MediaFile < ActiveRecord::Base
     "srsc-#{file_fingerprint}#{ext}".downcase
   end
 
+  # Copy everything to a local tempfile, open it, call a block, and clean up.
+  def open_local # :yields: io
+    temp = Tempfile.new('media_file')
+    begin
+      file.copy_to_local_file(:original, temp.path)
+      open(temp.path) {|f| yield f }
+    ensure
+      temp.close
+    end
+  end
+
   # Download our URL.
   before_validation(on: :create) do
     begin
