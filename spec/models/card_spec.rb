@@ -110,14 +110,4 @@ describe Card do
       end
     end
   end
-
-  # Mock up an external web server.
-  def stub_image_url
-    image_url = "http://www.example.com/image.png"
-    image_path = File.expand_path('../../data/image.png', __FILE__)
-    stub_request(:get, image_url).
-      to_return(body: File.new(image_path),
-                headers: { 'Content-Type' => 'image/png' })
-    image_url
-  end
 end

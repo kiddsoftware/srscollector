@@ -1,8 +1,11 @@
 class API::V1::CardsController < ApplicationController
-  prepend_before_filter :allow_api_key, only: [:create, :stats]
+  prepend_before_filter :allow_api_key, except: [:destroy]
   before_filter :authenticate_user!
 
   respond_to :json
+
+  # These formats will not necessarily be supported in the future.  API
+  # users should use JSON.
   respond_to :csv, only: :index
   respond_to :zip, only: :index
 
@@ -19,6 +22,11 @@ class API::V1::CardsController < ApplicationController
       format.zip do
         send_data(Card.to_media_zip(query), type: "application/zip",
                   filename: 'anki-media.zip')
+      end
+      if params[:serializer] == 'export'
+        format.json do
+          render json: query, each_serializer: ExportCardSerializer
+        end
       end
     end
   end

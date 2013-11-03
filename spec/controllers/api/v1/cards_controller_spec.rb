@@ -73,6 +73,43 @@ describe API::V1::CardsController do
       response.should be_success
       session[:user_id].should == user.id
     end
+
+    it "can return cards in export format with media links" do
+      # Get our other cards out of the way
+      card1.destroy
+      card2.destroy
+
+      # Create a new card with an associated media file.
+      image_url = stub_image_url
+      attrs = {
+        user: user,
+        state: "reviewed",
+        front: "front",
+        back: "<img src=#{image_url.to_json}>",
+        source: "e",
+        source_url: "http://www.example.com/"
+      }
+      card = FactoryGirl.create(:card, attrs)
+      card.save!
+      card.media_files.length.should == 1
+      mf = card.media_files[0]
+
+      # Export our cards.
+      get 'index', format: 'json', state: 'reviewed', serializer: 'export'
+      response.should be_success
+      puts json.inspect
+      json['cards'].length.should == 1
+      card_json = json['cards'][0]
+      card_json['back'].should ==
+        "<img src=#{card.media_files[0].export_filename.to_json}>"
+      card_json['source_html'].should ==
+        '<a href="http://www.example.com/">e</a>'
+      card_json['media_files'].length.should == 1
+      mf_json = card_json['media_files'][0]
+      mf_json['url'].should == mf.url
+      mf_json['export_filename'].should == mf.export_filename
+      mf_json['download_url'].should == mf.file.url
+    end
   end
 
   describe "GET 'stats'" do

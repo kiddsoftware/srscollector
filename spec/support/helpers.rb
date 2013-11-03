@@ -1,3 +1,16 @@
+module GlobalSpecHelpers
+  # Mock up an external web server that serves an image.  Returns the URL of
+  # the image.
+  def stub_image_url
+    image_url = "http://www.example.com/image.png"
+    image_path = File.expand_path('../../data/image.png', __FILE__)
+    stub_request(:get, image_url).
+      to_return(body: File.new(image_path),
+                headers: { 'Content-Type' => 'image/png' })
+    image_url
+  end
+end
+
 module ControllerSpecHelpers
   def sign_in(user)
     session[:user_id] = user.id

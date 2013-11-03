@@ -55,6 +55,7 @@ RSpec.configure do |config|
   config.order = "random"
 
   # Some handy functions for specs.
+  config.include GlobalSpecHelpers
   config.include ControllerSpecHelpers, :type => :controller
   config.include ControllerSpecHelpers, :type => :request
   config.include FeatureSpecHelpers, :type => :feature

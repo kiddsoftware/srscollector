@@ -12,12 +12,7 @@ describe MediaFile do
   describe "#file" do
     let(:card) { FactoryGirl.create(:card) }
     it "stores file data" do
-      # Mock up an external web server.
-      image_url = "http://www.example.com/image.png"
-      image_path = File.expand_path('../../data/image.png', __FILE__)
-      stub_request(:get, image_url).
-        to_return(body: File.new(image_path),
-                  headers: { 'Content-Type' => 'image/png' })
+      image_url = stub_image_url
       card.media_files.create!(url: image_url)
       card.media_files.length.should == 1
       mf = card.media_files[0]
