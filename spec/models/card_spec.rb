@@ -34,6 +34,33 @@ describe Card do
         "my text <span><script></script>is <i>also</i> interesting</span>"
       card.back.should == "my text is <i>also</i> interesting"
     end
+
+    it "makes local copies of images when possible" do
+      # Mock up an external web server.
+      image_url = "http://www.example.com/image.png"
+      image_path = File.expand_path('../../data/image.png', __FILE__)
+      stub_request(:get, image_url).
+        to_return(body: File.new(image_path),
+                  headers: { 'Content-Type' => 'image/png' })
+
+      # Make sure we cache each external image once.
+      card.back = "<img src='#{image_url}'><img src='#{image_url}'>"
+      card.media_files.length.should == 1
+      card.media_files[0].url.should == image_url
+
+      # Make sure we can save recursively, too.
+      card.save!
+      card.media_files[0].should_not be_new_record
+    end
+
+    it "ignores images which don't exist" do
+      image_url = "http://www.example.com/image.png"
+      stub_request(:get, image_url).to_return(status: 404)
+
+      # Make sure we cache each external image once.
+      card.back = "<img src='#{image_url}'>"
+      card.media_files.length.should == 0
+    end
   end
 
   describe "#source_html" do

@@ -4,7 +4,9 @@ class Card < ActiveRecord::Base
   STATES = %w(new reviewed exported set_aside)
 
   belongs_to :user
-  has_many :media_files
+
+  # See the inverse relationship for an explanation of `inverse_of` here.
+  has_many :media_files, inverse_of: :card
 
   validates :user, presence: true
   validates :front, presence: true
@@ -54,6 +56,31 @@ class Card < ActiveRecord::Base
     end
   end
 
+  # Make local copies of files pointed to by <img> tags.
+  class CacheImages
+    attr_reader :card
+
+    def initialize(card)
+      @card = card
+    end
+
+    def call(env)
+      node = env[:node]
+      return if env[:is_whitelisted]
+      return unless node.element? && env[:node_name] == 'img'
+      
+      # Return if we don't have a src, or if we've already cached it.
+      src = node.attr("src")
+      return unless src
+      return if card.media_files.any? {|mf| mf.url == src }
+
+      # Cache a new image if possible.
+      mf = card.media_files.build(url: src)
+      card.media_files.destroy(mf) unless mf.valid?
+      return
+    end
+  end
+
   # Start out with a relatively restricted sanitize config, and add some
   # useful bits to it.
   SANITIZE_CONFIG = Sanitize::Config::BASIC.deep_dup
@@ -61,10 +88,10 @@ class Card < ActiveRecord::Base
   SANITIZE_CONFIG[:attributes][:all] = %w(class)
   SANITIZE_CONFIG[:attributes]['img'] = %w(align alt height src width)
   SANITIZE_CONFIG[:protocols]['img'] = { 'src' => ['http', 'https'] }
-  SANITIZE_CONFIG[:transformers] = [RemoveEmptySpans.new]
 
   # Aggressively clean up our HTML.
   def sanitize_html(html)
-    Sanitize.clean(html, SANITIZE_CONFIG)
+    transformers = [RemoveEmptySpans.new, CacheImages.new(self)]
+    Sanitize.clean(html, SANITIZE_CONFIG.merge(transformers: transformers))
   end
 end
