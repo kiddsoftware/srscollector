@@ -26,7 +26,7 @@ describe Card do
     card.state.should == "new"
   end
 
-  describe "HTML cleanup" do
+  describe "HTML transformation" do
     it "removes empty spans" do
       card.front = "my text <span>is <i>very</i> interesting</span>"
       card.front.should == "my text is <i>very</i> interesting"
@@ -44,6 +44,7 @@ describe Card do
                   headers: { 'Content-Type' => 'image/png' })
 
       # Make sure we cache each external image once.
+      card.front = "<img src='#{image_url}'>"
       card.back = "<img src='#{image_url}'><img src='#{image_url}'>"
       card.media_files.length.should == 1
       card.media_files[0].url.should == image_url
@@ -51,6 +52,12 @@ describe Card do
       # Make sure we can save recursively, too.
       card.save!
       card.media_files[0].should_not be_new_record
+
+      # Make sure we fix URLs for export.
+      rel_url = card.media_files[0].export_filename
+      card.front_for_anki.should == "<img src=\"#{rel_url}\">"
+      card.back_for_anki.should ==
+        "<img src=\"#{rel_url}\"><img src=\"#{rel_url}\">"
     end
 
     it "ignores images which don't exist" do
@@ -60,6 +67,7 @@ describe Card do
       # Make sure we cache each external image once.
       card.back = "<img src='#{image_url}'>"
       card.media_files.length.should == 0
+      card.back_for_anki.should == "<img src=\"#{image_url}\">"
     end
   end
 

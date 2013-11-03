@@ -11,10 +11,16 @@ class MediaFile < ActiveRecord::Base
     size: { in: 0..128.kilobytes }
   validates :file_fingerprint, presence: true
 
+  # Generate a reasonably unique filename for exporting this file.
+  def export_filename
+    ext = File.extname(url)
+    "srsc-#{file_fingerprint}#{ext}".downcase
+  end
+
   # Download our URL.
   before_validation(on: :create) do
     begin
-      if url && !file.exists?
+      if url && url =~ /\Ahttps?:/ && !file.exists?
         open(URI.parse(url)) do |f|
           self.file = f
         end

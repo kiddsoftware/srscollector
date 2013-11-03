@@ -16,6 +16,10 @@ class Card < ActiveRecord::Base
   def front=(html) write_attribute(:front, sanitize_html(html)) end
   def back=(html) write_attribute(:back, sanitize_html(html)) end
 
+  # Transform HTML again when we export to Anki.
+  def front_for_anki() html_for_anki(front) end
+  def back_for_anki() html_for_anki(back) end
+
   # Format source and source_url for output to Anki.
   def source_html
     case
@@ -56,28 +60,44 @@ class Card < ActiveRecord::Base
     end
   end
 
-  # Make local copies of files pointed to by <img> tags.
-  class CacheImages
+  class ImageTransformer
     attr_reader :card
 
     def initialize(card)
       @card = card
     end
 
+    def image_node?(env)
+      return false if env[:is_whitelisted]
+      return false unless env[:node].element? && env[:node_name] == 'img'
+      return false unless src = env[:node].attr("src")
+      true
+    end
+  end
+
+  # Make local copies of files pointed to by <img> tags.
+  class CacheImages < ImageTransformer
     def call(env)
-      node = env[:node]
-      return if env[:is_whitelisted]
-      return unless node.element? && env[:node_name] == 'img'
-      
-      # Return if we don't have a src, or if we've already cached it.
-      src = node.attr("src")
-      return unless src
+      return unless image_node?(env)
+      src = env[:node].attr("src")
       return if card.media_files.any? {|mf| mf.url == src }
 
       # Cache a new image if possible.
       mf = card.media_files.build(url: src)
       card.media_files.destroy(mf) unless mf.valid?
       return
+    end
+  end
+
+  # Replace image links with the filenames we want Anki to use.
+  class RewriteImageSources < ImageTransformer
+    def call(env)
+      return unless image_node?(env)
+      src = env[:node].attr("src")
+      mf = card.media_files.find {|mf| mf.url == src }
+      return unless mf
+      env[:node].set_attribute("src", mf.export_filename)
+      { node_whitelist: [env[:node]] }
     end
   end
 
@@ -92,6 +112,12 @@ class Card < ActiveRecord::Base
   # Aggressively clean up our HTML.
   def sanitize_html(html)
     transformers = [RemoveEmptySpans.new, CacheImages.new(self)]
+    Sanitize.clean(html, SANITIZE_CONFIG.merge(transformers: transformers))
+  end
+
+  # Tweak our <img> tags for export to Anki.
+  def html_for_anki(html)
+    transformers = [RewriteImageSources.new(self)]
     Sanitize.clean(html, SANITIZE_CONFIG.merge(transformers: transformers))
   end
 end
