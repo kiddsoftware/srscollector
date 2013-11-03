@@ -26,6 +26,16 @@ describe Card do
     card.state.should == "new"
   end
 
+  describe "HTML cleanup" do
+    it "removes empty spans" do
+      card.front = "my text <span>is <i>very</i> interesting</span>"
+      card.front.should == "my text is <i>very</i> interesting"
+      card.back =
+        "my text <span><script></script>is <i>also</i> interesting</span>"
+      card.back.should == "my text is <i>also</i> interesting"
+    end
+  end
+
   describe "#source_html" do
     it "should be the source name linking to the source_url" do
       card = FactoryGirl.build(:card, source: "a",
