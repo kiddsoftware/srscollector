@@ -5,7 +5,14 @@ p
   ' the box to allow HTML in the imported cards.  (More instructions
   ' will be added eventually; this is just a placeholder.)
 
-p: a href='/api/v1/cards.csv?state=reviewed' Download cards as CSV
+p
+  a href='/api/v1/cards.csv?state=reviewed' Download cards as CSV
+  br
+  a href='/api/v1/cards.zip?state=reviewed' Download media as ZIP
+
+p
+  ' Zip support is highly experimental, and it will probably be replaced
+  ' by an Anki plugin.
 
 p When done, click on the button below to resume adding cards:
 

@@ -44,6 +44,11 @@ describe API::V1::CardsController do
       response.body.should_not match(/Card 2/)
     end
 
+    it "can return card media in ZIP format" do
+      get 'index', format: 'zip', state: 'reviewed'
+      response.should be_success
+    end
+
     it "can return the next card to be reviewed, or none" do
       get 'index', format: 'json', state: 'new', sort: 'age', limit: 1
       response.should be_success

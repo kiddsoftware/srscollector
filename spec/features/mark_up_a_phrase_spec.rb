@@ -32,6 +32,7 @@ feature "Add definitions to a snippet", :js => true do
     page.should have_content("Ready for export: 1")
     click_link "export"
     page.should have_text("Download cards as CSV")
+    page.should have_text("Download media as ZIP")
     click_button "Mark All Cards as Exported"
     page.should_not have_content("Ready for export")
     wait_for_jquery

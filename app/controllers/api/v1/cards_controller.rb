@@ -4,6 +4,7 @@ class API::V1::CardsController < ApplicationController
 
   respond_to :json
   respond_to :csv, only: :index
+  respond_to :zip, only: :index
 
   def index
     query = user_cards
@@ -14,6 +15,10 @@ class API::V1::CardsController < ApplicationController
       format.csv do
         send_data(Card.to_csv(query), type: "text/csv",
                   filename: 'anki-cards.csv')
+      end
+      format.zip do
+        send_data(Card.to_media_zip(query), type: "application/zip",
+                  filename: 'anki-media.zip')
       end
     end
   end
