@@ -54,7 +54,13 @@ class API::V1::CardsController < ApplicationController
   end
 
   def mark_reviewed_as_exported
-    user_cards.where(state: 'reviewed').update_all(state: 'exported')
+    cards =
+      if params[:id]
+        user_cards.where(id: params.permit(:id => [])[:id])
+      else
+        user_cards.where(state: 'reviewed')  
+      end
+    cards.update_all(state: 'exported')
     head :no_content
   end
 

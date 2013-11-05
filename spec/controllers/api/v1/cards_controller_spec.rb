@@ -97,7 +97,6 @@ describe API::V1::CardsController do
       # Export our cards.
       get 'index', format: 'json', state: 'reviewed', serializer: 'export'
       response.should be_success
-      puts json.inspect
       json['cards'].length.should == 1
       card_json = json['cards'][0]
       card_json['back'].should ==
@@ -149,11 +148,19 @@ describe API::V1::CardsController do
   end
 
   describe "POST 'mark_reviewed_as_exported'" do
-    it "marks all reviewed cards as exported" do
+    it "marks all reviewed cards as exported by default" do
       post 'mark_reviewed_as_exported', format: 'json'
       response.should be_success
       card1.reload
       card1.state.should == 'exported'
+    end
+
+    it "only marks specified cards as exported if passed a list" do
+      card3 = FactoryGirl.create(:card, user: user, front: "Card 3",
+                                 state: 'reviewed')
+      post 'mark_reviewed_as_exported', format: 'json', id: [card3.to_param]
+      card1.reload; card1.state.should == 'reviewed'
+      card3.reload; card3.state.should == 'exported'
     end
   end
 
