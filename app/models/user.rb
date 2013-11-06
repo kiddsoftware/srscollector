@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class User < ActiveRecord::Base
   has_many :cards
   has_secure_password
@@ -18,6 +19,12 @@ class User < ActiveRecord::Base
   def clear_auth_token!
     self.auth_token = nil
     save!
+  end
+
+  # Return the name of the Anki deck we should use for this card.  This
+  # will eventually be customizable on a per-user basis.
+  def anki_deck_for(card)
+    "Français::Écrit"
   end
 
   protected

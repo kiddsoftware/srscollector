@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'spec_helper'
 
 describe User do
@@ -36,6 +37,12 @@ describe User do
       user.ensure_auth_token!
       user.clear_auth_token!
       user.auth_token.should be_nil
+    end
+  end
+
+  describe "#anki_deck_for" do
+    it "always returns the same deck for now" do
+      user.anki_deck_for(FactoryGirl.build(:card)).should == "Français::Écrit"
     end
   end
 end

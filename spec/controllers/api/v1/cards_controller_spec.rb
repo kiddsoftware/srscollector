@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'spec_helper'
 
 describe API::V1::CardsController do
@@ -103,6 +104,7 @@ describe API::V1::CardsController do
         "<img src=#{card.media_files[0].export_filename.to_json}>"
       card_json['source_html'].should ==
         '<a href="http://www.example.com/">e</a>'
+      card_json['anki_deck'].should == "Français::Écrit"
       card_json['media_files'].length.should == 1
       mf_json = card_json['media_files'][0]
       mf_json['url'].should == mf.url
