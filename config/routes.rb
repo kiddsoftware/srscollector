@@ -15,6 +15,7 @@ SrsCollector::Application.routes.draw do
           post :mark_reviewed_as_exported
         end
       end
+      resources :card_models
       resources :dictionaries
       post "languages/detect"
     end
