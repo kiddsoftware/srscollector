@@ -108,6 +108,11 @@ describe API::V1::CardsController do
       mf_json['url'].should == mf.url
       mf_json['export_filename'].should == mf.export_filename
       mf_json['download_url'].should == mf.file.url
+
+      # Make sure we get the models, too.
+      card_json["card_model_id"].should_not be_nil
+      json['card_models'][0]['id'].should == card_json["card_model_id"]
+      json['card_models'][0]['short_name'].should == "basic"
     end
   end
 
