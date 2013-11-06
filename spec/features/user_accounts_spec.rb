@@ -1,4 +1,7 @@
 require "spec_helper"
+# Needed to prevent "Circular dependency detected while autoloading
+# constant Card" when run under guard.
+require_relative "../../app/controllers/api/v1/cards_controller"
 
 feature "User accounts", :js => true do
   scenario "Test drive, then sign up" do

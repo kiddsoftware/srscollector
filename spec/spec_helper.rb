@@ -1,5 +1,7 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
+# Needed for Guard.  See https://github.com/rails/rails/issues/11453
+ENV["SECRET_KEY"] ||= 'fake secret key'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'

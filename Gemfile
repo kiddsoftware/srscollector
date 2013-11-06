@@ -70,6 +70,8 @@ end
 group :development do
   gem 'foreman'
   gem 'dotenv-rails'
+  gem 'guard'
+  gem 'guard-rspec', require: false
 end
 
 group :development, :test do
