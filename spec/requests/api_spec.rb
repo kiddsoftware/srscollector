@@ -7,7 +7,7 @@ describe "API" do
     user
   end
 
-  before { FactoryGirl.create(:default_card_model) }
+  before { default_card_model_for_spec }
 
   describe "POST 'api_key'" do
     it "returns an API key which can be used to authenticate the user" do

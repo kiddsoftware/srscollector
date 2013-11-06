@@ -122,6 +122,7 @@ describe Card do
       card2 = FactoryGirl.create(:card)
       card1.card_model.short_name.should == "basic"
       card1.card_model.should == card2.card_model
+      card1.card_model.card_model_fields.length.should == 3
     end
   end
 end

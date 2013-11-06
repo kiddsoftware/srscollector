@@ -14,7 +14,7 @@ feature "Add definitions to a snippet", :js => true do
                        score: 0.5)
   end
 
-  before { FactoryGirl.create(:default_card_model); visit "/"; sign_up }
+  before { default_card_model_for_spec; visit "/"; sign_up }
 
   scenario "User pastes a phrase, looks up a word, exports" do
     fill_in_html "#front", with: "suis"

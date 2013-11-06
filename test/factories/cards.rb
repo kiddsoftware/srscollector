@@ -3,8 +3,7 @@
 FactoryGirl.define do
   factory :card do
     user
-    association :card_model, factory: :default_card_model
-
+    card_model { default_card_model_for_spec }
     #state "new"
     front "Je demande pardon"
     back ""

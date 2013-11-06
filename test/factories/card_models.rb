@@ -7,28 +7,23 @@ FactoryGirl.define do
     anki_front_template "{{Front}}"
     anki_back_template "{{FrontSide}}<hr>{{Back}}"
     anki_css ".card {}"
-
-    factory :card_model_with_fields do
-      after(:create) do |card_model, evaluator|
-        if CardModelField.where(card_model: card_model).count == 0
-          FactoryGirl.create(:card_model_field, card_model: card_model,
-                             order: 0, name: "Front", card_attr: 'front')
-          FactoryGirl.create(:card_model_field, card_model: card_model,
-                             order: 1, name: "Back", card_attr: 'back')
-          FactoryGirl.create(:card_model_field, card_model: card_model,
-                             order: 2, name: "Source", card_attr: 'source_html')
-        end
-      end
-
-      factory :default_card_model do
-        short_name "basic"
-        name "SRS Collector Basic"
-        # Shared by most generated cards. See
-        # http://stackoverflow.com/questions/4317848
-        initialize_with do
-          CardModel.where(short_name: 'basic').first_or_initialize
-        end
-      end
-    end
   end
+end
+
+# Find or build our singleton card model.
+def default_card_model_for_spec
+  model = CardModel.where(short_name: "basic").first
+  unless model
+    attrs = FactoryGirl.attributes_for(:card_model, name: "SRS Collector Basic",
+                                       short_name: "basic")
+    model = CardModel.create!(attrs)
+    CardModelField.create!(card_model: model, order: 0, name: "Front",
+                           card_attr: 'front')
+    CardModelField.create!(card_model: model, order: 1, name: "Back",
+                           card_attr: 'back')
+    CardModelField.create!(card_model: model, order: 2, name: "Source",
+                           card_attr: 'source_html')
+    model.reload
+  end
+  model
 end
