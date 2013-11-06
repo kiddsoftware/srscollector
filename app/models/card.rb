@@ -4,13 +4,20 @@ class Card < ActiveRecord::Base
   STATES = %w(new reviewed exported set_aside)
 
   belongs_to :user
+  belongs_to :card_model
 
   # See the inverse relationship for an explanation of `inverse_of` here.
   has_many :media_files, inverse_of: :card
 
   validates :user, presence: true
+  validates :card_model, presence: true
   validates :front, presence: true
   validates :state, presence: true, inclusion: STATES
+
+  # Default to "basic" model for now.
+  before_validation do
+    self.card_model ||= CardModel.where(short_name: "basic").first!
+  end
 
   # Clean up our HTML a bit before saving it.
   def front=(html) write_attribute(:front, sanitize_html(html)) end

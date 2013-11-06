@@ -11,10 +11,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131102212957) do
+ActiveRecord::Schema.define(version: 20131105233910) do
+
+  create_table "card_model_fields", force: true do |t|
+    t.integer  "card_model_id", null: false
+    t.integer  "order",         null: false
+    t.string   "name",          null: false
+    t.string   "card_attr",     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "card_model_fields", ["card_model_id"], name: "index_card_model_fields_on_card_model_id"
+
+  create_table "card_models", force: true do |t|
+    t.string   "short_name",          null: false
+    t.string   "name",                null: false
+    t.text     "anki_front_template", null: false
+    t.text     "anki_back_template",  null: false
+    t.text     "anki_css",            null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "cards", force: true do |t|
-    t.string   "state",      default: "new"
+    t.string   "state",         default: "new"
     t.text     "front"
     t.text     "back"
     t.text     "source"
@@ -22,8 +43,10 @@ ActiveRecord::Schema.define(version: 20131102212957) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.integer  "card_model_id"
   end
 
+  add_index "cards", ["card_model_id"], name: "index_cards_on_card_model_id"
   add_index "cards", ["user_id", "state", "created_at", "id"], name: "index_cards_on_user_id_and_state_and_created_at_and_id"
 
   create_table "dictionaries", force: true do |t|

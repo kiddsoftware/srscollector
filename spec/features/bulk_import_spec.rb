@@ -3,7 +3,7 @@ require "spec_helper"
 # Watch out for this!
 # http://stackoverflow.com/questions/8964537/rails-3-1-capybara-webkit-how-to-execute-javascript-inside-link
 feature "Import sentences in bulk", :js => true do
-  before { visit "/"; sign_up }
+  before { FactoryGirl.create(:default_card_model); visit "/"; sign_up }
 
   scenario "Import sentences and add defintions" do
     click_link "Bulk Import"

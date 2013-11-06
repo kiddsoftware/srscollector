@@ -7,6 +7,8 @@ describe "API" do
     user
   end
 
+  before { FactoryGirl.create(:default_card_model) }
+
   describe "POST 'api_key'" do
     it "returns an API key which can be used to authenticate the user" do
       user.api_key = nil
@@ -26,7 +28,7 @@ describe "API" do
     end
   end
 
-  it "allows the user save text snippets, given an API key" do
+  it "allows the user to save text snippets, given an API key" do
     attrs = FactoryGirl.attributes_for(:card, front: "Via API POST")
     post '/api/v1/cards.json', card: attrs, api_key: user.api_key
     response.should be_success

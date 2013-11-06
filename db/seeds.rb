@@ -42,3 +42,61 @@ def create_or_update_dictionary(attrs)
 end
 
 dictionaries.each {|dict| create_or_update_dictionary(dict) }
+
+# Create our basic card model.
+basic = CardModel.where(short_name: "basic").first_or_initialize
+front = <<EOD
+<div class="front">{{Front}}</div>
+{{#Source}}
+<div class="source">{{Source}}</div>
+{{/Source}}
+EOD
+back = <<EOD
+{{FrontSide}}
+<hr id="answer">
+<div class="back">{{Back}}</div>
+EOD
+css = <<EOD
+.card {
+ font-family: arial;
+ font-size: 20px;
+ text-align: center;
+ color: black;
+ background-color: white;
+}
+
+.source {
+  margin-top: 20px;
+  font-size: 14px;
+  font-style: italic;
+  color: grey;
+}
+EOD
+basic.update_attributes({
+  name: "SRS Collector Basic",
+  anki_front_template: front,
+  anki_back_template: back,
+  anki_css: css
+})
+
+# XXX - This is really more of a migration, but we put it here to avoid having
+# to carefully interleve the order of migrations and seeds.
+Card.where(card_model_id: nil).update_all(card_model_id: basic.id)
+
+# Make sure we have our standard fields, too.
+[{
+  order: 0,
+  name: "Front",
+  card_attr: "front"
+}, {
+  order: 1,
+  name: "Back",
+  card_attr: "back"
+}, {
+  order: 2,
+  name: "Source",
+  card_attr: "source_html"
+}].each do |field|
+  basic.card_model_fields.where(name: field[:name]).first_or_initialize
+    .update_attributes(field)
+end

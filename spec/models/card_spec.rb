@@ -6,6 +6,11 @@ describe Card do
   it { should belong_to(:user) }
   it { should validate_presence_of(:user) }
 
+  it { should belong_to(:card_model) }
+  # This field is filled in automatically, so we can't test the validation.
+  # Not to worry; it's tested by lots of other code.
+  #it { should validate_presence_of(:card_model) }
+
   it { should have_many(:media_files) }
 
   it { should validate_presence_of(:front) }
@@ -108,6 +113,15 @@ describe Card do
         ar.num_files.should == 2
         ar.each {|f| f.size.should > 0 }
       end
+    end
+  end
+
+  describe "Test infrastructure" do
+    it "uses 'basic' model for cards by default" do
+      card1 = FactoryGirl.create(:card)
+      card2 = FactoryGirl.create(:card)
+      card1.card_model.short_name.should == "basic"
+      card1.card_model.should == card2.card_model
     end
   end
 end
