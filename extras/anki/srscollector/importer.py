@@ -8,6 +8,7 @@
 
 from config import SERVER
 from signin import SignInDialog
+from cardmodel import CardModel
 
 import anki
 from aqt.qt import *
@@ -33,28 +34,39 @@ class Importer:
     def run(self, apiKey):
         """Import all available cards."""
         mw.checkpoint("Import from SRS Collector")
-        self.apiKey = apiKey
-        
-        url = "{0}api/v1/cards.json?state=reviewed&sort=age&serializer=export&api_key={1}".format(SERVER, self.apiKey)
+        self._apiKey = apiKey
+        data = self._downloadCardData()
+        self._ensureCardModels(data["card_models"])
+        self._importCardsWithTempDir(data["cards"])
+        mw.col.autosave()
+        mw.reset()
 
+    def _downloadCardData(self):
+        url = "{0}api/v1/cards.json?state=reviewed&sort=age&serializer=export&api_key={1}".format(SERVER, self._apiKey)
         progress = ProgressManager(mw)
         try:
             progress.start(label="Downloading new cards...", immediate=True)
+            progress.update()
             stream = urllib.urlopen(url)
             try:
-                cards = json.load(stream)["cards"]
+                progress.update()
+                return json.load(stream)
             finally:
                 stream.close()
         finally:
             progress.finish()
 
+    def _ensureCardModels(self, cardModels):
+        self._cardModels = {}
+        for json in cardModels:
+            self._cardModels[json["id"]] = CardModel(json)
+
+    def _importCardsWithTempDir(self, cards):
         self._temp =  tempfile.mkdtemp()
         try:
             self._importCards(cards)
         finally:
             shutil.rmtree(self._temp)
-        mw.col.autosave()
-        mw.reset()
 
     def _importCards(self, cards):
         """Import a group of cards."""
@@ -72,13 +84,13 @@ class Importer:
         """Import a card and its associated media files."""
         for mediaFile in card["media_files"]:
             self._importMediaFile(mediaFile)
-        model = mw.col.models.byName("SRS Collector Basic")
-        note = anki.notes.Note(mw.col, model)
+        cardModel =  self._cardModels[card["card_model_id"]]
+        note = anki.notes.Note(mw.col, cardModel.model)
         did = mw.col.decks.id(card["anki_deck"])
         note.model()['did'] = did
         #note.tags = tags
-        for field, key in Importer.FIELD_KEY_DICT.items():
-            note[field] = card[key] or ""
+        for field in cardModel.fields:
+            note[field] = card[cardModel.fieldCardAttrs[field]] or ""
         mw.col.addNote(note)
 
     def _importMediaFile(self, mediaFile):
