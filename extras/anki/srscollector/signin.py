@@ -1,0 +1,69 @@
+from config import SERVER
+from preferences import Preferences
+
+import urllib
+import urllib2
+import json
+
+from aqt.qt import *
+from aqt import mw
+from aqt.utils import showInfo
+
+class SignInDialog(QDialog):
+    """A dialog prompting for SRS Collector login credentials."""
+
+    def __init__(self, parent=None):
+        super(SignInDialog, self).__init__(parent)
+        self.apiKey = None
+
+        layout = QBoxLayout(QBoxLayout.TopToBottom, self)
+        layout.addWidget(QLabel("Please sign into SRS Collector"))
+
+        form = QFormLayout()
+        self.email = QLineEdit()
+        self.email.setMinimumWidth(250)
+        form.addRow("&Email", self.email)
+        self.password = QLineEdit()
+        self.password.setEchoMode(QLineEdit.Password)
+        form.addRow("&Password", self.password)
+        layout.addLayout(form)
+
+        buttonFlags = QDialogButtonBox.Ok|QDialogButtonBox.Cancel
+        buttons = QDialogButtonBox(buttonFlags, Qt.Horizontal)
+        buttons.accepted.connect(self.tryToSignIn)
+        buttons.rejected.connect(self.reject)
+        layout.addWidget(buttons)
+
+    def tryToSignIn(self):
+        """Attempt to sign in using credentials from the dialog."""
+        credentials = {
+            'user[email]': self.email.text(),
+            'user[password]': self.password.text()
+        }
+        data = urllib.urlencode(credentials)
+        url = "{0}api/v1/users/api_key.json".format(SERVER)
+        req = urllib2.Request(url, data)
+        try:
+            resp = urllib2.urlopen(req)
+            self.apiKey = json.load(resp)["user"]["api_key"]
+            self.accept()
+        except urllib2.URLError as e:
+            # Generally a DNS error.
+            showInfo("Network error. Are you online?")
+        except urllib2.HTTPError as e:
+            if e.code == 401:
+                showInfo("Please check your email and password.")
+            else:
+                showInfo("Unknown network error.")
+
+    @staticmethod
+    def signInIfNecessary(parent=None):
+        """Sign into SRS Collector, and return the API key."""
+        apiKey = Preferences.apiKey()
+        if not apiKey:
+            dialog = SignInDialog()
+            dialog.exec_()
+            apiKey = dialog.apiKey
+            if apiKey:
+                Preferences.setApiKey(apiKey)
+        return apiKey
