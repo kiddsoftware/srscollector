@@ -54,6 +54,7 @@ class SignInDialog(QDialog):
         try:
             resp = urllib2.urlopen(req)
             self.apiKey = json.load(resp)["user"]["api_key"]
+            resp.close()
             self.accept()
         except urllib2.URLError as e:
             # Generally a DNS error.
