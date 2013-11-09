@@ -74,8 +74,8 @@ class Importer:
             self._importMediaFile(mediaFile)
         model = mw.col.models.byName("SRS Collector Basic")
         note = anki.notes.Note(mw.col, model)
-        deck = mw.col.decks.byName(u"Fran\xe7ais::\xc9crit")
-        note.model()['did'] = deck['id']
+        did = mw.col.decks.id(card["anki_deck"])
+        note.model()['did'] = did
         #note.tags = tags
         for field, key in Importer.FIELD_KEY_DICT.items():
             note[field] = card[key] or ""
