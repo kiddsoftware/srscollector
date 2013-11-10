@@ -16,6 +16,8 @@ Short term
 
 Medium term
 
+  Enforce unique card fronts
+
   Redo HTML button bar
   Anki plugin
   Cloze deletion

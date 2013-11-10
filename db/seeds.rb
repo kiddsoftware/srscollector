@@ -115,8 +115,7 @@ cloze_front = <<EOD
 {{/Source}}
 EOD
 cloze_back = <<EOD
-{{FrontSide}}
-{{#Back}}
+#{cloze_front}{{#Back}}
 <hr id="answer">
 <div class="back">{{Back}}</div>
 {{/Back}}

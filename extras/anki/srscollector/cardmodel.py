@@ -6,6 +6,7 @@
 # warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # For more information, please refer to <http://unlicense.org/>
 
+from anki.consts import MODEL_CLOZE
 from aqt import mw
 
 class CardModel:
@@ -15,6 +16,7 @@ class CardModel:
         self.id = json["id"]
         self.shortName = json["short_name"]
         self.name = json["name"]
+        self.cloze = json["cloze"]
         self.css = json["anki_css"]
         self.fields = []
         self.fieldCardAttrs = {}
@@ -30,6 +32,8 @@ class CardModel:
         self.model = mm.byName(self.name)
         if self.model is None:
             self.model = mm.new(self.name)
+            if self.cloze:
+                self.model['type'] = MODEL_CLOZE
             self.model["css"] = self.css
             for f in self.fields:
                 mm.addField(self.model, mm.newField(f))

@@ -8,10 +8,8 @@
 
 # TODO:
 #   Server
-#     Enforce unique card fronts
 #     Version meta
 #   Client
-#     Make sure we can handle cloze models
 #     Sign up link in dialog, site link in preferences
 
 # Load our default configuration.
