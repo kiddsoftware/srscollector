@@ -31,6 +31,22 @@ describe Card do
     card.state.should == "new"
   end
 
+  describe "card_model" do
+    before do
+      default_card_model_for_spec
+      default_cloze_card_model_for_spec
+    end
+
+    it "defaults to 'basic'" do
+      card.card_model.short_name.should == 'basic'
+    end
+
+    it "switches to 'cloze' if cloze-text appears on the card" do
+      card.front = "a{{c1::b}}c"
+      card.card_model.short_name.should == 'cloze'
+    end
+  end
+
   describe "HTML transformation" do
     it "removes empty spans" do
       card.front = "my text <span>is <i>very</i> interesting</span>"

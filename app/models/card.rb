@@ -14,14 +14,18 @@ class Card < ActiveRecord::Base
   validates :front, presence: true
   validates :state, presence: true, inclusion: STATES
 
-  # Default to "basic" model for now.
-  before_validation do
-    self.card_model ||= CardModel.where(short_name: "basic").first!
+  # Clean up our HTML a bit before saving it.  Also make sure we handle
+  # cloze cards correctly.
+  def front=(html)
+    short_name = if html =~ /\{\{c/ then "cloze" else "basic" end
+    self.card_model = CardModel.where(short_name: short_name).first!
+    write_attribute(:front, sanitize_html(html))
   end
 
   # Clean up our HTML a bit before saving it.
-  def front=(html) write_attribute(:front, sanitize_html(html)) end
-  def back=(html) write_attribute(:back, sanitize_html(html)) end
+  def back=(html)
+    write_attribute(:back, sanitize_html(html))
+  end
 
   # Transform HTML again when we export to Anki.
   def front_for_anki() html_for_anki(front) end
