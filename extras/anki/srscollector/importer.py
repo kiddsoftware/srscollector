@@ -17,6 +17,7 @@ from aqt.utils import showInfo, tooltip
 from aqt.progress import ProgressManager
 
 import urllib
+import urllib2
 import json
 import tempfile
 import shutil
@@ -25,18 +26,13 @@ from os import path
 class Importer:
     """Downloads card information from SRS Collector."""
 
-    FIELD_KEY_DICT = {
-        "Front": "front",
-        "Back": "back",
-        "Source": "source_html"
-    }
-
     def run(self, apiKey):
         """Import all available cards."""
         mw.checkpoint("Import from SRS Collector")
         self._apiKey = apiKey
         data = self._downloadCardData()
-        self._ensureCardModels(data["card_models"])
+        if "card_models" in data:
+            self._ensureCardModels(data["card_models"])
         self._importCardsWithTempDir(data["cards"])
         mw.col.autosave()
         mw.reset()
@@ -78,6 +74,8 @@ class Importer:
             for i, card in enumerate(cards):
                 self._importCard(card)
                 progress.update(value=i)
+            progress.update(label="Marking cards as imported...")
+            self._markCardsAsExported()
         finally:
             progress.finish()
         self._summarizeImport()
@@ -108,6 +106,18 @@ class Importer:
         local = path.join(self._temp, mediaFile['export_filename'])
         urllib.urlretrieve(mediaFile['download_url'], local)
         mw.col.media.addFile(local)
+
+    def _markCardsAsExported(self):
+        """Tell the server which cards have been successfully exported."""
+        if len(self._importedIDs) == 0:
+            return
+        data = "api_key={0}&".format(self._apiKey)
+        data += "&".join(["id[]="+str(id) for id in self._importedIDs])
+        url = "{0}api/v1/cards/mark_reviewed_as_exported.json".format(SERVER)
+        req = urllib2.Request(url, data)
+        resp = urllib2.urlopen(req)
+        resp.read()
+        resp.close()
 
     def _summarizeImport(self):
         """Tell the user what we just did."""

@@ -11,7 +11,6 @@
 #     Enforce unique card fronts
 #     Version meta
 #   Client
-#     Mark cards as exported
 #     Make sure we can handle cloze models
 #     Sign up link in dialog, site link in preferences
 
