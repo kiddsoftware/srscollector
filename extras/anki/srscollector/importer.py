@@ -9,6 +9,7 @@
 from config import SERVER
 from signin import SignInDialog
 from cardmodel import CardModel
+from preferences import Preferences
 
 import anki
 from aqt.qt import *
@@ -43,7 +44,7 @@ class Importer:
         try:
             progress.start(label="Downloading new cards...", immediate=True)
             progress.update()
-            stream = urllib.urlopen(url)
+            stream = urllib2.urlopen(url)
             try:
                 progress.update()
                 return json.load(stream)
@@ -137,7 +138,17 @@ class Importer:
         """Import cards from the server."""
         apiKey = SignInDialog.signInIfNecessary()
         if apiKey:
-            Importer().run(apiKey)
+            try:
+                Importer().run(apiKey)
+            except urllib2.HTTPError as e:
+                if e.code == 401:
+                    Preferences.setApiKey(None)
+                    showInfo("Sign in expired. Please try again.")
+                else:
+                    showInfo("Unknown network error.")
+            except urllib2.URLError:
+                # Generally a DNS error.
+                showInfo("Network error. Are you online?")
 
 # Install our menu item.
 action = QAction("Import from SRS Collector...", mw)

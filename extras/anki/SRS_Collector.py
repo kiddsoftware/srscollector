@@ -9,8 +9,6 @@
 # TODO:
 #   Server
 #     Version meta
-#   Client
-#     Good errors for invalid API keys
 
 # Load our default configuration.
 import srscollector.config
