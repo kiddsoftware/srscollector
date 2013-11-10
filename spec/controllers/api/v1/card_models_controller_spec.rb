@@ -15,11 +15,18 @@ describe API::V1::CardModelsController do
       card_model_json['id'].should == card_model.id
       card_model_json['name'].should == card_model.name
       card_model_json['short_name'].should == card_model.short_name
-      card_model_json['anki_front_template'].should ==
-        card_model.anki_front_template
-      card_model_json['anki_back_template'].should ==
-        card_model.anki_back_template
       card_model_json['anki_css'].should == card_model.anki_css
+
+      card_model.card_model_templates.length.should == 1
+      card_model.card_model_templates.each_with_index do |template, index|
+        template_json = card_model_json['card_model_templates'][index]
+        template_json['name'].should == template.name
+        template_json['anki_front_template'].should ==
+          template.anki_front_template
+        template_json['anki_back_template'].should ==
+          template.anki_back_template
+      end
+
       card_model.card_model_fields.length.should == 3
       card_model.card_model_fields.each_with_index do |field, index|
         field_json = card_model_json['card_model_fields'][index]

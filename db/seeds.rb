@@ -45,17 +45,6 @@ dictionaries.each {|dict| create_or_update_dictionary(dict) }
 
 # Create our basic card model.
 basic = CardModel.where(short_name: "basic").first_or_initialize
-front = <<EOD
-<div class="front">{{Front}}</div>
-{{#Source}}
-<div class="source">{{Source}}</div>
-{{/Source}}
-EOD
-back = <<EOD
-{{FrontSide}}
-<hr id="answer">
-<div class="back">{{Back}}</div>
-EOD
 css = <<EOD
 .card {
  font-family: arial;
@@ -74,9 +63,28 @@ css = <<EOD
 EOD
 basic.update_attributes({
   name: "SRS Collector Basic",
-  anki_front_template: front,
-  anki_back_template: back,
   anki_css: css
+})
+
+# Create our card template.
+template = CardModelTemplate.where(card_model: basic, name: "Card 1")
+  .first_or_initialize
+front = <<EOD
+<div class="front">{{Front}}</div>
+{{#Source}}
+<div class="source">{{Source}}</div>
+{{/Source}}
+EOD
+back = <<EOD
+{{FrontSide}}
+<hr id="answer">
+<div class="back">{{Back}}</div>
+EOD
+template.update_attributes({
+  name: "Card 1",
+  order: 0,
+  anki_front_template: front,
+  anki_back_template: back
 })
 
 # XXX - This is really more of a migration, but we put it here to avoid having

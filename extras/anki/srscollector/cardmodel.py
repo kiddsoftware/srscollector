@@ -15,14 +15,13 @@ class CardModel:
         self.id = json["id"]
         self.shortName = json["short_name"]
         self.name = json["name"]
-        self.frontTemplate = json["anki_front_template"]
-        self.backTemplate = json["anki_back_template"]
         self.css = json["anki_css"]
         self.fields = []
         self.fieldCardAttrs = {}
         for field in json["card_model_fields"]:
             self.fields.append(field["name"])
             self.fieldCardAttrs[field["name"]] = field["card_attr"]
+        self.templates = json["card_model_templates"]
         self.ensureModelExists()
 
     def ensureModelExists(self):
@@ -31,11 +30,12 @@ class CardModel:
         self.model = mm.byName(self.name)
         if self.model is None:
             self.model = mm.new(self.name)
+            self.model["css"] = self.css
             for f in self.fields:
                 mm.addField(self.model, mm.newField(f))
-            t = mm.newTemplate("Card 1")
-            t['qfmt'] = self.frontTemplate
-            self.model["css"] = self.css
-            t['afmt'] = self.backTemplate
-            mm.addTemplate(self.model, t)
+            for template in self.templates:
+                t = mm.newTemplate(template["name"])
+                t['qfmt'] = template["anki_front_template"]
+                t['afmt'] = template["anki_back_template"]
+                mm.addTemplate(self.model, t)
             mm.add(self.model)

@@ -9,10 +9,8 @@
 # TODO:
 #   Server
 #     Enforce unique card fronts
+#     Version meta
 #   Client
-#     Log in once and store API key as configuration data
-#     Create deck if does not exist
-#     Create model if does not exist
 #     Handle empty/dup fronts
 #     Mark cards as exported
 #     Make sure we can handle cloze models

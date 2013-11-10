@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131105233910) do
+ActiveRecord::Schema.define(version: 20131109233924) do
 
   create_table "card_model_fields", force: true do |t|
     t.integer  "card_model_id", null: false
@@ -24,14 +24,24 @@ ActiveRecord::Schema.define(version: 20131105233910) do
 
   add_index "card_model_fields", ["card_model_id"], name: "index_card_model_fields_on_card_model_id"
 
-  create_table "card_models", force: true do |t|
-    t.string   "short_name",          null: false
+  create_table "card_model_templates", force: true do |t|
+    t.integer  "card_model_id",       null: false
+    t.integer  "order",               null: false
     t.string   "name",                null: false
     t.text     "anki_front_template", null: false
     t.text     "anki_back_template",  null: false
-    t.text     "anki_css",            null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  add_index "card_model_templates", ["card_model_id"], name: "index_card_model_templates_on_card_model_id"
+
+  create_table "card_models", force: true do |t|
+    t.string   "short_name", null: false
+    t.string   "name",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "anki_css"
   end
 
   create_table "cards", force: true do |t|

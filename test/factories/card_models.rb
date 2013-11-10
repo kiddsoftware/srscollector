@@ -4,8 +4,6 @@ FactoryGirl.define do
   factory :card_model do
     sequence(:short_name) {|n| "model#{n}" }
     sequence(:name) {|n| "Model #{n}" }
-    anki_front_template "{{Front}}"
-    anki_back_template "{{FrontSide}}<hr>{{Back}}"
     anki_css ".card {}"
   end
 end
@@ -23,6 +21,7 @@ def default_card_model_for_spec
                            card_attr: 'back')
     CardModelField.create!(card_model: model, order: 2, name: "Source",
                            card_attr: 'source_html')
+    FactoryGirl.create(:card_model_template, card_model: model)
     model.reload
   end
   model
