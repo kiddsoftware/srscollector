@@ -43,7 +43,9 @@ class Preferences:
     @staticmethod
     def apiKey():
         """Return the SRS Collector api_key, or None if none is available."""
-        return mw.col.conf['srsCollectorApiKey']
+        if 'srsCollectorApiKey' in mw.col.conf:
+            return mw.col.conf['srsCollectorApiKey']
+        return None
 
     @staticmethod
     def setApiKey(value):
