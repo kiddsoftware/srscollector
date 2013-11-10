@@ -13,7 +13,7 @@ from cardmodel import CardModel
 import anki
 from aqt.qt import *
 from aqt import mw
-from aqt.utils import showInfo
+from aqt.utils import showInfo, tooltip
 from aqt.progress import ProgressManager
 
 import urllib
@@ -70,6 +70,8 @@ class Importer:
 
     def _importCards(self, cards):
         """Import a group of cards."""
+        self._skipped = 0
+        self._importedIDs = []
         progress = ProgressManager(mw)
         try:
             progress.start(max=len(cards), label="Importing cards...")
@@ -78,12 +80,10 @@ class Importer:
                 progress.update(value=i)
         finally:
             progress.finish()
-        showInfo("{0} cards imported.".format(len(cards)))
+        self._summarizeImport()
 
     def _importCard(self, card):
         """Import a card and its associated media files."""
-        for mediaFile in card["media_files"]:
-            self._importMediaFile(mediaFile)
         cardModel =  self._cardModels[card["card_model_id"]]
         note = anki.notes.Note(mw.col, cardModel.model)
         did = mw.col.decks.id(card["anki_deck"])
@@ -91,13 +91,36 @@ class Importer:
         #note.tags = tags
         for field in cardModel.fields:
             note[field] = card[cardModel.fieldCardAttrs[field]] or ""
+
+        # First check for dups.
+        if note.dupeOrEmpty():
+            self._skipped += 1
+            return
+
+        # ..then download media, _then_ create the card.
+        for mediaFile in card["media_files"]:
+            self._importMediaFile(mediaFile)
         mw.col.addNote(note)
+        self._importedIDs.append(card["id"])
 
     def _importMediaFile(self, mediaFile):
         """Import a single media file into our collection."""
         local = path.join(self._temp, mediaFile['export_filename'])
         urllib.urlretrieve(mediaFile['download_url'], local)
         mw.col.media.addFile(local)
+
+    def _summarizeImport(self):
+        """Tell the user what we just did."""
+        if self._skipped == 0:
+            message = "{0} cards imported.".format(len(self._importedIDs))
+            timeout = 2000
+        else:
+            message = """
+            {0} cards imported,
+            {1} blank and duplicate cards must be manually exported from server.
+            """.format(len(self._importedIDs), self._skipped)
+            timeout = 5000
+        tooltip("<b>SRS Collector</b><br>" + message, timeout)
 
     @staticmethod
     def importCards():
