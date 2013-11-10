@@ -81,7 +81,6 @@ back = <<EOD
 <div class="back">{{Back}}</div>
 EOD
 template.update_attributes({
-  name: "Card 1",
   order: 0,
   anki_front_template: front,
   anki_back_template: back
@@ -90,6 +89,43 @@ template.update_attributes({
 # XXX - This is really more of a migration, but we put it here to avoid having
 # to carefully interleve the order of migrations and seeds.
 Card.where(card_model_id: nil).update_all(card_model_id: basic.id)
+
+# Add a cloze model, too.
+cloze = CardModel.where(short_name: "cloze").first_or_initialize
+cloze_css = <<"EOD"
+#{css}
+.cloze {
+  font-weight: bold;
+  color: blue;
+}
+EOD
+cloze.update_attributes({
+  name: "SRS Collector Cloze",
+  anki_css: cloze_css,
+  cloze: true
+})
+
+# Create our card template.
+cloze_template = CardModelTemplate.where(card_model: cloze, name: "Cloze")
+  .first_or_initialize
+cloze_front = <<EOD
+<div class="front">{{cloze:Front}}</div>
+{{#Source}}
+<div class="source">{{Source}}</div>
+{{/Source}}
+EOD
+cloze_back = <<EOD
+{{FrontSide}}
+{{#Back}}
+<hr id="answer">
+<div class="back">{{Back}}</div>
+{{/Back}}
+EOD
+cloze_template.update_attributes({
+  order: 0,
+  anki_front_template: cloze_front,
+  anki_back_template: cloze_back
+})
 
 # Make sure we have our standard fields, too.
 [{
@@ -105,6 +141,9 @@ Card.where(card_model_id: nil).update_all(card_model_id: basic.id)
   name: "Source",
   card_attr: "source_html"
 }].each do |field|
-  basic.card_model_fields.where(name: field[:name]).first_or_initialize
-    .update_attributes(field)
+  [basic, cloze].each do |model|
+    f = model.card_model_fields.where(name: field[:name]).first_or_initialize
+    f.update_attributes(field)
+    f.save!
+  end
 end

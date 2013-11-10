@@ -16,6 +16,7 @@ describe API::V1::CardModelsController do
       card_model_json['name'].should == card_model.name
       card_model_json['short_name'].should == card_model.short_name
       card_model_json['anki_css'].should == card_model.anki_css
+      card_model_json['cloze'].should == false
 
       card_model.card_model_templates.length.should == 1
       card_model.card_model_templates.each_with_index do |template, index|
