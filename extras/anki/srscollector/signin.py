@@ -56,14 +56,14 @@ class SignInDialog(QDialog):
             self.apiKey = json.load(resp)["user"]["api_key"]
             resp.close()
             self.accept()
-        except urllib2.URLError as e:
-            # Generally a DNS error.
-            showInfo("Network error. Are you online?")
         except urllib2.HTTPError as e:
             if e.code == 401:
                 showInfo("Please check your email and password.")
             else:
                 showInfo("Unknown network error.")
+        except urllib2.URLError as e:
+            # Generally a DNS error.
+            showInfo("Network error. Are you online?")
 
     @staticmethod
     def signInIfNecessary(parent=None):
