@@ -10,7 +10,7 @@
 #   Server
 #     Version meta
 #   Client
-#     Sign up link in dialog, site link in preferences
+#     Good errors for invalid API keys
 
 # Load our default configuration.
 import srscollector.config

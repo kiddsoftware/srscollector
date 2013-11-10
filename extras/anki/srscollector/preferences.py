@@ -29,6 +29,10 @@ class Preferences:
         button = QPushButton("Sign Out of SRS Collector")
         layout.addWidget(button)
 
+        link = QLabel("<a href='http://www.srscollector.com/'>Go to SRS Collector</a>")
+        link.setOpenExternalLinks(True)
+        layout.addWidget(link)
+
         layout.addStretch()
         tab.setLayout(layout)
         self.window.form.tabWidget.addTab(tab, "SRS Collector")

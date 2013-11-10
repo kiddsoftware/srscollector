@@ -25,7 +25,7 @@ class SignInDialog(QDialog):
         self.apiKey = None
 
         layout = QBoxLayout(QBoxLayout.TopToBottom, self)
-        layout.addWidget(QLabel("Please sign into SRS Collector"))
+        layout.addWidget(QLabel("<b>Please sign into SRS Collector</b>"))
 
         form = QFormLayout()
         self.email = QLineEdit()
@@ -34,6 +34,9 @@ class SignInDialog(QDialog):
         self.password = QLineEdit()
         self.password.setEchoMode(QLineEdit.Password)
         form.addRow("&Password", self.password)
+        link = QLabel("<a href='http://www.srscollector.com/sign_up'>Need to create a new account?</a>")
+        link.setOpenExternalLinks(True)
+        form.addRow("", link)
         layout.addLayout(form)
 
         buttonFlags = QDialogButtonBox.Ok|QDialogButtonBox.Cancel
