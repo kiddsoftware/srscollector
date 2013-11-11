@@ -6,4 +6,8 @@
 # warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # For more information, please refer to <http://unlicense.org/>
 
+# The version of this addon.
+VERSION = 1
+
+# The SRS Collector server.
 SERVER = "http://www.srscollector.com/"

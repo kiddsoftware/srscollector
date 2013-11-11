@@ -98,6 +98,9 @@ describe API::V1::CardsController do
       # Export our cards.
       get 'index', format: 'json', state: 'reviewed', serializer: 'export'
       response.should be_success
+
+      json['meta']['anki_addon']['min_version'].should == 1
+
       json['cards'].length.should == 1
       card_json = json['cards'][0]
       card_json['back'].should ==

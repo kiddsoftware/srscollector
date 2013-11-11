@@ -25,7 +25,8 @@ class API::V1::CardsController < ApplicationController
       end
       if params[:serializer] == 'export'
         format.json do
-          render json: query, each_serializer: ExportCardSerializer
+          meta = { anki_addon: { min_version: 1 }}
+          render json: query, each_serializer: ExportCardSerializer, meta: meta
         end
       end
     end

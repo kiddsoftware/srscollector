@@ -48,6 +48,7 @@ class SignInDialog(QDialog):
     def tryToSignIn(self):
         """Attempt to sign in using credentials from the dialog."""
         credentials = {
+            'client': 'anki_addon',
             'user[email]': self.email.text(),
             'user[password]': self.password.text()
         }

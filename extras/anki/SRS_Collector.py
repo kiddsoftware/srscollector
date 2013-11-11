@@ -6,10 +6,6 @@
 # warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # For more information, please refer to <http://unlicense.org/>
 
-# TODO:
-#   Server
-#     Version meta
-
 # Load our default configuration.
 import srscollector.config
 

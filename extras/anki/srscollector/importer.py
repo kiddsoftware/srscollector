@@ -6,7 +6,7 @@
 # warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # For more information, please refer to <http://unlicense.org/>
 
-from config import SERVER
+from config import SERVER, VERSION
 from signin import SignInDialog
 from cardmodel import CardModel
 from preferences import Preferences
@@ -24,6 +24,10 @@ import tempfile
 import shutil
 from os import path
 
+class UpgradeRequiredException(Exception):
+    """Raised if our version of the plugin is known to be too old."""
+    pass
+
 class Importer:
     """Downloads card information from SRS Collector."""
 
@@ -32,6 +36,7 @@ class Importer:
         mw.checkpoint("Import from SRS Collector")
         self._apiKey = apiKey
         data = self._downloadCardData()
+        self._checkMeta(data['meta']['anki_addon'])
         if "card_models" in data:
             self._ensureCardModels(data["card_models"])
         self._importCardsWithTempDir(data["cards"])
@@ -52,6 +57,11 @@ class Importer:
                 stream.close()
         finally:
             progress.finish()
+
+    def _checkMeta(self, addon_meta):
+        """Make sure this addon is sufficiently new."""
+        if addon_meta["min_version"] > VERSION:
+            raise UpgradeRequiredException()
 
     def _ensureCardModels(self, cardModels):
         self._cardModels = {}
@@ -140,6 +150,8 @@ class Importer:
         if apiKey:
             try:
                 Importer().run(apiKey)
+            except UpgradeRequiredException:
+                showInfo("Please upgrade your copy of the SRS Collector addon.")
             except urllib2.HTTPError as e:
                 if e.code == 401:
                     Preferences.setApiKey(None)
