@@ -10,7 +10,9 @@
 import srscollector.config
 
 # Customize any configuration options you wish.
-srscollector.config.SERVER = "http://0.0.0.0:5000/"
+#
+# For example, to connect to local dev version of the site, use:
+#srscollector.config.SERVER = "http://0.0.0.0:5000/"
 
 # Load various modules which hook into Anki's UI.
 import srscollector.importer
