@@ -12,7 +12,7 @@ ActiveAdmin.register Card do
 
   controller do
     def scoped_collection
-      resource_class.includes(:user)
+      super.includes(:user)
     end
   end
 end
