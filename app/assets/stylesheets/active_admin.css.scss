@@ -15,3 +15,11 @@
 // For example, to change the default status-tag color:
 //
 //   .status_tag { background: #6090DB; }
+
+.active_admin {
+  .col.col-front, .col.col-back {
+    max-width: 250px;
+    word-break: break-all;
+    overflow-y: hidden;
+  }
+}
