@@ -13,6 +13,7 @@ describe API::V1::UsersController do
       response.should be_success
       user = User.where(email: user[:email]).first
       user.should_not be_nil
+      user.should_not be_admin
       user.authenticate("password").should == user
       session[:user_id].should == user.id
       json['user']['email'].should == user.email

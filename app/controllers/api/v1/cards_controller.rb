@@ -1,3 +1,5 @@
+require_relative "../../../models/card"
+
 class API::V1::CardsController < ApplicationController
   prepend_before_filter :allow_api_key, except: [:destroy]
   before_filter :authenticate_user!

@@ -50,6 +50,14 @@ module FeatureSpecHelpers
     page.should have_text("Your account has been created")
   end
 
+  def sign_in(email, password)
+    first(:link, "Sign In").click
+    find("input[placeholder='Email']").set(email)
+    find("input[placeholder='Password']").set(password)
+    click_button "Sign In"
+    page.should have_text("Sign Out")
+  end
+
   def fill_in_html(field, options)
     with = options[:with]
     page.execute_script(<<"EOD")

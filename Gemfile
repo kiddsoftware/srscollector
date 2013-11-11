@@ -61,6 +61,10 @@ gem 'paperclip'
 gem 'aws-sdk'
 gem 'zipruby'
 
+# Admin.
+gem "cancan"
+gem 'activeadmin', github: 'gregbell/active_admin'
+
 group :production do
   gem 'pg'
   gem 'rails_12factor'

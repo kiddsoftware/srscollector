@@ -48,6 +48,20 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Called by our admin dashboard.
+  def authenticate_admin_user!
+    load_user
+    unless @current_user && @current_user.admin?
+      redirect_to(root_url)
+    end
+  end
+
+  # Called by our admin dashboard.
+  def current_admin_user
+    return current_user if current_user.admin?
+    nil
+  end
+
   # Sign in as the specified user.
   def sign_in_as(user, remember_me=false)
     # Always reset session on sign in, as extra protection against session
