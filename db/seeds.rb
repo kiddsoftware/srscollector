@@ -47,11 +47,11 @@ dictionaries.each {|dict| create_or_update_dictionary(dict) }
 basic = CardModel.where(short_name: "basic").first_or_initialize
 css = <<EOD
 .card {
- font-family: arial;
- font-size: 20px;
- text-align: center;
- color: black;
- background-color: white;
+  font-family: arial;
+  font-size: 20px;
+  text-align: center;
+  color: black;
+  background-color: white;
 }
 
 .source {
@@ -59,6 +59,74 @@ css = <<EOD
   font-size: 14px;
   font-style: italic;
   color: grey;
+}
+
+.wysiwyg-color-black {
+  color: black;
+]
+
+.wysiwyg-color-silver {
+  color: silver;
+}
+
+.wysiwyg-color-gray {
+  color: gray;
+}
+
+.wysiwyg-color-white {
+  color: white;
+}
+
+.wysiwyg-color-maroon {
+  color: maroon;
+}
+
+.wysiwyg-color-red {
+  color: red;
+}
+
+.wysiwyg-color-purple {
+  color: purple;
+}
+
+.wysiwyg-color-fuchsia {
+  color: fuchsia;
+}
+
+.wysiwyg-color-green {
+  color: green;
+}
+
+.wysiwyg-color-lime {
+  color: lime;
+}
+
+.wysiwyg-color-olive {
+  color: olive;
+}
+
+.wysiwyg-color-yellow {
+  color: yellow;
+}
+
+.wysiwyg-color-navy {
+  color: navy;
+}
+
+.wysiwyg-color-blue {
+  color: blue;
+}
+
+.wysiwyg-color-teal {
+  color: teal;
+}
+
+.wysiwyg-color-aqua {
+  color: aqua;
+]
+
+.wysiwyg-color-orange {
+  color: orange;
 }
 EOD
 basic.update_attributes({
