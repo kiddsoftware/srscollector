@@ -19,7 +19,6 @@ To get started, you'll need Ruby 2.0, which you can install using [rvm][].
 You will also need a `.env` file containing valid values for the following
 credentials:
 
-    SECRET_KEY=...
     S3_BUCKET_NAME=...
     AWS_ACCESS_KEY_ID=...
     AWS_SECRET_ACCESS_KEY=...
@@ -32,11 +31,11 @@ Once this is in place, run:
     rake # Run tests to make sure everything's working.
     foreman start
 
+The Chrome and Anki plugins are in the `extras` directory.
+
 If you want to deploy the application to Heroku, please get in touch--there
 are a number of database-related parameters which are necessary to get
 reasonable performance.
-
-The Chrome and Anki plugins are in the `extras` directory.
 
 ### Contributing
 

@@ -9,4 +9,8 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-SrsCollector::Application.config.secret_key_base = ENV['SECRET_KEY']
+if Rails.env.production?
+  SrsCollector::Application.config.secret_key_base = ENV['SECRET_KEY']
+else
+  SrsCollector::Application.config.secret_key_base = "abcdefghijklmnop"
+end
