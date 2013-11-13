@@ -61,6 +61,9 @@ gem 'paperclip'
 gem 'aws-sdk'
 gem 'zipruby'
 
+# Translation.
+gem 'easy_translate'
+
 # Admin.
 gem "cancan"
 gem 'activeadmin', github: 'gregbell/active_admin'
@@ -79,6 +82,7 @@ group :development do
 end
 
 group :development, :test do
+  gem 'dotenv-rails'
   gem 'sqlite3'
   gem 'rspec-rails', '~> 2.0'
 end
