@@ -4,17 +4,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 {% if page.title %}
-    <title>{{ page.title }} — {{ site.name }}</title>
+    <title>{{ page.title }} ({{ site.name }})</title>
 {% else %}
     <title>{{ site.name }}</title>
 {% endif %}
     <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml">
     <link rel="stylesheet" href="/css/vendor/bootstrap.min.css">
     <link rel="stylesheet" href="/css/vendor/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/site.css">
     <link rel="shortcut icon" href="/favicon.ico">
   </head>
   <body>
-    <div class="navbar navbar-inverse">
+    <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle"
@@ -36,17 +37,8 @@
         </div>
       </div>
     </div>
-    <div class="container">
-      <div class="row">
-        <div class="content col-sm-8">
-          {{ content }}
-        </div>
-        <div class="sidebar col-sm-4">
-          <a href="https://twitter.com/srscollector">@srscollector</a><br>
-          <a href="https://github.com/kiddsoftware/srscollector">GitHub</a><br>
-          <a href="/rss.xml">RSS</a>
-        </div>
-      </div>
-    </div>
+    {{ content }}
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="/js/vendor/bootstrap.min.js"></script>
   </body>
 </html>

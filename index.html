@@ -1,12 +1,56 @@
 ---
 layout: default
 ---
+<div class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5">
+        <h1>SRS Collector</h1>
+        <p>Read ebooks and the web in foreign languages.  Save snippets of
+        text. Add definitions. Export to Anki.</p>
+      </div>
+      <div class="col-md-7">
+        <div id="slides" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#slides" data-slide-to="0" class="active"></li>
+            <li data-target="#slides" data-slide-to="1"></li>
+            <li data-target="#slides" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="item active">
+              <img src="/assets/images/slide_chrome_extension.png">
+            </div>
+            <div class="item">
+              <img src="/assets/images/slide_dictionary_choices.png">
+            </div>
+            <div class="item">
+              <img src="/assets/images/slide_anki_addon.png">
+            </div>
+          </div>
+          <a class="left carousel-control" href="#slides" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </a>
+          <a class="right carousel-control" href="#slides" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+    </div>
+    <div class="col-md-6">
 {% for post in site.posts %}
+      <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+      <div class="post-date">{{ post.date | date_to_string }}</div>
 
-<h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
-<div class="post-date">{{ post.date | date_to_string }}</div>
-
-<div class="excerpt">{{ post.excerpt }}</div>
-
+      <div class="excerpt">{{ post.excerpt }}</div>
 {% endfor %}
+    </div>
+  </div>
+</div>
+
