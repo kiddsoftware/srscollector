@@ -2,3 +2,39 @@ body {
   padding-top: 50px;
   padding-bottom: 20px;
 }
+
+.carousel-indicators li {
+  border: 1px solid black;
+  background-color: #428bca;
+  opacity: 0.5;
+}
+
+.carousel-indicators .active {
+  background-color: #428bca;
+  opacity: 1.0;
+}
+
+.carousel-control {
+  color: #428bca;
+  opacity: 0.5;
+}
+
+.carousel-control:hover {
+  color: #428bca;
+}
+
+.details {
+  font-size: 80%;
+}
+
+.action-btn {
+  margin-top: 30px;
+  display: block;
+}
+
+.trigger-text {
+  margin-top: 5px;
+  margin-bottom: 30px;
+  font-size: 70%;
+  color: #666;
+}
