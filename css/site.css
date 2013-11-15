@@ -37,3 +37,37 @@ body {
   font-size: 70%;
   color: #666;
 }
+
+.card {
+  margin: 20px;
+  padding: 10px;
+  width: 400px;
+  font-family: arial;
+  font-size: 16px;
+  text-align: center;
+  color: black;
+  background-color: white;
+
+  border: 1px solid #666;
+
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+
+  -webkit-box-shadow: 3px 3px 5px rgba(50, 50, 50, 0.5);
+  -moz-box-shadow:    3px 3px 5px rgba(50, 50, 50, 0.5);
+  box-shadow:         3px 3px 5px rgba(50, 50, 50, 0.5);
+}
+
+.card .source {
+  margin-top: 20px;
+  font-size: 14px;
+  font-style: italic;
+  color: grey;
+}
+
+.card hr {
+  margin: 10px -10px;
+  height: 1px;
+  background: #666;
+}
