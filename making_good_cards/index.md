@@ -7,10 +7,11 @@ layout: sidebar
 
 If you're just learning a language, start out with something easy!  Assimil
 courses are great, because they have lots of short little stories with
-translations.  You can also try bilingual children's books and any other
-interesting text that comes with a translation.
+translations.  You can also try bilingual children's books and anything
+else with a translation.
 
-Don't forget to choose interesting texts!  You'll being seeing them a lot.
+<b>Don't forget to choose interesting texts!</b> You'll being seeing them a
+lot.
 
 Once you reach intermediate level, you should try lots of fun native
 materials: books, comics, websites, news articles, Wikipedia and
