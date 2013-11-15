@@ -50,10 +50,27 @@ layout: default
 <div class="container">
   <div class="row">
     <div class="col-md-6">
+      <h2>Using SRS Collector</h2>
+      
+      <p>Here are a few tutorials to get you started:</p>
+
+      <ul>
+        <li><a href="/making_good_cards">Making Good Cards</a></li>
+      </ul>
+
+      <p>I highly recommend the following articles elsewhere:</p>
+
+      <ul>
+        <li><a href="http://www.antimoon.com/how/sm.htm">Antimoon SRS articles</a></li>
+        <li><a href="http://www.alljapaneseallthetime.com/blog/what-is-it-about-these-mcds-part-1">AJATT.com MCD series</a></li>
+        <li><a href="http://www.alljapaneseallthetime.com/blog/deletions">AJATT.com explains why deleting cards is crucial</a></li>
+        <li><a href="http://www.fluentin3months.com/spaced-repetition/">Spaced repetition at Fi3M</a></li>
+      </ul> 
     </div>
     <div class="col-md-6">
+      <h2>Blog Posts</h2>
 {% for post in site.posts %}
-      <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+      <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
       <div class="post-date">{{ post.date | date_to_string }}</div>
 
       <div class="excerpt">{{ post.excerpt }}</div>
