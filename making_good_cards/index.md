@@ -35,7 +35,7 @@ information on deletion.
 These are the easiest kind of card: All you need to do is understand the
 boldfaced word in context.
 
-<div class="card">
+<div class="card question">
   <div class="front">Pour que le caractère d'un être humain <b>dévoile</b>
   des qualités vraiment exceptionnelles, il faut avoir la bonne fortune de
   pouvoir observer son action pendant de longues années.</div>
@@ -49,7 +49,7 @@ boldfaced word in context.
 What should go on the back of this card?  If you're just beginning, you may
 want to include a complete translation:
 
-<div class="card">
+<div class="card response">
   <div class="front">Pour que le caractère d'un être humain <b>dévoile</b>
   des qualités vraiment exceptionnelles, il faut avoir la bonne fortune de
   pouvoir observer son action pendant de longues années.</div>
@@ -61,7 +61,7 @@ want to include a complete translation:
 
   <hr>
 
-  <div class="back">For the character of a human being to <b>reveal</b>
+  <div class="back">For the character of a human being to <b>unveil</b>
   truly exceptional qualities, it is necessary to have the good fortune to
   be able to observe his/her action during long years.</div>
 </div>
@@ -70,7 +70,7 @@ As you become more advanced, you may only want a translation of a single
 word, or even a definition from a <a
 href="http://fr.wiktionary.org/wiki/d%C3%A9voiler">native dictionary</a>:
 
-<div class="card">
+<div class="card response">
   <div class="front">Pour que le caractère d'un être humain <b>dévoile</b>
   des qualités vraiment exceptionnelles, il faut avoir la bonne fortune de
   pouvoir observer son action pendant de longues années.</div>
@@ -91,15 +91,60 @@ word in context without any problems.
 
 ## Card format: "Cloze" cards
 
+This type of card is inspired by two things: Those horrible
+fill-in-the-blank exercises we all did in school, and by Khatzumoto's
+[series on cloze deletion cards][mcd]. These cards actually require you to
+remember something actively, but they're ridiculously easy.
+
+First, we hide _half_ of word on the card, and supply a hint of some kind:
+
+<div class="card question">
+  <div class="front">Pour que le caractère d'un être humain <span
+  class="cloze">[...]</span>voile des qualités vraiment exceptionnelles, il
+  faut avoir la bonne fortune de pouvoir observer son action pendant de
+  longues années.</div>
+
+  <div class="hint">unveil, reveal</div>
+</div>
+
+<div class="card response">
+  <div class="front">Pour que le caractère d'un être humain <span
+  class="cloze">dé</span>voile des qualités vraiment exceptionnelles, il
+  faut avoir la bonne fortune de pouvoir observer son action pendant de
+  longues années.</div>
+
+  <div class="hint">unveil, reveal</div>
+</div>
+
+Then we create a second card which hides the other half:
+
+<div class="card question">
+  <div class="front">Pour que le caractère d'un être humain dé<span
+  class="cloze">[...]</span>e des qualités vraiment exceptionnelles, il
+  faut avoir la bonne fortune de pouvoir observer son action pendant de
+  longues années.</div>
+
+  <div class="hint">unveil, reveal</div>
+</div>
+
+You would think that these cards are too easy, but in practice, you should
+be able to recall the entire word without any problems.  And you shouldn't
+have any problem remembering which synonym you're supposed to use on a given
+card, because half the word is already there.
+
+When reviewing these cards, mark them as "Good" if you can fill in the
+blank.  You're not even required to understand the rest of the card!
+
 ## When should I delete cards?
 
 Whenever you look at a card and say, "Ugh, not that card again,"
 <b><i>delete it!</i></b>
 
-If you spend a lot of time reading in your new language, you'll see any
-important words again soon.  And you definitely want to keep Anki fun!  If
-your deck fills up with bad cards, you'll stop doing reps all too soon.
+If you read enough in your new language, you'll see any important words
+again soon.  And you definitely want to keep Anki fun!  If your deck fills
+up with bad cards, you'll stop doing reps all too soon.
 
-I recommend <a
-href="http://www.alljapaneseallthetime.com/blog/deletions">Khaztumoto's
-excellent article on deleting cards</a>.
+I recommend [Khaztumoto's excellent article on deleting cards][deletion].
+
+[mcd]: http://www.alljapaneseallthetime.com/blog/what-is-it-about-these-mcds-part-1
+[deletion]: http://www.alljapaneseallthetime.com/blog/deletions
