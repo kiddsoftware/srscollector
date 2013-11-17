@@ -38,6 +38,11 @@ body {
   color: #666;
 }
 
+img.illustration {
+  margin: 20px 0;
+  max-width: 100%;
+}
+
 .card-label {
   margin: 15px 20px 0px 20px;
   color: #666;
