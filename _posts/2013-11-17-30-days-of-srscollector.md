@@ -96,7 +96,8 @@ since yesterday.
 And while I was waiting to be seen, I read my ebook
 of <a href="http://www.amazon.fr/Main-gauche-nuit-Ursula-Guin/dp/2253113166"><i>La
 main gauche de la nuit</i></a>, and I found well over a dozen words I'd
-learned using SRS Collector this month.
+learned using SRS Collector this month.  And there have been plenty more of
+my new words in conversations all weekend.
 
 ## What next
 
