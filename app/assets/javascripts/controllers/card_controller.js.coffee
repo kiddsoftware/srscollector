@@ -51,8 +51,12 @@ SrsCollector.CardController = Ember.ObjectController.extend SrsCollector.AsyncMi
   actions:
     # Called when our rich text editors send a "lookup" event.
     lookup: (searchFor) ->
-      @insertDefinitionPlaceholder(searchFor)
-      @set("searchFor", searchFor)
+      # Delay our call to insertDefinitionPlaceholder so the boldface text
+      # from our lookup has a chance to stick before we call
+      # getValue/setValue on our editor.
+      Ember.run.next this, ->
+        @insertDefinitionPlaceholder(searchFor)
+        @set("searchFor", searchFor)
 
     # Called when the user clicks "Next".
     nextCard: ->
