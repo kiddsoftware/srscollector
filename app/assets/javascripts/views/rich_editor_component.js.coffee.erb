@@ -141,7 +141,10 @@ SrsCollector.RichEditorComponent = Ember.Component.extend
 
   onModelChange: (->
     value = @get("value")
-    @editor.setValue(value, true)
+    # Don't set this unless we absolutely have to.  Among other things, we
+    # don't want to clobber the selection when the user clicks "Lookup".
+    if @editor.getValue() != value
+      @editor.setValue(value, true)
     # Fix our placeholder.  The editor should really take care of this itself!
     if value?
       @editor.fire("unset_placeholder")
