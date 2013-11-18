@@ -4,6 +4,7 @@ ActiveAdmin.register User do
     column :email
     column :created_at
     column :admin
+    column :supporter
   end  
 
   show do |user|
@@ -14,6 +15,7 @@ ActiveAdmin.register User do
       row :updated_at
       row :api_key
       row :admin
+      row :supporter
     end
     active_admin_comments
   end
