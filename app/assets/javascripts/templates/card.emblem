@@ -1,11 +1,11 @@
 .card
   label for="front" Front:
-  rich-editor ctrlId="front" value=front placeholder="Paste foreign language text here…" lookup="lookup"
+  rich-editor ctrlId="front" value=front placeholder="Paste foreign language text here…" lookup="lookup" imagesAllowed=imagesAllowed
 
   = partial "source"
 
   label for="back" Back:
-  rich-editor ctrlId="back" value=back placeholder="Text to appear on the back of the card." lookup="lookup"
+  rich-editor ctrlId="back" value=back placeholder="Text to appear on the back of the card." lookup="lookup" imagesAllowed=imagesAllowed
 
   if auth.user
     if front

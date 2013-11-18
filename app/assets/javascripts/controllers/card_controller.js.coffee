@@ -5,6 +5,9 @@ SrsCollector.CardController = Ember.ObjectController.extend SrsCollector.AsyncMi
   # controller.
   searchFor: Ember.computed.alias('controllers.dictionaries.searchFor')
 
+  # Is the user allowed to have images on cards?
+  imagesAllowed: Ember.computed.alias('auth.isSupporter')
+
   # Refresh ourselves when a user logs in or out.
   userChanged: (-> @refresh()).observes("auth.user")
 

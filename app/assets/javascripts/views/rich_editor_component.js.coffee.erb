@@ -124,6 +124,9 @@ $.fn.wysihtml5.defaultOptions["stylesheets"] =
 SrsCollector.RichEditorComponent = Ember.Component.extend
   classNames: ['rich-editor']
 
+  # Is the user allowed to paste images into this field?
+  imagesAllowed: false
+
   didInsertElement: ->
     # We call 'val' here because sometimes the underlying textarea value
     # gets lost when moving between routes.  This seems to fix it.
@@ -160,6 +163,10 @@ SrsCollector.RichEditorComponent = Ember.Component.extend
     # Clean up nasty &nbsp; garbage that appears when we paste from some
     # sites.
     @editor.setValue(@editor.getValue().replace(/&nbsp;/g, ' '))
+    # Strip images if they're not allowed.  This is also handled by the
+    # backend, which won't cache images unless the user is authorized.
+    unless @get("imagesAllowed")
+      $(@editor.composer.doc).find("img").remove()
 
   onLookup: ->
     text = @editor.composer.selection.getText()
