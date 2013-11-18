@@ -25,4 +25,10 @@ ActiveAdmin.register User do
       li link_to("Cards", admin_user_cards_path(user))
     end
   end
+
+  controller do
+    def permitted_params
+      params.permit(:user => [:email, :api_key, :admin, :supporter])
+    end
+  end
 end
