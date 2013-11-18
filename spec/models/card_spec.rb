@@ -56,8 +56,10 @@ describe Card do
       card.back.should == "my text is <i>also</i> interesting"
     end
 
-    it "makes local copies of images when possible" do
+    it "makes local copies of images when possible for supporters" do
       image_url = stub_image_url
+      card.user.supporter = true
+      card.user.save!
 
       # Make sure we cache each external image once.
       card.front = "<img src='#{image_url}'>"
@@ -74,6 +76,13 @@ describe Card do
       card.front_for_anki.should == "<img src=\"#{rel_url}\">"
       card.back_for_anki.should ==
         "<img src=\"#{rel_url}\"><img src=\"#{rel_url}\">"
+    end
+
+    it "ignores images for non-supporters" do
+      image_url = stub_image_url
+      card.front = "<img src='#{image_url}'>"
+      card.media_files.length.should == 0
+      card.front_for_anki.should == "<img src=\"#{image_url}\">"
     end
 
     it "ignores images which don't exist" do

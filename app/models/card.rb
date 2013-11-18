@@ -144,7 +144,11 @@ class Card < ActiveRecord::Base
 
   # Aggressively clean up our HTML.
   def sanitize_html(html)
-    transformers = [RemoveEmptySpans.new, CacheImages.new(self)]
+    if user.supporter?
+      transformers = [RemoveEmptySpans.new, CacheImages.new(self)]
+    else
+      transformers = [RemoveEmptySpans.new]
+    end
     Sanitize.clean(html, SANITIZE_CONFIG.merge(transformers: transformers))
   end
 
