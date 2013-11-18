@@ -1,7 +1,6 @@
 Short term
 
   Frustrations
-    Why do we need to highlight and lookup twice?
     Stupid Heroku database performance issues--make sure these are gone
 
   Correctness
@@ -19,9 +18,7 @@ Medium term
   Enforce unique card fronts
 
   Redo HTML button bar
-  Anki plugin
   Cloze deletion
-  Image support
 
-  Make login success/failure UI nicer in extension
+  Make login success/failure UI nicer in Chrome extension
   Forgot my password
