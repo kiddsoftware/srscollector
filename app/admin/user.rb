@@ -28,7 +28,7 @@ ActiveAdmin.register User do
 
   controller do
     def permitted_params
-      params.permit(:user => [:email, :api_key, :admin, :supporter])
+      params.require(:user).permit(:email, :api_key, :admin, :supporter)
     end
   end
 end
