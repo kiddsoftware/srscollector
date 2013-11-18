@@ -3,7 +3,8 @@ require 'spec_helper'
 
 describe API::V1::CardsController do
   let!(:user) do
-    FactoryGirl.create(:user, password: "pw", password_confirmation: "pw")
+    FactoryGirl.create(:user, password: "pw", password_confirmation: "pw",
+                       supporter: true)
   end
   let!(:card1) do
     FactoryGirl.create(:card, user: user, front: "Card 1", state: 'reviewed')

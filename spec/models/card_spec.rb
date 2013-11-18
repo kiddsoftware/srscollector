@@ -132,7 +132,10 @@ describe Card do
   describe ".to_media_zip" do
     it "converts a list of cards into a zip file of the associated media" do
       image_url = stub_image_url
-      cards = [FactoryGirl.create(:card, front: "<img src='#{image_url}'>")]
+      user = FactoryGirl.create(:user, supporter: true)
+      cards = [FactoryGirl.create(:card, user: user)]
+      cards[0].front = "<img src='#{image_url}'>"
+      cards[0].save!
       zip = Card.to_media_zip(cards)
       Zip::Archive.open_buffer(zip) do |ar|
         ar.num_files.should == 2

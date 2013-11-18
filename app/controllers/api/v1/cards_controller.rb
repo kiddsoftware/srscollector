@@ -47,12 +47,15 @@ class API::V1::CardsController < ApplicationController
   def create
     if params[:cards]
       params[:cards].each do |card|
+        model = user_cards.build
         attrs = card.slice(:state, :front, :back, :source, :source_url)
-        user_cards.create!(attrs)
+        model.update_attributes(attrs)
       end
       head :created
     else
-      respond_with :api, :v1, user_cards.create(card_params)
+      model = user_cards.build
+      model.update_attributes(card_params)
+      respond_with :api, :v1, model
     end
   end
 
