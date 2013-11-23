@@ -15,6 +15,21 @@ SrsCollector.ImportController = Ember.Controller.extend SrsCollector.AsyncMixin,
       separated = @get("value").replace(/\n*\"\n\s*\n\"\n*/g, "\n--\n")
       @set("value", separated.replace(/^\"/, "").replace(/\"$/, ""))
 
+    importClippings: ->
+      @async "Couldn't import the clippings file.", =>
+        promise = new Ember.RSVP.Promise (resolve, reject) =>
+          $("#clippings-form").ajaxSubmit
+            type: "POST"
+            iframe: true
+            url: "/api/v1/cards.clippings"
+            error: -> reject(new Error("Could not submit form"))
+            success: -> resolve()
+        promise
+          .then =>
+            @get('controllers.card').refresh()
+            @get('controllers.stats').refresh()
+            @transitionToRoute('index')
+
     # Import our new text.
     import: ->
       @async "Couldn't import the cards.", =>

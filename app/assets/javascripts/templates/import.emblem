@@ -1,3 +1,22 @@
+
+h2 Import Kindle-format clippings
+
+p
+ ' If you have a clippings file from an Amazon Kindle, you can upload it
+ ' below to import all of your highlights.
+
+form.form-horizontal#clippings-form{action 'importClippings' on='submit'}
+  .form-group
+    label.col-sm-2 for="clippings-file" Clippings:
+    .input-group.col-sm-10
+      input id="clippings-file" type="file" name="file" accept="text/plain"
+  .form-group
+    .btn-toolbar.col-sm-offset-2.col-sm-10
+      input.btn.btn-primary type="submit" value="Import" disabled=isBusy
+      busy-spinner isBusy=isBusy
+
+h2 Import other 
+
 p
  ' You can import a whole bunch of sentences by pasting them into the text
  ' field below.

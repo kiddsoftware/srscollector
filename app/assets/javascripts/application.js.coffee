@@ -11,6 +11,7 @@
 # about supported directives.
 #
 #= require jquery
+#= require jquery.form
 #= require jquery_ujs
 #= require turbolinks
 #= require_tree ./vendor
