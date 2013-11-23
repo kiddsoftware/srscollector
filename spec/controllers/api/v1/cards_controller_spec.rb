@@ -156,6 +156,15 @@ describe API::V1::CardsController do
       Card.where(front: "Via POST 1").length.should == 1
       Card.where(front: "Via POST 2").length.should == 1
     end
+
+    it "creates cards from Kindle-format clipping files" do
+      clippings = fixture_file_upload('/files/clippings.txt', 'text/plain')
+      post 'create', format: 'clippings', file: clippings
+      response.should be_success
+      imported = Card.where(source: "Les Fleurs du mal (Charles Baudelaire)")
+      imported.length.should == 3
+      imported.first.front.should match(/écheveau/)
+    end
   end
 
   describe "POST 'mark_reviewed_as_exported'" do

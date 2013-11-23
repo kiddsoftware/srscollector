@@ -49,6 +49,9 @@ gem 'http_accept_language'
 # Compact language detector, courtesy of the Google Chrome team.
 gem 'cld'
 
+# Rudimentary encoding detector.
+gem 'ensure-encoding'
+
 # A concurrent webserver.
 # http://blog.codeship.io/2013/10/16/unleash-the-puma-on-heroku.html
 gem 'puma'

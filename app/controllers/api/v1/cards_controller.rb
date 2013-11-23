@@ -51,6 +51,13 @@ class API::V1::CardsController < ApplicationController
         user_cards.create!(attrs)
       end
       head :created
+    elsif params[:file]
+      clippings = params[:file].read
+      clippings.ensure_encoding!('UTF-8',
+                                 external_encoding: %w(UTF-8 UTF-16LE UTF-16BE),
+                                 invalid_characters: :raise)
+      user_cards.create_from_clippings(clippings)
+      head :created
     else
       respond_with :api, :v1, user_cards.create(card_params)
     end
