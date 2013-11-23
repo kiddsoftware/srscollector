@@ -1,12 +1,4 @@
 GIT
-  remote: git://github.com/anjlab/bootstrap-rails.git
-  revision: 8826a3bfbbcfb18709f0e8bb0eff9cf921a479c3
-  specs:
-    anjlab-bootstrap-rails (3.0.0.3)
-      railties (>= 3.0)
-      sass (>= 3.2)
-
-GIT
   remote: git://github.com/gregbell/active_admin.git
   revision: 329dda82e58a71b8e87546b10e089366a79aa4ef
   specs:
@@ -54,6 +46,9 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     addressable (2.3.5)
+    anjlab-bootstrap-rails (3.0.2.0)
+      railties (>= 3.0)
+      sass (>= 3.2)
     arbre (1.0.1)
       activesupport (>= 3.0.0)
     arel (4.0.0)
@@ -331,7 +326,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin!
-  anjlab-bootstrap-rails!
+  anjlab-bootstrap-rails (~> 3.0.2.0)
   aws-sdk
   bcrypt-ruby (~> 3.0.0)
   bootstrap-wysihtml5-rails
