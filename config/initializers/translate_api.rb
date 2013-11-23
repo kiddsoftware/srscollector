@@ -1,1 +1,1 @@
-$google_api_key = ENV['GOOGLE_API_KEY']
+EasyTranslate.api_key = ENV['GOOGLE_API_KEY']

@@ -48,6 +48,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Call as a before_filter to make sure the user is a supporter.
+  def authenticate_supporter!
+    unless @current_user && @current_user.supporter
+      head :unauthorized
+    end
+  end
+
   # Called by our admin dashboard.
   def authenticate_admin_user!
     load_user

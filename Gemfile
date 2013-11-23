@@ -101,6 +101,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'launchy'
   gem 'webmock'
+  gem 'vcr'
 end
 
 group :doc do
