@@ -35,6 +35,8 @@ describe API::V1::LanguagesController do
       end
       response.should be_success
       json['translation'].should == "My name is Jean"
+      supporter.reload
+      supporter.characters_translated.should == "Je m'appelle Jean".length
     end
   end
 end

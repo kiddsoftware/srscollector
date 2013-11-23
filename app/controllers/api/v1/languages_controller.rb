@@ -12,7 +12,13 @@ class API::V1::LanguagesController < ApplicationController
   end
 
   def translate
-    translation = EasyTranslate.translate(translate_params[:text], to: 'en')
+    text = translate_params[:text]
+    translation = EasyTranslate.translate(text, to: 'en')
+    # Note that 'length' counts characters, not bytes, just like the Google
+    # APIs. We use semi-raw SQL for this to make it atomic.
+    User.where(id: current_user.id)
+      .update_all(["characters_translated = characters_translated + ?",
+                   text.length])
     json = { translation: translation }
     render json: json
   end
