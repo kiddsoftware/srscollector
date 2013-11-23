@@ -1,4 +1,5 @@
 require 'csv'
+require 'rack/utils'
 
 class Card < ActiveRecord::Base
   STATES = %w(new reviewed exported set_aside)
@@ -14,17 +15,18 @@ class Card < ActiveRecord::Base
   validates :front, presence: true
   validates :state, presence: true, inclusion: STATES
 
-  # Clean up our HTML a bit before saving it.  Also make sure we handle
-  # cloze cards correctly.
+  # Detect cloze cards and change our type accordingly.
   def front=(html)
     short_name = if html =~ /\{\{c/ then "cloze" else "basic" end
     self.card_model = CardModel.where(short_name: short_name).first!
-    write_attribute(:front, sanitize_html(html))
+    write_attribute(:front, html)
   end
 
-  # Clean up our HTML a bit before saving it.
-  def back=(html)
-    write_attribute(:back, sanitize_html(html))
+  # Clean up our HTML a bit before saving it.  We need to wait until we
+  # have an associated user.
+  before_validation do
+    write_attribute(:front, sanitize_html(front)) if front_changed?
+    write_attribute(:back, sanitize_html(back)) if back_changed?
   end
 
   # Transform HTML again when we export to Anki.
@@ -74,6 +76,18 @@ class Card < ActiveRecord::Base
         end
       end
     end  
+  end
+
+  # Mix this module into associations containing cards.
+  module AssociationMethods
+    # Create new cards from Kindle-format clippings data.
+    def create_from_clippings(clippings)
+      clippings.split(/==========\r?\n/).each do |clipping|
+        title, info, blank, body = clipping.split(/\r?\n/)
+        next unless info =~ /^- Highlight/
+        create(front: Rack::Utils.escape_html(body), source: title)
+      end
+    end
   end
 
   private

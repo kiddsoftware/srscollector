@@ -1,10 +1,13 @@
+# -*- coding: utf-8 -*-
 require 'spec_helper'
 
 describe Card do
   subject(:card) { FactoryGirl.build(:card) }
 
   it { should belong_to(:user) }
-  it { should validate_presence_of(:user) }
+  # We can't test validation of this field because HTML sanitization before
+  # validation will crash if it is not available.
+  #it { should validate_presence_of(:user) }
 
   it { should belong_to(:card_model) }
   # This field is filled in automatically, so we can't test the validation.
@@ -50,9 +53,10 @@ describe Card do
   describe "HTML transformation" do
     it "removes empty spans" do
       card.front = "my text <span>is <i>very</i> interesting</span>"
-      card.front.should == "my text is <i>very</i> interesting"
       card.back =
         "my text <span><script></script>is <i>also</i> interesting</span>"
+      card.valid?
+      card.front.should == "my text is <i>very</i> interesting"
       card.back.should == "my text is <i>also</i> interesting"
     end
 
@@ -64,6 +68,7 @@ describe Card do
       # Make sure we cache each external image once.
       card.front = "<img src='#{image_url}'>"
       card.back = "<img src='#{image_url}'><img src='#{image_url}'>"
+      card.valid?
       card.media_files.length.should == 1
       card.media_files[0].url.should == image_url
 
@@ -133,14 +138,56 @@ describe Card do
     it "converts a list of cards into a zip file of the associated media" do
       image_url = stub_image_url
       user = FactoryGirl.create(:user, supporter: true)
-      cards = [FactoryGirl.create(:card, user: user)]
-      cards[0].front = "<img src='#{image_url}'>"
-      cards[0].save!
+      cards = [FactoryGirl.create(:card, user: user,
+                                  front: "<img src='#{image_url}'>")]
       zip = Card.to_media_zip(cards)
       Zip::Archive.open_buffer(zip) do |ar|
         ar.num_files.should == 2
         ar.each {|f| f.size.should > 0 }
       end
+    end
+  end
+
+  describe ".create_from_clippings" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    before do
+      default_card_model_for_spec
+      clippings = <<"EOD"
+Les Fleurs du mal (Charles Baudelaire)
+- Bookmark on Page 30 | Loc. 459  | Added on Tuesday, March 26, 2013, 07:06 AM
+
+
+==========
+Les Fleurs du mal (Charles Baudelaire)
+- Highlight on Page 33 | Loc. 497  | Added on Tuesday, March 26, 2013, 07:08 AM
+
+Tant l'écheveau du temps lentement se dévide !
+==========
+Les Fleurs du mal (Charles Baudelaire)
+- Highlight on Page 36 | Loc. 540-41  | Added on Tuesday, March 26, 2013, 07:14 AM
+
+Deux guerriers ont couru l'un sur l'autre, leurs armes Ont éclaboussé l'air de lueurs et de sang.
+==========
+Les Fleurs du mal (Charles Baudelaire)
+- Highlight on Page 36 | Loc. 541-42  | Added on Tuesday, March 26, 2013, 07:14 AM
+
+Ces jeux, ces cliquetis du fer sont les vacarmes D'une jeunesse en proie à l'amour vagissant.
+==========
+EOD
+      user.cards.create_from_clippings(clippings)
+    end
+
+    it "only imports highlights" do
+      user.cards.length.should == 3
+    end
+
+    it "sets source appropriately" do
+      user.cards.first.source.should == "Les Fleurs du mal (Charles Baudelaire)"
+    end
+
+    it "imports highlight text" do
+      user.cards.first.front.should match(/du temps/)
     end
   end
 

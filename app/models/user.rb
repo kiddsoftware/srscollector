@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class User < ActiveRecord::Base
-  has_many :cards
+  has_many :cards, extend: Card::AssociationMethods
   has_secure_password
 
   validates :email, presence: true, uniqueness: true
