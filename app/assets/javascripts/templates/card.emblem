@@ -8,12 +8,12 @@
   rich-editor ctrlId="back" value=back placeholder="Text to appear on the back of the card." lookup="lookup" imagesAllowed=imagesAllowed
 
   if auth.user
-    if front
-      .btn-toolbar
-        button.btn.btn-default{action 'nextCard'} disabled=isBusy Next
-        button.btn.btn-default{action 'setAside'} disabled=isBusy tabindex='-1'
-          | Set Aside
-        busy-spinner isBusy=isBusy
+    .btn-toolbar
+      button.btn.btn-primary{action 'nextCard'} disabled=saveDisabled Next
+      button.btn.btn-default{action 'setAside'} disabled=saveDisabled tabindex='-1'
+        | Set Aside
+      busy-spinner isBusy=isBusy
+    render stats
   else
     p
       ' To save your card and export it to Anki, you can

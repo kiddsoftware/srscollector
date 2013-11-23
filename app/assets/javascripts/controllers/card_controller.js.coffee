@@ -11,6 +11,11 @@ SrsCollector.CardController = Ember.ObjectController.extend SrsCollector.AsyncMi
   # Refresh ourselves when a user logs in or out.
   userChanged: (-> @refresh()).observes("auth.user")
 
+  # Do we need to disable our "Next" button?
+  saveDisabled: (->
+    @get("isBusy") || !@get("front")?
+  ).property("isBusy", "front")
+
   # Can we discard the user's work in progress here?
   canDiscard: (->
     return true unless @get("isDirty")
