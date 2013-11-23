@@ -148,6 +148,15 @@ SrsCollector.RichEditorComponent = Ember.Component.extend
     # don't want to clobber the selection when the user clicks "Lookup".
     if @editor.getValue() != value
       @editor.setValue(value, true)
+
+    # Clear our undo history.
+    # TODO: Upgrade to version of wysihtml5 where this is supported.
+    #undo = @editor.composer.undoManager
+    #undo.position = 0
+    #undo.historyStr = []
+    #undo.historyDom = []
+    #undo.transact()
+
     # Fix our placeholder.  The editor should really take care of this itself!
     if value?
       @editor.fire("unset_placeholder")
