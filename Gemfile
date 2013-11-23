@@ -82,6 +82,9 @@ group :development do
   gem 'dotenv-rails'
   gem 'guard'
   gem 'guard-rspec', require: false
+  # For cleaning up Guard error messages:
+  # http://stackoverflow.com/questions/19496932
+  gem "rb-readline", "~> 0.5.0"
 end
 
 group :development, :test do
