@@ -67,6 +67,9 @@ gem 'zipruby'
 # Translation.
 gem 'easy_translate'
 
+# Cleaning up after Google Translate API.
+gem 'htmlentities'
+
 # Admin.
 gem "cancan"
 gem 'activeadmin', github: 'gregbell/active_admin'

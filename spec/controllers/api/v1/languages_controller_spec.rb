@@ -38,5 +38,15 @@ describe API::V1::LanguagesController do
       supporter.reload
       supporter.characters_translated.should == "Je m'appelle Jean".length
     end
+
+    it "returns text, not HTML" do
+      sign_in(supporter)
+      text = "Aujourd'hui, je suis avec ma femme."
+      VCR.use_cassette('translate-je-suis-avec-ma-femme') do
+        xhr :post, 'translate', format: 'json', text: text
+      end
+      response.should be_success
+      json['translation'].should == "Today I'm with my wife."
+    end
   end
 end

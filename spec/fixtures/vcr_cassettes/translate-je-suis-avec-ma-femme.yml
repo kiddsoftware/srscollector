@@ -1,0 +1,52 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://www.googleapis.com/language/translate/v2?key=<GOOGLE_API_KEY>&prettyPrint=false&target=en
+    body:
+      encoding: UTF-8
+      string: q=Aujourd%27hui%2C+je+suis+avec+ma+femme.
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+      X-Http-Method-Override:
+      - GET
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - Fri, 01 Jan 1990 00:00:00 GMT
+      Date:
+      - Sun, 24 Nov 2013 01:09:08 GMT
+      Etag:
+      - '"Viy__W59LjqerLGB-z0vClrb1lM/3liZ4hAbU3UBcYg6VHLTCIeRlBE"'
+      Content-Type:
+      - application/json; charset=UTF-8
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      Server:
+      - GSE
+      Alternate-Protocol:
+      - 443:quic
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"data":{"translations":[{"translatedText":"Today I&#39;m with my wife.","detectedSourceLanguage":"fr"}]}}'
+    http_version: 
+  recorded_at: Sun, 24 Nov 2013 01:09:08 GMT
+recorded_with: VCR 2.7.0

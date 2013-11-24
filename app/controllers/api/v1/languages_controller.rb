@@ -19,7 +19,10 @@ class API::V1::LanguagesController < ApplicationController
     User.where(id: current_user.id)
       .update_all(["characters_translated = characters_translated + ?",
                    text.length])
-    json = { translation: translation }
+    # This always comes back with random HTML entities for no good reason.
+    # Clean it up.
+    coder = HTMLEntities.new
+    json = { translation: coder.decode(translation) }
     render json: json
   end
 
