@@ -16,7 +16,7 @@ $.fn.wysihtml5.defaultOptions["toolbar"] =
   formatting: (locale, options) ->
     "<li><div class='btn-group'><a class='btn btn-default' data-wysihtml5-command='removeFormat' title='Plain text' tabindex='-1' href='javascript:;'>P</i></a><a class='btn btn-default' data-wysihtml5-command='unlink' title='Remove links' tabindex='-1' href='javascript:;'><i class='glyphicon glyphicon-minus-sign'></i></a></div></li>"
   lookup: (locale, options) ->
-    "<li><a class='btn btn-default lookup' title='Look up the selected text' tabindex='-1' href='javascript:;'>Lookup</a></li>"
+    "<li><div class='btn-group'><a class='btn btn-default translate' title='Translate the text' tabindex='-1' href='javascript:;'>Translate</a><a class='btn btn-default lookup' title='Look up the selected text' tabindex='-1' href='javascript:;'>Lookup</a></div></li>"
 $.fn.wysihtml5.defaultOptions["parserRules"] =
   tags:
     p: 1
@@ -134,10 +134,12 @@ SrsCollector.RichEditorComponent = Ember.Component.extend
     @editor = @$('.wysihtml5').data("wysihtml5").editor
     @editor.on("change", @onEditorChange.bind(this))
     @editor.on("paste", @onPaste.bind(this))
+    @$(".btn.translate").on("click", @onTranslate.bind(this))
     @$(".btn.lookup").on("click", @onLookup.bind(this))
 
   willDestroyElement: ->
     @$(".btn.lookup").off("click")
+    @$(".btn.translate").off("click")
     #@editor.off("change")
     #@editor.off("paste")
     @editor = null
@@ -177,6 +179,24 @@ SrsCollector.RichEditorComponent = Ember.Component.extend
     unless @get("imagesAllowed")
       $(@editor.composer.doc).find("img").remove()
 
+  onTranslate: ->
+    text = @editor.composer.selection.getText()
+    if text? && !text.match(/^\s*$/)
+      haveSelection = true
+    else
+      text = $(@editor.composer.doc).find("body").text()
+      haveSelection = false
+    console.log("Translate:", text)
+
+    if text? && !text.match(/^\s*$/)
+      @editor.composer.commands.exec("bold") if haveSelection
+      # Fire a change event manually so boldface gets written to our model.
+      @editor.fire("change")
+      # Delay our call to sendAction so the boldface text has a chance to
+      # stick before anyone calls getValue/setValue on our editor.
+      Ember.run.next this, ->
+        @sendAction("translate", [text, haveSelection])
+
   onLookup: ->
     text = @editor.composer.selection.getText()
     console.log("Lookup:", text)
@@ -184,4 +204,7 @@ SrsCollector.RichEditorComponent = Ember.Component.extend
       @editor.composer.commands.exec("bold")
       # Fire a change event manually so boldface gets written to our model.
       @editor.fire("change")
-      @sendAction("lookup", text)
+      # Delay our call to sendAction so the boldface text has a chance to
+      # stick before anyone calls getValue/setValue on our editor.
+      Ember.run.next this, ->
+        @sendAction("lookup", text)

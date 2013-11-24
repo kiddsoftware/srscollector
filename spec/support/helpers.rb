@@ -41,13 +41,20 @@ module FeatureSpecHelpers
     end
   end
 
-  def sign_up
+  def sign_up(options={})
+    supporter = options[:supporter] || false
     first(:link, "Sign Up").click
     find("input[placeholder='Email']").set("user@example.com")
     find("input[placeholder='Password']").set("password")
     find("input[placeholder='Password confirmation']").set("password")
     click_button "Sign Up"    
     page.should have_text("Your account has been created")
+    if supporter
+      user = User.where(email: "user@example.com").first!
+      user.supporter = true
+      user.save!
+      visit "/"
+    end
   end
 
   def sign_in(email, password)

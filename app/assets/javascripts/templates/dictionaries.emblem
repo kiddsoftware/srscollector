@@ -8,15 +8,36 @@
 if url
   iframe.dictionary-viewer src=url
 else
-  h2 How to use this site
-  ol
-    li Paste a snippet of foreign language text on the front of the card.
-    li Highlight an unknown word and click <b>Lookup</b>.
-    li Copy definitions from the dictionary to the back of the card.
-    li Export your cards to Anki.
-  h3 Got a whole lot of snippets?
-  p
-    ' If you've gathered a whole lot of interesting snippets, either in
-    ' a text file or using an ebook reader like
-    ' <a href="https://play.google.com/store/apps/details?id=com.flyersoft.moonreaderp">Moon+ Reader Pro</a>,
-    ' you can import them with <b>Bulk Import</b>.
+  if supporterInfoShown
+    h2 Sorry, that feature costs us money!
+
+    p
+      ' Some features cost us money, including machine translation 
+      ' and images on cards.  We make these features available as a
+      ' "Thank You!" to people who support SRS Collector.
+    p
+      ' So how can you support SRS Collector?  We always need testers
+      ' who send us detailed feedback, and people who can help us add
+      ' support for new languages.  You can also submit patches to
+      ' the open source project.  And someday, we'll set up paid 
+      ' accounts to help us pay for a faster database and other hosting
+      ' costs.
+    p
+      ' If you want to get access to the paid features without contributing
+      ' to the project, you can also download the source code to SRS
+      ' Collector and sign up for the necessary backend services using
+      ' your own credit card.
+
+  else
+    h2 How to use this site
+    ol
+      li Paste a snippet of foreign language text on the front of the card.
+      li Highlight an unknown word and click <b>Lookup</b>.
+      li Copy definitions from the dictionary to the back of the card.
+      li Export your cards to Anki.
+    h3 Got a whole lot of snippets?
+    p
+      ' If you've gathered a whole lot of interesting snippets, either in
+      ' a text file or using an ebook reader like
+      ' <a href="https://play.google.com/store/apps/details?id=com.flyersoft.moonreaderp">Moon+ Reader Pro</a>,
+      ' you can import them with <b>Bulk Import</b>.

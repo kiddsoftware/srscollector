@@ -1,4 +1,5 @@
 SrsCollector.DictionariesController = Ember.ArrayController.extend
+  supporterInfoShown: false
   searchFor: null
   currentDictionary: null
 
@@ -16,3 +17,11 @@ SrsCollector.DictionariesController = Ember.ArrayController.extend
     else
       @set("currentDictionary", null)
   ).observes("content", "content.length")
+
+  searchForChanged: (->
+    @set("supporterInfoShown", false)
+  ).observes("searchFor")
+
+  actions:
+    showSupporterInfo: ->
+      @set("supporterInfoShown", true)

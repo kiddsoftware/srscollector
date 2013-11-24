@@ -8,6 +8,9 @@ SrsCollector.CardController = Ember.ObjectController.extend SrsCollector.AsyncMi
   # Is the user allowed to have images on cards?
   imagesAllowed: Ember.computed.alias('auth.isSupporter')
 
+  # Is the user allowed to translate text?
+  translateAllowed: Ember.computed.alias('auth.isSupporter')
+
   # Refresh ourselves when a user logs in or out.
   userChanged: (-> @refresh()).observes("auth.user")
 
@@ -35,12 +38,12 @@ SrsCollector.CardController = Ember.ObjectController.extend SrsCollector.AsyncMi
     else
       new Ember.RSVP.Promise (resolve, reject) => resolve()
 
-  insertDefinitionPlaceholder: (phrase) ->
+  addTextToCardBack: (txt) ->
     back = @get("back") ? ""
     unless back == ""
       back += "<br><br>"
-    html = $('<div>').text(phrase).html()
-    @set("back", back + html + " =&nbsp;")
+    html = $('<div>').text(txt).html().replace(/\ $/, '&nbsp;')
+    @set("back", back + html)
 
   loadFirst: (store, auth) ->
     @async "Couldn't load first card.", =>
@@ -57,14 +60,31 @@ SrsCollector.CardController = Ember.ObjectController.extend SrsCollector.AsyncMi
           @refresh()
 
   actions:
+    # Called when our rich text editors send a "translate" event.
+    # We have a stupid parameter-passing convention because sendAction
+    # only supports one argument.
+    translate: (args) ->
+      [text, isSelection] = args
+      if @get("translateAllowed")
+        @async "Couldn't translate text.", =>
+          jqxhr = $.ajax
+            type: "POST"
+            url: "/api/v1/languages/translate.json"
+            data: JSON.stringify({ text: text })
+            contentType: "application/json; charset=utf-8"
+          jqxhr.then (json) =>
+            translation = json['translation']
+            if isSelection
+              @addTextToCardBack("#{text} = #{translation}")
+            else
+              @addTextToCardBack(translation)
+      else
+        @get("controllers.dictionaries").send("showSupporterInfo")
+
     # Called when our rich text editors send a "lookup" event.
     lookup: (searchFor) ->
-      # Delay our call to insertDefinitionPlaceholder so the boldface text
-      # from our lookup has a chance to stick before we call
-      # getValue/setValue on our editor.
-      Ember.run.next this, ->
-        @insertDefinitionPlaceholder(searchFor)
-        @set("searchFor", searchFor)
+      @addTextToCardBack("#{searchFor} = ")
+      @set("searchFor", searchFor)
 
     # Called when the user clicks "Next".
     nextCard: ->
