@@ -1,23 +1,6 @@
 # -*- mode: coffee -*-
 
-# Replace style names with single letters for size.
-$.fn.wysihtml5.locale.en.emphasis.bold = "B"
-$.fn.wysihtml5.locale.en.emphasis.italic = "I"
-$.fn.wysihtml5.locale.en.emphasis.underline = "U"
-
-# Configure toolbar.
-$.fn.wysihtml5.defaultOptions["font-styles"] = false
-$.fn.wysihtml5.defaultOptions["lists"] = false
-# Might implement as a for-pay feature some day.  Needs database support.
-$.fn.wysihtml5.defaultOptions["image"] = false
-# We want this, but it requires us to add stylesheets to the Anki cards.
-$.fn.wysihtml5.defaultOptions["color"] = false
-$.fn.wysihtml5.defaultOptions["toolbar"] =
-  formatting: (locale, options) ->
-    "<li><div class='btn-group'><a class='btn btn-default' data-wysihtml5-command='removeFormat' title='Plain text' tabindex='-1' href='javascript:;'>P</i></a><a class='btn btn-default' data-wysihtml5-command='unlink' title='Remove links' tabindex='-1' href='javascript:;'><i class='glyphicon glyphicon-minus-sign'></i></a></div></li>"
-  lookup: (locale, options) ->
-    "<li><div class='btn-group'><a class='btn btn-default translate' title='Translate the text' tabindex='-1' href='javascript:;'>Translate</a><a class='btn btn-default lookup' title='Look up the selected text' tabindex='-1' href='javascript:;'>Lookup</a></div></li>"
-$.fn.wysihtml5.defaultOptions["parserRules"] =
+parserRules =
   tags:
     p: 1
     br: 1
@@ -118,8 +101,7 @@ $.fn.wysihtml5.defaultOptions["parserRules"] =
     xml:
       remove: 1
 
-$.fn.wysihtml5.defaultOptions["stylesheets"] =
-  [<%= asset_path('wysihtml5.css').to_json %>]
+stylesheets = [<%= asset_path('wysihtml5.css').to_json %>]
 
 SrsCollector.RichEditorComponent = Ember.Component.extend
   classNames: ['rich-editor']
@@ -128,10 +110,16 @@ SrsCollector.RichEditorComponent = Ember.Component.extend
   imagesAllowed: false
 
   didInsertElement: ->
+    textarea = @$(".wysihtml5")
     # We call 'val' here because sometimes the underlying textarea value
     # gets lost when moving between routes.  This seems to fix it.
-    @$(".wysihtml5").val(@get("value")).wysihtml5()
-    @editor = @$('.wysihtml5').data("wysihtml5").editor
+    textarea.val(@get("value"))
+    @editor = new wysihtml5.Editor textarea[0],
+      toolbar: @$(".btn-toolbar")[0]
+      parserRules: parserRules
+      stylesheets: stylesheets
+    # Save our editor so our test suites can get at it.
+    textarea.data("wysihtml5", @editor)
     @editor.on("change", @onEditorChange.bind(this))
     @editor.on("paste", @onPaste.bind(this))
     @$(".btn.translate").on("click", @onTranslate.bind(this))

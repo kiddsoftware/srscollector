@@ -25,8 +25,16 @@ module SrsCollector
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-    # Compile these separately.
-    config.assets.precompile += ['wysihtml5.css']
+    # Load front-end JavaScript managed by Bower package manager.  This only
+    # works because Sprockets knows a little bit about Bower.
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
+
+    # Explicitly list everything we want in the assets directory, so we don't
+    # pick up junk in vendor/assets/components from Bower.
+    # See also: https://coderwall.com/p/6bmygq
+    config.assets.precompile =
+      ['application.js', 'application.css', 'wysihtml5.css',
+       /active_admin\/.*\.(png|gif|jpg|jpeg|svg|eot|otf|svc|woff|ttf)$/]
 
     config.generators do |g|
       g.helper false

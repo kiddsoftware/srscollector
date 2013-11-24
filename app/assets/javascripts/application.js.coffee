@@ -10,17 +10,15 @@
 # Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 # about supported directives.
 #
+#= require_tree ./vendor
 #= require jquery
 #= require jquery.form
 #= require jquery_ujs
-#= require turbolinks
-#= require_tree ./vendor
-#= require twitter/bootstrap
-#= require bootstrap-wysihtml5/b3
-#= require bootstrap-wysihtml5/locales
 #= require handlebars
 #= require ember
 #= require ember-data
+#= require bootstrap
+#= require wysihtml5/dist/wysihtml5-0.3.0.js
 
 #= require ./srs_collector
 #= require ./store

@@ -69,8 +69,7 @@ module FeatureSpecHelpers
     with = options[:with]
     page.execute_script(<<"EOD")
 (function () {
-  var wysihtml5 = $(#{field.to_json}).data("wysihtml5");
-  var editor = wysihtml5.editor;
+  var editor = $(#{field.to_json}).data("wysihtml5");
   editor.setValue(#{with.to_json});
   editor.fire("change");
 })();
@@ -83,8 +82,7 @@ EOD
     loop do
       actual = page.evaluate_script(<<"EOD")
 (function () {
-  var wysihtml5 = $(#{field.to_json}).data("wysihtml5");
-  var editor = wysihtml5.editor;
+  var editor = $(#{field.to_json}).data("wysihtml5");
   return editor.getValue();
 })();
 EOD
@@ -98,8 +96,7 @@ EOD
   def select_all(field)
     page.execute_script(<<"EOD")
 (function () {
-  var wysihtml5 = $(#{field.to_json}).data("wysihtml5");
-  var editor = wysihtml5.editor;
+  var editor = $(#{field.to_json}).data("wysihtml5");
   var selection = editor.composer.selection;
   selection.selectNode(selection.doc.documentElement);
 })();

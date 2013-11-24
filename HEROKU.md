@@ -40,6 +40,10 @@ You will also need to generate a long, random key using `SecureRandom.hex(64)`:
 
     SECRET_KEY=
 
+You will need to configure Heroku to use multiple buildpacks:
+
+    BUILDPACK_URL=https://github.com/ddollar/heroku-buildpack-multi.git
+
 The following parameters should provide reasonable performance on a single
 dyno with the dev-level database:
 

@@ -17,24 +17,14 @@ gem 'coffee-rails', '~> 4.0.0'
 # Use HAML for templates.
 gem 'haml-rails'
 
-# Use Boostrap 3 & a rich text editor that integrates nicely.
-gem 'anjlab-bootstrap-rails', '~> 3.0.2.0', :require => 'bootstrap-rails'
-gem 'bootstrap-wysihtml5-rails'
-
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
-
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
-gem 'jquery-form-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
 # Ember.js for client-side JavaScript.  Emblem gives us beautiful templates.
 gem 'ember-rails'
-gem 'ember-source', '1.0.0'
-gem 'ember-data-source', '1.0.0.beta.3'
 gem 'emblem-rails'
 
 # Used to remove suspicious junk from HTML on cards.

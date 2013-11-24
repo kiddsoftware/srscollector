@@ -1,1 +1,28 @@
+.btn-toolbar style="display: none;"
+  .btn-group.btn-group-xs
+    a.btn.btn-default.lookup title="Look up the selected text" tabindex="-1" href="javascript:;" Lookup
+    a.btn.btn-default.translate title="Translate the text" tabindex="-1" href="javascript:;" Translate
+
+  .btn-group.btn-group-xs
+    a.btn.btn-default data-wysihtml5-command="bold" title="Ctrl-B" tabindex="-1" href="javascript:;" B
+    a.btn.btn-default data-wysihtml5-command="italic" title="Ctrl-I" tabindex="-1" href="javascript:;" I
+    a.btn.btn-default data-wysihtml5-command="underline" title="Ctrl-U" tabindex="-1" href="javascript:;" U
+    a.btn.btn-default data-wysihtml5-command="removeFormat" title="Plain text" tabindex="-1" href="javascript:;" P
+
+  .btn-group.btn-group-xs style="display: none;"
+    a.btn.btn-default data-wysihtml5-command="createLink" title="Insert link" tabindex="-1" href="javascript:;"
+      i.glyphicon.glyphicon-share
+    a.btn.btn-default data-wysihtml5-command="unlink" title="Remove links" tabindex="-1" href="javascript:;"
+      i.glyphicon.glyphicon-minus-sign
+
 textarea.wysihtml5 id=ctrlId placeholder=placeholder value=value
+
+.insert-link-modal.modal.hide.fade
+  .modal-header
+    a.close data-dismiss="modal" ×
+    h3 Insert Link
+  .modal-body
+    input.insert-link-url value="http://"
+  .modal-footer
+    a.btn.btn-default href="javascript:;" data-dismiss="modal" Cancel
+    a.btn.btn-primary href="javascript:;" data-dismiss="modal" Insert Link

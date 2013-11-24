@@ -1,0 +1,13 @@
+{
+  "name": "srscollector",
+  "dependencies": {
+    "jquery": "1.10.2",
+    "jquery-form": "3.46.0",
+    "jquery-ujs": "7eaaf28eef30d5fd0c4eddb4b90160a422004831",
+    "handlebars": "1.0.0",
+    "ember": "1.0.0",
+    "ember-data": "1.0.0-beta.3",
+    "bootstrap": "3.0.2",
+    "wysihtml5": "0.3.0"
+  }
+}

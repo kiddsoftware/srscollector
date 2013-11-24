@@ -46,9 +46,6 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     addressable (2.3.5)
-    anjlab-bootstrap-rails (3.0.2.0)
-      railties (>= 3.0)
-      sass (>= 3.2)
     arbre (1.0.1)
       activesupport (>= 3.0.0)
     arel (4.0.0)
@@ -65,8 +62,6 @@ GEM
       barber (>= 0.4.1)
       emblem-source
     bcrypt-ruby (3.0.1)
-    bootstrap-wysihtml5-rails (0.3.1.23)
-      railties (>= 3.0)
     bourbon (3.1.8)
       sass (>= 3.2.0)
       thor
@@ -170,8 +165,6 @@ GEM
     inherited_resources (1.4.1)
       has_scope (~> 0.6.0.rc)
       responders (~> 1.0.0.rc)
-    jquery-form-rails (1.0.1)
-      jquery-rails
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
@@ -326,19 +319,15 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin!
-  anjlab-bootstrap-rails (~> 3.0.2.0)
   aws-sdk
   bcrypt-ruby (~> 3.0.0)
-  bootstrap-wysihtml5-rails
   cancan
   capybara-screenshot
   cld
   coffee-rails (~> 4.0.0)
   dotenv-rails
   easy_translate
-  ember-data-source (= 1.0.0.beta.3)
   ember-rails
-  ember-source (= 1.0.0)
   emblem-rails
   ensure-encoding
   factory_girl_rails
@@ -348,8 +337,6 @@ DEPENDENCIES
   haml-rails
   htmlentities
   http_accept_language
-  jquery-form-rails
-  jquery-rails
   launchy
   newrelic_rpm
   paperclip
