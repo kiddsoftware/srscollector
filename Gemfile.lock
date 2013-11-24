@@ -170,9 +170,6 @@ GEM
     inherited_resources (1.4.1)
       has_scope (~> 0.6.0.rc)
       responders (~> 1.0.0.rc)
-    jbuilder (1.5.2)
-      activesupport (>= 3.0.0)
-      multi_json (>= 1.2.0)
     jquery-form-rails (1.0.1)
       jquery-rails
     jquery-rails (3.0.4)
@@ -351,7 +348,6 @@ DEPENDENCIES
   haml-rails
   htmlentities
   http_accept_language
-  jbuilder (~> 1.2)
   jquery-form-rails
   jquery-rails
   launchy
