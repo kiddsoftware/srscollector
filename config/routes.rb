@@ -18,8 +18,11 @@ SrsCollector::Application.routes.draw do
       end
       resources :card_models
       resources :dictionaries
-      post "languages/detect"
-      post "languages/translate"
+      resources :languages do
+        collection do
+          post :translate
+        end
+      end
     end
   end
 

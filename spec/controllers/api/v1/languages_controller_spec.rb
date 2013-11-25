@@ -2,19 +2,33 @@
 require 'spec_helper'
 
 describe API::V1::LanguagesController do
-  describe "POST 'detect'" do
-    it "returns the users preferred languages" do
-      # Of course, we don't have any preferred languages when testing.
-      xhr :post, 'detect', format: 'json'
-      response.should be_success
-      json['preferred'].should == []
-    end
+  describe "GET 'index'" do
+    let!(:fr) { FactoryGirl.create(:language, iso_639_1: 'fr') }
 
-    it "returns the language for a text snippet" do
-      xhr :post, 'detect', format: 'json', text: "Je suis développeur"
-      response.should be_success
-      json['text'].should == 'fr'
-      json['preferred'].should == []
+    # See https://github.com/iain/http_accept_language to implement.
+    # Available: Language.select("iso_639_1").map(&:iso_639_1)
+    #describe "with type=preferred" do
+    #  it "returns the user's preferred languages" do
+    #    # Of course, we don't have any preferred languages when testing.
+    #    xhr :get, 'index', format: 'json', type: 'preferred'
+    #    response.should be_success
+    #    json['languages'].should == []
+    #  end
+    #end
+
+    describe "with for_text=..." do
+      it "returns the language for a text snippet" do
+        xhr :get, 'index', format: 'json', for_text: "Je suis développeur"
+        response.should be_success
+        json['languages'].length.should == 1
+        json['languages'][0]['id'].should == fr.id
+      end
+
+      it "returns no matches if the language is unsupported" do
+        xhr :get, 'index', format: 'json', for_text: "sdhakxxzzzxlfasdkjhgwwq"
+        response.should be_success
+        json['languages'].length.should == 0
+      end
     end
   end
 
