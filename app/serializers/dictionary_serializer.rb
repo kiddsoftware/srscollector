@@ -1,3 +1,9 @@
 class DictionarySerializer < ActiveModel::Serializer
-  attributes :id, :name, :from_lang, :to_lang, :url_pattern, :score
+  embed :ids, include: true
+
+  attributes :id, :name, :url_pattern, :score
+
+  # Sideload our language models.
+  has_one :from_language, root: :languages
+  has_one :to_language, root: :languages
 end

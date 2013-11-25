@@ -2,16 +2,17 @@
 require "spec_helper"
 
 feature "Add definitions to a snippet", :js => true do
+  let(:fr) { FactoryGirl.create(:language, iso_639_1: "fr") }
   let!(:dict1) do
-    FactoryGirl.create(:dictionary, name: "Dict1", from_lang: "fr",
-                       to_lang: "fr", url_pattern: "http://example.com/d1/%s",
-                       score: 1.0)
+    FactoryGirl.create(:dictionary, name: "Dict1", from_language: fr,
+                       to_language: fr,
+                       url_pattern: "http://example.com/d1/%s", score: 1.0)
   end
 
   let!(:dict2) do
-    FactoryGirl.create(:dictionary, name: "Dict2", from_lang: "fr",
-                       to_lang: "en", url_pattern: "http://example.com/d2/%s",
-                       score: 0.5)
+    FactoryGirl.create(:dictionary, name: "Dict2", from_language: fr,
+                       to_language: fr,
+                       url_pattern: "http://example.com/d2/%s", score: 0.5)
   end
 
   before { default_card_model_for_spec; visit "/"; sign_up }

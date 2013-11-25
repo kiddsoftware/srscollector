@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131125163001) do
+ActiveRecord::Schema.define(version: 20131125171241) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -78,14 +78,17 @@ ActiveRecord::Schema.define(version: 20131125163001) do
   add_index "cards", ["user_id", "state", "created_at", "id"], name: "index_cards_on_user_id_and_state_and_created_at_and_id"
 
   create_table "dictionaries", force: true do |t|
-    t.string   "name",                      null: false
-    t.string   "from_lang",                 null: false
-    t.string   "to_lang",                   null: false
-    t.string   "url_pattern",               null: false
+    t.string   "name",                           null: false
+    t.string   "url_pattern",                    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.float    "score",       default: 0.0, null: false
+    t.float    "score",            default: 0.0, null: false
+    t.integer  "to_language_id"
+    t.integer  "from_language_id"
   end
+
+  add_index "dictionaries", ["from_language_id"], name: "index_dictionaries_on_from_language_id"
+  add_index "dictionaries", ["to_language_id"], name: "index_dictionaries_on_to_language_id"
 
   create_table "languages", force: true do |t|
     t.string   "iso_639_1",       null: false

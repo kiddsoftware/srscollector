@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
@@ -6,33 +7,58 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+[{
+  iso_639_1: "en",
+  name: "English",
+  anki_text_deck: "Reading",
+  anki_sound_deck: "Listening"
+}, {
+  iso_639_1: "fr",
+  name: "Français",
+  anki_text_deck: "Écrit",
+  anki_sound_deck: "Oral"
+}, {
+  iso_639_1: "es",
+  name: "Español",
+  anki_text_deck: "Texto",
+  anki_sound_deck: "Audio"
+}].each do |l|
+  lang = Language.where(iso_639_1: l[:iso_639_1]).first_or_initialize
+  lang.update_attributes(l)
+  lang.save!
+end
+
+en = Language.where(iso_639_1: 'en').first!
+fr = Language.where(iso_639_1: 'fr').first!
+es = Language.where(iso_639_1: 'es').first!
+
 dictionaries = [{
   name: "Wiktionnaire",
-  from_lang: 'fr',
-  to_lang: 'fr',
+  from_language: fr,
+  to_language: fr,
   url_pattern: 'http://fr.wiktionary.org/wiki/%s',
   score: 1.0
 }, {
   name: "Linguee",
-  from_lang: 'fr',
-  to_lang: 'en',
+  from_language: fr,
+  to_language: en,
   url_pattern: "http://www.linguee.fr/francais-anglais/search?source=auto&query=%s",
   score: 0.91
 }, {
   name: "WordReference",
-  from_lang: 'fr',
-  to_lang: 'en',
+  from_language: fr,
+  to_language: en,
   url_pattern: 'http://www.wordreference.com/fren/%s',
   score: 0.90
 }, {
   name: "Bing Image Search",
-  from_lang: 'fr',
-  to_lang: '*',
+  from_language: fr,
+  to_language: nil,
   url_pattern: 'http://www.bing.com/images/search?q=%s+language%3Afr',
   score: 0.80
 
 # DO NOT WORK:
-#  Google Translate: X-SAME-ORIGIN (but a paid API is available)
+#  Google Translate: X-SAME-ORIGIN (but we support the paid API directly)
 #  Google Images: X-SAME-ORIGIN (tried custom search engines, looks tricky)
 }]
 
