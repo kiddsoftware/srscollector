@@ -1,6 +1,8 @@
 .btn-toolbar style="display: none;"
   .btn-group.btn-group-xs
     a.btn.btn-default.lookup title="Look up the selected text" tabindex="-1" href="javascript:;" Lookup
+
+  .btn-group.btn-group-xs
     a.btn.btn-default.translate title="Translate the text" tabindex="-1" href="javascript:;" Translate
 
   .btn-group.btn-group-xs
