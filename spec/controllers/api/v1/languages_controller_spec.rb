@@ -29,6 +29,12 @@ describe API::V1::LanguagesController do
         response.should be_success
         json['languages'].length.should == 0
       end
+
+      it "returns no matches if the string is blank" do
+        xhr :get, 'index', format: 'json', for_text: "      "
+        response.should be_success
+        json['languages'].length.should == 0
+      end
     end
   end
 
