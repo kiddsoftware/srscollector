@@ -84,7 +84,7 @@ group :development do
   gem 'guard-rspec', require: false
   # For cleaning up Guard error messages:
   # http://stackoverflow.com/questions/19496932
-  gem "rb-readline", "~> 0.5.0"
+  gem "rb-readline", "~> 0.4.2"
 end
 
 group :development, :test do
