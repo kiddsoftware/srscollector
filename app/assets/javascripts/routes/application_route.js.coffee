@@ -1,6 +1,11 @@
 SrsCollector.ApplicationRoute = Ember.Route.extend
   setupController: (controller) ->
     @controllerFor("dictionaries").set("model", @store.find('dictionary'))
+    @store.find('language')
+      .then (languages) => @controllerFor("card").set("languages", languages)
+      .fail (reason) =>
+        message = "Could not load languages"
+        @get("flash").displayError(message, reason)
     @controllerFor("card").loadFirst(@store, @auth)
     @controllerFor("stats").refresh()
 

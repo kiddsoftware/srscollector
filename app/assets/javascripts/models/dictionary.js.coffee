@@ -2,7 +2,7 @@
 
 SrsCollector.Dictionary = DS.Model.extend
   name: DS.attr 'string'
-  fromLanguage: DS.belongsTo('Language')
-  toLanguage: DS.belongsTo('Language')
+  fromLanguage: DS.belongsTo('language')
+  toLanguage: DS.belongsTo('language')
   urlPattern: DS.attr 'string'
   score: DS.attr 'number'

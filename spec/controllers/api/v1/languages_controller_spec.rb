@@ -16,6 +16,12 @@ describe API::V1::LanguagesController do
     #  end
     #end
 
+    it "returns a list of known languages" do
+      xhr :get, 'index', format: 'json'
+      response.should be_success
+      json['languages'].length.should == 1
+    end
+
     describe "with for_text=..." do
       it "returns the language for a text snippet" do
         xhr :get, 'index', format: 'json', for_text: "Je suis développeur"

@@ -2,6 +2,7 @@
 
 SrsCollector.Card = DS.Model.extend
   state: DS.attr('string', defaultValue: 'new')
+  language: DS.belongsTo('language')
   front: DS.attr('string')
   back: DS.attr('string')
   source: DS.attr('string')

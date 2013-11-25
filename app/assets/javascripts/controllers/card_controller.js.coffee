@@ -1,6 +1,9 @@
 SrsCollector.CardController = Ember.ObjectController.extend SrsCollector.AsyncMixin,
   needs: ['stats', 'dictionaries']
 
+  # A list of languages that can be used on a card.  Set up by our route.
+  languages: []
+
   # Link this local field to the correponding field in our dictionaries
   # controller.
   searchFor: Ember.computed.alias('controllers.dictionaries.searchFor')
@@ -37,6 +40,18 @@ SrsCollector.CardController = Ember.ObjectController.extend SrsCollector.AsyncMi
         return
     else
       new Ember.RSVP.Promise (resolve, reject) => resolve()
+
+  frontChanged: (->
+    return if @get("language")
+    front = @get("front")
+    if front? && !front.match(/^\s*$/)
+      @store.find('language', for_text: front)
+        .then (languages) =>
+          if languages.get("length") > 0
+            @set("language", languages.objectAt(0))
+        .fail (reason) =>
+          console.log("Can't detect language:", front, reason)
+  ).observes("front")
 
   addTextToCardBack: (txt) ->
     back = @get("back") ? ""

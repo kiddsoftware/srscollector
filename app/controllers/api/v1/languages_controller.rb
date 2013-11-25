@@ -9,7 +9,7 @@ class API::V1::LanguagesController < ApplicationController
       languages = Language.where(iso_639_1: detected[:code])
       respond_with :api, :v1, languages
     else
-      head :not_found
+      respond_with :api, :v1, Language.all
     end
   end
 
