@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131123210442) do
+ActiveRecord::Schema.define(version: 20131125163001) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -70,9 +70,11 @@ ActiveRecord::Schema.define(version: 20131123210442) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "card_model_id"
+    t.integer  "language_id"
   end
 
   add_index "cards", ["card_model_id"], name: "index_cards_on_card_model_id"
+  add_index "cards", ["language_id"], name: "index_cards_on_language_id"
   add_index "cards", ["user_id", "state", "created_at", "id"], name: "index_cards_on_user_id_and_state_and_created_at_and_id"
 
   create_table "dictionaries", force: true do |t|
@@ -84,6 +86,18 @@ ActiveRecord::Schema.define(version: 20131123210442) do
     t.datetime "updated_at"
     t.float    "score",       default: 0.0, null: false
   end
+
+  create_table "languages", force: true do |t|
+    t.string   "iso_639_1",       null: false
+    t.string   "name",            null: false
+    t.string   "anki_text_deck",  null: false
+    t.string   "anki_sound_deck", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "languages", ["iso_639_1"], name: "index_languages_on_iso_639_1", unique: true
+  add_index "languages", ["name"], name: "index_languages_on_name", unique: true
 
   create_table "media_files", force: true do |t|
     t.integer  "card_id",           null: false

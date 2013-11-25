@@ -14,6 +14,9 @@ describe Card do
   # Not to worry; it's tested by lots of other code.
   #it { should validate_presence_of(:card_model) }
 
+  it { should belong_to(:language) }
+  it { should_not validate_presence_of(:language) }
+
   it { should have_many(:media_files) }
 
   it { should validate_presence_of(:front) }

@@ -6,6 +6,7 @@ class Card < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :card_model
+  belongs_to :language
 
   # See the inverse relationship for an explanation of `inverse_of` here.
   has_many :media_files, inverse_of: :card
