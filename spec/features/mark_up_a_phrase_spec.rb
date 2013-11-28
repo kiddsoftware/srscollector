@@ -38,5 +38,6 @@ feature "Add definitions to a snippet", :js => true do
     click_button "Mark All Cards as Exported"
     page.should_not have_content("Ready for export")
     wait_for_jquery
+    Card.where(front: "<b>suis</b>").first!.language.should == fr
   end
 end

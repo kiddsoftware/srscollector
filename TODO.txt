@@ -1,14 +1,18 @@
 Short term
 
-  Frustrations
-    Stupid Heroku database performance issues--make sure these are gone
+  Multi-language
+    Export to correct deck for each language
+    Assign languages automatically on import
 
   Correctness
     Control-Z shouldn't revert to text of previous card!
 
   Rename "Set Aside"
-  Make "plain text" actually do something useful
-  Import Kindle format clippings
+
+Keep an eye on
+
+  Frustrations
+    Stupid Heroku database performance issues--make sure these are gone
 
   Fixed?
     Password entry failure in extension does not allow editing password
@@ -18,7 +22,7 @@ Medium term
   Enforce unique card fronts
 
   Redo HTML button bar
-  Cloze deletion
+  Better cloze deletion
 
   Make login success/failure UI nicer in Chrome extension
   Forgot my password

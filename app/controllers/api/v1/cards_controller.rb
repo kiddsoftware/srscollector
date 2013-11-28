@@ -91,6 +91,7 @@ class API::V1::CardsController < ApplicationController
 
   # Specify legal parameters using the new Rails 4 "Strong Parameters."
   def card_params
-    params.required(:card).permit(:state, :front, :back, :source, :source_url)
+    params.required(:card).permit(:state, :front, :back, :source, :source_url,
+                                  :language_id)
   end
 end
