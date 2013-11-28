@@ -1,7 +1,20 @@
 SrsCollector.DictionariesController = Ember.ArrayController.extend
+  needs: ['card']
+
   supporterInfoShown: false
   searchFor: null
+  language: null
   currentDictionary: null
+
+  # Find only those dictionaries which are useful for the current language.
+  filtered: (->
+    content = @get("content")
+    language = @get("language")
+    console.log("filtered", content, language)
+    return [] unless content? && language?
+    content.filter (d) ->
+      d.get("fromLanguage") == language
+  ).property("content", "language")
 
   url: (->
     searchFor = @get("searchFor")
@@ -10,13 +23,13 @@ SrsCollector.DictionariesController = Ember.ArrayController.extend
     urlPattern.replace("%s", encodeURIComponent(searchFor))
   ).property("searchFor", "currentDictionary.urlPattern")
 
-  contentChanged: (->
-    content = @get("content")
-    if content.get("length") > 0
-      @set("currentDictionary", content.objectAt(0))
+  filteredChanged: (->
+    filtered = @get("filtered")
+    if filtered.get("length") > 0
+      @set("currentDictionary", filtered.objectAt(0))
     else
       @set("currentDictionary", null)
-  ).observes("content", "content.length")
+  ).observes("filtered", "filtered.@each")
 
   searchForChanged: (->
     @set("supporterInfoShown", false)

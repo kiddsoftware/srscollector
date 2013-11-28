@@ -2,7 +2,7 @@
 require "spec_helper"
 
 feature "Add definitions to a snippet", :js => true do
-  let(:fr) { FactoryGirl.create(:language, iso_639_1: "fr") }
+  let(:fr) { FactoryGirl.create(:language, iso_639_1: "fr", name: "Français") }
   let!(:dict1) do
     FactoryGirl.create(:dictionary, name: "Dict1", from_language: fr,
                        to_language: fr,
@@ -18,6 +18,7 @@ feature "Add definitions to a snippet", :js => true do
   before { default_card_model_for_spec; visit "/"; sign_up }
 
   scenario "User pastes a phrase, looks up a word, exports" do
+    select "Français"
     fill_in_html "#front", with: "suis"
     select_all "#front"
     first(".rich-editor").click_link("Lookup")

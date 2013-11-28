@@ -4,7 +4,7 @@ SrsCollector.CardController = Ember.ObjectController.extend SrsCollector.AsyncMi
   # A list of languages that can be used on a card.  Set up by our route.
   languages: []
 
-  # Link this local field to the correponding field in our dictionaries
+  # Link these local fields to the correponding fields in our dictionaries
   # controller.
   searchFor: Ember.computed.alias('controllers.dictionaries.searchFor')
 
@@ -42,16 +42,28 @@ SrsCollector.CardController = Ember.ObjectController.extend SrsCollector.AsyncMi
       new Ember.RSVP.Promise (resolve, reject) => resolve()
 
   frontChanged: (->
-    return if @get("language")
+    # Set the language back to "auto" if the front is empty.
     front = @get("front")
-    if front? && !front.match(/^\s*$/)
-      @store.find('language', for_text: front)
-        .then (languages) =>
-          if languages.get("length") > 0
-            @set("language", languages.objectAt(0))
-        .fail (reason) =>
-          console.log("Can't detect language:", front, reason)
+    unless front? && !front.match(/^\s*$/)
+      @set("language", null)
+      return
+
+    # If we already have a language, leave it be.
+    language = @get("language")
+    return if language?
+
+    # Try to guess the language intelligently.
+    @store.find('language', for_text: front)
+      .then (languages) =>
+        if languages.get("length") > 0
+          @set("language", languages.objectAt(0))
+      .fail (reason) =>
+        console.log("Can't detect language:", front, reason)
   ).observes("front")
+
+  languageChanged: (->
+    @get("controllers.dictionaries")?.set("language", @get("language"))
+  ).observes("language")
 
   addTextToCardBack: (txt) ->
     back = @get("back") ? ""

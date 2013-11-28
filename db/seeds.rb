@@ -39,10 +39,28 @@ dictionaries = [{
   url_pattern: 'http://fr.wiktionary.org/wiki/%s',
   score: 1.0
 }, {
+  name: "Wiktionary",
+  from_language: en,
+  to_language: en,
+  url_pattern: 'http://en.wiktionary.org/wiki/%s',
+  score: 1.0
+}, {
+  name: "Diccionario de la lengua española",
+  from_language: es,
+  to_language: es,
+  url_pattern: 'http://lema.rae.es/drae/?val=%s',
+  score: 1.0
+}, {
   name: "Linguee",
   from_language: fr,
   to_language: en,
   url_pattern: "http://www.linguee.fr/francais-anglais/search?source=auto&query=%s",
+  score: 0.91
+}, {
+  name: "Linguee",
+  from_language: es,
+  to_language: en,
+  url_pattern: "http://www.linguee.com/english-spanish/search?source=auto&query=%s",
   score: 0.91
 }, {
   name: "WordReference",
@@ -51,10 +69,28 @@ dictionaries = [{
   url_pattern: 'http://www.wordreference.com/fren/%s',
   score: 0.90
 }, {
+  name: "WordReference",
+  from_language: es,
+  to_language: en,
+  url_pattern: 'http://www.wordreference.com/esen/%s',
+  score: 0.90
+}, {
   name: "Bing Image Search",
   from_language: fr,
   to_language: nil,
   url_pattern: 'http://www.bing.com/images/search?q=%s+language%3Afr',
+  score: 0.80
+}, {
+  name: "Bing Image Search",
+  from_language: en,
+  to_language: nil,
+  url_pattern: 'http://www.bing.com/images/search?q=%s+language%3Aen',
+  score: 0.80
+}, {
+  name: "Bing Image Search",
+  from_language: es,
+  to_language: nil,
+  url_pattern: 'http://www.bing.com/images/search?q=%s+language%3Aes',
   score: 0.80
 
 # DO NOT WORK:

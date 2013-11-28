@@ -15,5 +15,5 @@ SrsCollector.FlashController = Ember.Controller.extend
 
   # Display an error to the user.
   displayError: (message, reason) ->
-    console.log(message, reason)
+    console.log(message, reason.message ? reason)
     @set("errorMessage", message)
