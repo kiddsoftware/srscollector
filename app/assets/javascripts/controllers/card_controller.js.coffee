@@ -19,8 +19,8 @@ SrsCollector.CardController = Ember.ObjectController.extend SrsCollector.AsyncMi
 
   # Do we need to disable our "Next" button?
   saveDisabled: (->
-    @get("isBusy") || !@get("front")?
-  ).property("isBusy", "front")
+    @get("isBusy") || !@get("language")? || !@get("front")?
+  ).property("isBusy", "language", "front")
 
   # Can we discard the user's work in progress here?
   canDiscard: (->

@@ -2,12 +2,14 @@
 require 'spec_helper'
 
 describe API::V1::CardsController do
+  let!(:en) { FactoryGirl.create(:english) }
   let!(:user) do
     FactoryGirl.create(:user, password: "pw", password_confirmation: "pw",
                        supporter: true)
   end
   let!(:card1) do
-    FactoryGirl.create(:card, user: user, front: "Card 1", state: 'reviewed')
+    FactoryGirl.create(:card, user: user, front: "Card 1", state: 'reviewed',
+                       language: en)
   end
   let!(:card2) do
     FactoryGirl.create(:card, user: user, front: "Card 2", state: 'new')
@@ -59,6 +61,7 @@ describe API::V1::CardsController do
       card['front'].should == 'Card 2'
 
       card['state'] = 'reviewed'
+      card['language_id'] = en.to_param
       put 'update', format: 'json', id: card['id'], card: card
       response.should be_success
 
@@ -89,7 +92,8 @@ describe API::V1::CardsController do
         front: "front",
         back: "<img src=#{image_url.to_json}>",
         source: "e",
-        source_url: "http://www.example.com/"
+        source_url: "http://www.example.com/",
+        language_id: en.to_param
       }
       card = FactoryGirl.create(:card, attrs)
       card.save!
@@ -108,7 +112,7 @@ describe API::V1::CardsController do
         "<img src=#{card.media_files[0].export_filename.to_json}>"
       card_json['source_html'].should ==
         '<a href="http://www.example.com/">e</a>'
-      card_json['anki_deck'].should == "Français::Écrit"
+      card_json['anki_deck'].should == "English::Reading"
       card_json['media_files'].length.should == 1
       mf_json = card_json['media_files'][0]
       mf_json['url'].should == mf.url
@@ -177,7 +181,7 @@ describe API::V1::CardsController do
 
     it "only marks specified cards as exported if passed a list" do
       card3 = FactoryGirl.create(:card, user: user, front: "Card 3",
-                                 state: 'reviewed')
+                                 state: 'reviewed', language: en)
       post 'mark_reviewed_as_exported', format: 'json', id: [card3.to_param]
       card1.reload; card1.state.should == 'reviewed'
       card3.reload; card3.state.should == 'exported'

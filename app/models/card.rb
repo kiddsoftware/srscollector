@@ -13,6 +13,7 @@ class Card < ActiveRecord::Base
 
   validates :user, presence: true
   validates :card_model, presence: true
+  validates :language, presence: true, if: Proc.new {|c| c.state == 'reviewed' }
   validates :front, presence: true
   validates :state, presence: true, inclusion: STATES
 

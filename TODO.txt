@@ -1,8 +1,8 @@
 Short term
 
   Multi-language
-    Export to correct deck for each language
-    Assign languages automatically on import
+    Fix CSS
+    Update existing reviewed cards to use French
 
   Correctness
     Control-Z shouldn't revert to text of previous card!
