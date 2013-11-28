@@ -1,6 +1,9 @@
 SrsCollector.DictionariesController = Ember.ArrayController.extend
   needs: ['card']
 
+  sortProperties: ['score']
+  sortAscending: false
+
   supporterInfoShown: false
   searchFor: null
   language: null
@@ -8,13 +11,13 @@ SrsCollector.DictionariesController = Ember.ArrayController.extend
 
   # Find only those dictionaries which are useful for the current language.
   filtered: (->
-    content = @get("content")
+    content = @get("arrangedContent")
     language = @get("language")
     console.log("filtered", content, language)
     return [] unless content? && language?
     content.filter (d) ->
       d.get("fromLanguage") == language
-  ).property("content", "language")
+  ).property("arrangedContent", "language")
 
   url: (->
     searchFor = @get("searchFor")
