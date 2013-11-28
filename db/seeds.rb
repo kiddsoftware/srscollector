@@ -77,19 +77,19 @@ dictionaries = [{
 }, {
   name: "Bing Image Search",
   from_language: fr,
-  to_language: nil,
+  to_language_id: nil,
   url_pattern: 'http://www.bing.com/images/search?q=%s+language%3Afr',
   score: 0.80
 }, {
   name: "Bing Image Search",
   from_language: en,
-  to_language: nil,
+  to_language_id: nil,
   url_pattern: 'http://www.bing.com/images/search?q=%s+language%3Aen',
   score: 0.80
 }, {
   name: "Bing Image Search",
   from_language: es,
-  to_language: nil,
+  to_language_id: nil,
   url_pattern: 'http://www.bing.com/images/search?q=%s+language%3Aes',
   score: 0.80
 
