@@ -18,8 +18,8 @@ Pour que le caractère d'un être humain dévoile des qualités vraiment excepti
 EOD
   end
 
-  let!(:en) { FactoryGirl.create(:language, iso_639_1: "en", name: "English") }
-  let!(:fr) { FactoryGirl.create(:language, iso_639_1: "fr", name: "Français") }
+  let!(:en) { FactoryGirl.create(:english) }
+  let!(:fr) { FactoryGirl.create(:french) }
 
   let!(:wiktionary) do
     FactoryGirl.create(:dictionary,

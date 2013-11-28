@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe API::V1::LanguagesController do
   describe "GET 'index'" do
-    let!(:fr) { FactoryGirl.create(:language, iso_639_1: 'fr') }
+    let!(:fr) { FactoryGirl.create(:french) }
 
     # See https://github.com/iain/http_accept_language to implement.
     # Available: Language.select("iso_639_1").map(&:iso_639_1)

@@ -24,7 +24,8 @@ class User < ActiveRecord::Base
   # Return the name of the Anki deck we should use for this card.  This
   # will eventually be customizable on a per-user basis.
   def anki_deck_for(card)
-    "Français::Écrit"
+    return nil unless card.language
+    "#{card.language.name}::#{card.language.anki_text_deck}"
   end
 
   protected

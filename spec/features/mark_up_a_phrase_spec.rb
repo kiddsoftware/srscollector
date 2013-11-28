@@ -2,7 +2,7 @@
 require "spec_helper"
 
 feature "Add definitions to a snippet", :js => true do
-  let(:fr) { FactoryGirl.create(:language, iso_639_1: "fr", name: "Français") }
+  let(:fr) { FactoryGirl.create(:french) }
   let!(:dict1) do
     FactoryGirl.create(:dictionary, name: "Dict1", from_language: fr,
                        to_language: fr,

@@ -41,8 +41,18 @@ describe User do
   end
 
   describe "#anki_deck_for" do
-    it "always returns the same deck for now" do
-      user.anki_deck_for(FactoryGirl.build(:card)).should == "Français::Écrit"
+    let(:en) { FactoryGirl.create(:english) }
+    let(:fr) { FactoryGirl.create(:french) }
+
+    it "puts cards in correct detect depending on language" do
+      card_fr = FactoryGirl.build(:card, language: fr)
+      user.anki_deck_for(card_fr).should == "Français::Écrit"
+
+      card_en = FactoryGirl.build(:card, language: en)
+      user.anki_deck_for(card_en).should == "English::Reading"
+
+      card_unk = FactoryGirl.build(:card, language: nil)
+      user.anki_deck_for(card_unk).should be_nil
     end
   end
 end
