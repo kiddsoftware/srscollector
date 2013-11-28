@@ -99,7 +99,8 @@ dictionaries = [{
 }]
 
 def create_or_update_dictionary(attrs)
-  d = Dictionary.where(attrs.slice(:name, :from_lang, :to_lang)).first_or_create
+  d = Dictionary.where(attrs.slice(:name, :from_language, :to_language))
+    .first_or_create
   d.update_attributes(attrs)
 end
 
