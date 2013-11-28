@@ -1,7 +1,9 @@
 .card
-  div
-    label for="language" Studying:
-    Ember.Select id="language" classNames="form-control input-sm" contentBinding=languages optionValuePath="content.id" optionLabelPath="content.name" selectionBinding="language" prompt="(auto-detect language)"
+  .form-horizontal
+    .form-group
+      label.control-label.col-xs-3 for="language" Studying:
+      .col-xs-9
+        Ember.Select id="language" classNames="form-control input-sm" contentBinding=languages optionValuePath="content.id" optionLabelPath="content.name" selectionBinding="language" prompt="(auto-detect language)"
 
   label for="front" Front:
   rich-editor ctrlId="front" value=front placeholder="Paste foreign language text here…" lookup="lookup" translate="translate" imagesAllowed=imagesAllowed
