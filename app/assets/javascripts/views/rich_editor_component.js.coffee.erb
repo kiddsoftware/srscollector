@@ -166,6 +166,7 @@ SrsCollector.RichEditorComponent = Ember.Component.extend
     # backend, which won't cache images unless the user is authorized.
     unless @get("imagesAllowed")
       $(@editor.composer.doc).find("img").remove()
+    @onEditorChange()
 
   onTranslate: ->
     text = @editor.composer.selection.getText()
