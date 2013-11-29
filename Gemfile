@@ -39,6 +39,9 @@ gem 'cld'
 # Rudimentary encoding detector.
 gem 'ensure-encoding'
 
+# The most robust encoding detector I can find.
+gem 'charlock_holmes_bundle_icu'
+
 # A concurrent webserver.
 # http://blog.codeship.io/2013/10/16/unleash-the-puma-on-heroku.html
 gem 'puma'

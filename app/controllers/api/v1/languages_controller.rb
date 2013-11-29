@@ -5,8 +5,9 @@ class API::V1::LanguagesController < ApplicationController
   def index
     case
     when params[:for_text]
-      detected = CLD.detect_language(detect_params[:for_text])
-      languages = Language.where(iso_639_1: detected[:code])
+      languages = []
+      language = Language.detect(detect_params[:for_text])
+      languages << language if language
       respond_with :api, :v1, languages
     else
       respond_with :api, :v1, Language.all

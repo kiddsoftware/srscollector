@@ -7,4 +7,11 @@ class Language < ActiveRecord::Base
 
   validates :iso_639_1, presence: true, length: { is: 2 }, uniqueness: true
   validates :name, presence: true, uniqueness: true
+
+  # Detect the language of a string of text using Google's Compact Language
+  # Detector.
+  def self.detect(text)
+    detected = CLD.detect_language(text)
+    Language.where(iso_639_1: detected[:code]).first
+  end
 end
