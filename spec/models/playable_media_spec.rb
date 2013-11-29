@@ -9,7 +9,7 @@ describe PlayableMedia do
   it { should belong_to(:language) }
   it { should validate_presence_of(:language) }
 
-  it { should have_many(:subtitles) }
+  it { should have_many(:subtitles).dependent(:delete_all) }
 
   it { should validate_presence_of(:type) }  
   it { should ensure_inclusion_of(:type).in_array(['audio', 'video']) }

@@ -1,7 +1,7 @@
 class PlayableMedia < ActiveRecord::Base
   belongs_to :user
   belongs_to :language
-  has_many :subtitles
+  has_many :subtitles, dependent: :delete_all
 
   validates :user, presence: true
   validates :language, presence: true
