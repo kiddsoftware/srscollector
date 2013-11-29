@@ -5,6 +5,7 @@ describe User do
   subject(:user) { FactoryGirl.create(:user) }
 
   it { should have_many(:cards) }
+  it { should have_many(:playable_media) }
   it { should validate_presence_of(:email) }
   it { should validate_uniqueness_of(:email) }
   it { should have_secure_password }

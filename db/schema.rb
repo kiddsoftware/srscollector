@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131125171241) do
+ActiveRecord::Schema.define(version: 20131129110308) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -115,6 +115,34 @@ ActiveRecord::Schema.define(version: 20131125171241) do
   end
 
   add_index "media_files", ["card_id"], name: "index_media_files_on_card_id"
+
+  create_table "playable_media", force: true do |t|
+    t.integer  "user_id",     null: false
+    t.integer  "language_id", null: false
+    t.string   "type",        null: false
+    t.text     "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "playable_media", ["language_id"], name: "index_playable_media_on_language_id"
+  add_index "playable_media", ["user_id"], name: "index_playable_media_on_user_id"
+
+  create_table "subtitles", force: true do |t|
+    t.integer  "playable_media_id", null: false
+    t.integer  "language_id",       null: false
+    t.float    "start_time",        null: false
+    t.float    "end_time",          null: false
+    t.text     "text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "subtitles", ["language_id"], name: "index_subtitles_on_language_id"
+  add_index "subtitles", ["playable_media_id", "end_time"], name: "index_subtitles_on_playable_media_id_and_end_time"
+  add_index "subtitles", ["playable_media_id", "language_id"], name: "index_subtitles_on_playable_media_id_and_language_id"
+  add_index "subtitles", ["playable_media_id", "start_time"], name: "index_subtitles_on_playable_media_id_and_start_time"
+  add_index "subtitles", ["playable_media_id"], name: "index_subtitles_on_playable_media_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                                  null: false

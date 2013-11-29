@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 class User < ActiveRecord::Base
   has_many :cards, extend: Card::AssociationMethods
+  has_many :playable_media
   has_secure_password
 
   validates :email, presence: true, uniqueness: true
