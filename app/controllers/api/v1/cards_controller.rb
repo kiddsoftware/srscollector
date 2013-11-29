@@ -1,3 +1,4 @@
+require "encoding_detector"
 require_relative "../../../models/card"
 
 class API::V1::CardsController < ApplicationController
@@ -52,10 +53,7 @@ class API::V1::CardsController < ApplicationController
       end
       head :created
     elsif params[:file]
-      clippings = params[:file].read
-      clippings.ensure_encoding!('UTF-8',
-                                 external_encoding: %w(UTF-8 UTF-16LE UTF-16BE),
-                                 invalid_characters: :raise)
+      clippings = EncodingDetector.ensure_utf8(params[:file].read)
       user_cards.create_from_clippings(clippings)
       head :created
     else

@@ -36,9 +36,6 @@ gem 'http_accept_language'
 # Compact language detector, courtesy of the Google Chrome team.
 gem 'cld'
 
-# Rudimentary encoding detector.
-gem 'ensure-encoding'
-
 # The most robust encoding detector I can find.
 gem 'charlock_holmes_bundle_icu'
 
