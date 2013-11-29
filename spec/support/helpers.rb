@@ -1,13 +1,17 @@
 module GlobalSpecHelpers
-  # Mock up an external web server that serves an image.  Returns the URL of
+  # Mock up an external web server that serves a file.  Returns the URL of
   # the image.
+  def stub_file_url(filename)
+    file_url = "http://www.example.com/#{filename}"
+    file_path = File.expand_path("../../fixtures/files/#{filename}", __FILE__)
+    mime = Mime::Type.lookup_by_extension(File.extname(filename).sub(/\A\./, ''))
+    stub_request(:get, file_url).
+      to_return(body: File.new(file_path), headers: { 'Content-Type' => mime })
+    file_url
+  end
+
   def stub_image_url
-    image_url = "http://www.example.com/image.png"
-    image_path = File.expand_path('../../data/image.png', __FILE__)
-    stub_request(:get, image_url).
-      to_return(body: File.new(image_path),
-                headers: { 'Content-Type' => 'image/png' })
-    image_url
+    stub_file_url("image.png")
   end
 end
 
