@@ -14,9 +14,13 @@
 #= require jquery
 #= require jquery.form
 #= require jquery_ujs
-#= require handlebars
-#= require ember
-#= require ember-data
+
+# Be sure to pull in our Bower versions, not whatever ember-rails wants us
+# to use.
+#= require handlebars/handlebars.js
+#= require ember/ember.js
+#= require ember-data/ember-data.js
+
 #= require bootstrap
 #= require wysihtml5/dist/wysihtml5-0.3.0.js
 

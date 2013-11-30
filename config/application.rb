@@ -27,7 +27,8 @@ module SrsCollector
 
     # Load front-end JavaScript managed by Bower package manager.  This only
     # works because Sprockets knows a little bit about Bower.
-    config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
+    config.assets.paths.
+      unshift(Rails.root.join('vendor', 'assets', 'components'))
 
     # Explicitly list everything we want in the assets directory, so we don't
     # pick up junk in vendor/assets/components from Bower.

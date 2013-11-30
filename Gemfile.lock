@@ -108,18 +108,19 @@ GEM
       dotenv (= 0.9.0)
     easy_translate (0.3.3)
       json
-    ember-data-source (1.0.0.beta.3)
+    ember-data-source (0.14)
       ember-source
-    ember-rails (0.13.0)
+    ember-rails (0.14.1)
       active_model_serializers
       barber (>= 0.4.1)
       ember-data-source
       ember-source
       execjs (>= 1.2)
       handlebars-source
+      jquery-rails (>= 1.0.17)
       railties (>= 3.1)
-    ember-source (1.0.0)
-      handlebars-source (= 1.0.12)
+    ember-source (1.2.0.1)
+      handlebars-source (~> 1.1.2)
     emblem-rails (0.1.1)
       barber-emblem (~> 0.1.1)
       ember-rails (>= 0.11.1)
@@ -154,7 +155,7 @@ GEM
       activesupport (>= 3.1, < 4.1)
       haml (>= 3.1, < 4.1)
       railties (>= 3.1, < 4.1)
-    handlebars-source (1.0.12)
+    handlebars-source (1.1.2)
     has_scope (0.6.0.rc)
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
