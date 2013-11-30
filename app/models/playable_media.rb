@@ -5,7 +5,7 @@ class PlayableMedia < ActiveRecord::Base
 
   validates :user, presence: true
   validates :language, presence: true
-  validates :type, presence: true, inclusion: { in: ['audio', 'video'] }
+  validates :kind, presence: true, inclusion: { in: ['audio', 'video'] }
   validates :url, presence: true
 
   def add_srt_data(text)

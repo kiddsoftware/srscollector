@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131129110308) do
+ActiveRecord::Schema.define(version: 20131129232504) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(version: 20131129110308) do
   create_table "playable_media", force: true do |t|
     t.integer  "user_id",     null: false
     t.integer  "language_id", null: false
-    t.string   "type",        null: false
+    t.string   "kind",        null: false
     t.text     "url"
     t.datetime "created_at"
     t.datetime "updated_at"

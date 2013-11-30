@@ -11,8 +11,8 @@ describe PlayableMedia do
 
   it { should have_many(:subtitles).dependent(:delete_all) }
 
-  it { should validate_presence_of(:type) }  
-  it { should ensure_inclusion_of(:type).in_array(['audio', 'video']) }
+  it { should validate_presence_of(:kind) }  
+  it { should ensure_inclusion_of(:kind).in_array(['audio', 'video']) }
 
   it { should validate_presence_of(:url) }
 

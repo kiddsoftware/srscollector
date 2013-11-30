@@ -50,8 +50,9 @@ class ApplicationController < ActionController::Base
 
   # Call as a before_filter to make sure the user is a supporter.
   def authenticate_supporter!
-    unless @current_user && @current_user.supporter
-      head :unauthorized
+    case
+    when !@current_user then head(:unauthorized)
+    when !@current_user.supporter? then head(:forbidden)
     end
   end
 

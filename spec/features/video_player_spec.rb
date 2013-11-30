@@ -15,6 +15,7 @@ feature "Play a video and make cards", :js => true do
     pending
 
     click_link "Media"
+    click_link "Add"
     fill_in "Video URL", with: video_url
     fill_in "Subtitle URL", with: subtitles_url
     click_button "Play It"
