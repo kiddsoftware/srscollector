@@ -40,6 +40,7 @@ module SrsCollector
       g.helper false
       g.test_framework :rspec, fixtures: true, view_specs: false
       g.fixture_replacement :factory_girl
+      g.factory_girl dir: "spec/factories"
     end
   end
 end
