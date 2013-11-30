@@ -16,6 +16,26 @@ describe PlayableMedia do
 
   it { should validate_presence_of(:url) }
 
+  describe ".new" do
+    let!(:fr) { FactoryGirl.create(:french) }
+    let!(:en) { FactoryGirl.create(:english) }
+
+    it "defaults the media kind based on the file extension" do
+      PlayableMedia.new(url: "http://example.com/f.mp4").kind.should == "video"
+      PlayableMedia.new(url: "http://example.com/f.mp3").kind.should == "audio"
+    end
+
+    it "imports subtitle URLs and defaults to the first language" do
+      urls = [stub_file_url("subtitles.srt"), stub_file_url("subtitles_en.srt")]
+      media = PlayableMedia.new(url: "http://example.com/f.mp4",
+                                subtitles_urls: urls)
+      media.language.should == fr
+      media.subtitles.length.should == 20
+      media.subtitles.select {|s| s.language == fr }.length.should == 10
+      media.subtitles.select {|s| s.language == en }.length.should == 10
+    end
+  end
+
   describe "#add_srt_data" do
     let!(:fr) { FactoryGirl.create(:french) }
 

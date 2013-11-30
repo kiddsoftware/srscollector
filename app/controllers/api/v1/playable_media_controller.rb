@@ -7,7 +7,17 @@ class API::V1::PlayableMediaController < ApplicationController
     respond_with :api, :v1, user_playable_media
   end
 
+  def create
+    respond_with :api, :v1, user_playable_media.create(playable_media_params)
+  end
+
   private
+
+  # Parameters which the user may pass in for PlayableMedia objects.
+  def playable_media_params
+    params.required(:playable_media).
+      permit(:url, :language_id, subtitles_urls: [])
+  end
 
   # Limit ourselves to the cards associated with this user.
   def user_playable_media

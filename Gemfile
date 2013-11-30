@@ -33,10 +33,15 @@ gem 'sanitize'
 # HTTP language detector.
 gem 'http_accept_language'
 
+# A simple HTTP client.
+gem 'httparty'
+
 # Compact language detector, courtesy of the Google Chrome team.
 gem 'cld'
 
-# The most robust encoding detector I can find.
+# The most robust encoding detector I can find.  Huge and very slow to
+# install, but it's the only one that gives reasonable answers for a wide
+# range of encodings.
 gem 'charlock_holmes_bundle_icu'
 
 # A concurrent webserver.
