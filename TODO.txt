@@ -1,8 +1,5 @@
 Short term
 
-  Multi-language
-    Update existing reviewed cards to use French
-
   Apply limits to non-supporters to reduce cost
     Max cards in system
 
@@ -10,6 +7,9 @@ Short term
     Control-Z shouldn't revert to text of previous card!
 
   Rename "Set Aside"
+
+Video
+  Enforce sane URLs
 
 Keep an eye on
 

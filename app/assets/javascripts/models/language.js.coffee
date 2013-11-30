@@ -4,3 +4,5 @@ SrsCollector.Language = DS.Model.extend
   cards: DS.hasMany('card')
   dictionariesFrom: DS.hasMany('dictionary', inverse: 'fromLanguage')
   dictionariesTo: DS.hasMany('dictionary', inverse: 'toLanguage')
+  playableMedia: DS.hasMany('playableMedia')
+  subtitles: DS.hasMany('subtitle')
