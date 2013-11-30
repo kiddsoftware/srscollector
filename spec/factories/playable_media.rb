@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :playable_media do
-    user
+    user { FactoryGirl.create(:supporter) }
     language
     kind "video"
     url "http://www.example.com/vid.mp4"

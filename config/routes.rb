@@ -16,7 +16,9 @@ SrsCollector::Application.routes.draw do
           post :mark_reviewed_as_exported
         end
       end
-      resources :playable_media
+      resources :playable_media do
+        resources :subtitles
+      end
       resources :card_models
       resources :dictionaries
       resources :languages do
