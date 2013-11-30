@@ -46,7 +46,7 @@ describe API::V1::LanguagesController do
 
   describe "POST 'translate'" do
     let(:user) { FactoryGirl.create(:user) }
-    let(:supporter) { FactoryGirl.create(:user, supporter: true) }
+    let(:supporter) { FactoryGirl.create(:supporter) }
     
     it "returns an error if the user is not a supporter" do
       sign_in(user)

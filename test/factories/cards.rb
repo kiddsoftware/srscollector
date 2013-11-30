@@ -4,10 +4,15 @@ FactoryGirl.define do
   factory :card do
     user
     card_model { default_card_model_for_spec }
-    #state "new"
     front "Je demande pardon"
-    back ""
-    source ""
-    source_url ""
+
+    factory :new_card do
+      state "new" # Already the default, but make it explicit.
+    end
+
+    factory :reviewed_card do
+      language
+      state "reviewed"
+    end
   end
 end
