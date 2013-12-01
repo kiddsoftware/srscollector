@@ -1,3 +1,7 @@
+# We use this to declare feature properties.
+featureFlag = (name) ->
+  (-> name in @get("features")).property("features")
+
 # Our authentication APIs.
 SrsCollector.Auth = Ember.Object.extend
   # The currently signed-in user, or null if we're not logged in.
@@ -5,6 +9,12 @@ SrsCollector.Auth = Ember.Object.extend
 
   # Is the currently logged-in user a supporter?
   isSupporter: false
+
+  # What features are enabled for the current user?
+  features: []
+
+  # Our feature flags.
+  enablePlayableMedia: featureFlag("playable_media")
 
   # Load user data from the page if present.
   init: ->
@@ -16,6 +26,7 @@ SrsCollector.Auth = Ember.Object.extend
   _processUserData: (json) ->
     @set("user", json["user"])
     @set("isSupporter", json["user"]["supporter"])
+    @set("features", json["user"]["features"])
     $('meta[name="csrf-token"]').attr('content', json["csrf_token"])
     return
 
