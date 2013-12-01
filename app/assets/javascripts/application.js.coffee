@@ -12,7 +12,7 @@
 #
 #= require_tree ./vendor
 #= require jquery
-#= require jquery.form
+#= require jquery-form/jquery.form.js
 #= require jquery_ujs
 
 # Be sure to pull in our Bower versions, not whatever ember-rails wants us

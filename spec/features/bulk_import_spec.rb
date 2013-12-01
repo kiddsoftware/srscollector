@@ -28,4 +28,13 @@ EOD
 
     wait_for_jquery
   end
+
+  scenario "Import clippings file" do
+    click_link "Bulk Import"
+    path = File.join(Rails.root, 'spec', 'fixtures', 'files', 'clippings.txt')
+    attach_file "Clippings:", path
+    click_button "Import Clippings"
+    page.should have_content("Cards to review: 3")
+    page.should have_content("Les Fleurs du mal")
+  end
 end
