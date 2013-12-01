@@ -67,4 +67,7 @@ RSpec.configure do |config|
   config.include FeatureSpecHelpers, :type => :feature
   config.include ShowMeTheCookies, :type => :feature
   config.include Paperclip::Shoulda::Matchers
+
+  # Clear only our current Redis DB between runs.
+  config.before(:each) { REDIS.flushdb }
 end

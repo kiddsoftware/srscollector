@@ -6,6 +6,8 @@ feature "Play a video and make cards", :js => true do
   before { default_card_model_for_spec; visit "/"; sign_up(supporter: true) }
 
   scenario "Provide a URL for a video and an SRT file, watch" do
+    ROLLOUT.activate_user(:playable_media, current_user)
+
     video_url = stub_file_url("blank.mp4")
     subtitles_url = stub_file_url("subtitles.srt")
 

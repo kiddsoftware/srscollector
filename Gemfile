@@ -52,6 +52,12 @@ gem 'cld'
 # range of encodings.
 gem 'charlock_holmes_bundle_icu'
 
+# Release features to users gradually.  This gem is a little primitive, but
+# it's actively maintained and installs cleanly, which is not always the
+# case with feature flag gems.
+gem 'rollout'
+gem 'redis'
+
 # A concurrent webserver.
 # http://blog.codeship.io/2013/10/16/unleash-the-puma-on-heroku.html
 gem 'puma'

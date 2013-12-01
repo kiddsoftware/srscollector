@@ -31,6 +31,9 @@ module ControllerSpecHelpers
 end
 
 module FeatureSpecHelpers
+  # Only valid after sign_up.
+  attr :current_user
+
   # We have some asynchronous DOM requests that occasionally take a long
   # time, but we can't finish a scenario until they're done using our web
   # server, or we'll get weird database state.  We can call this at the end
@@ -53,8 +56,9 @@ module FeatureSpecHelpers
     find("input[placeholder='Password confirmation']").set("password")
     click_button "Sign Up"    
     page.should have_text("Your account has been created")
+    user = User.where(email: "user@example.com").first!
+    @current_user = user
     if supporter
-      user = User.where(email: "user@example.com").first!
       user.supporter = true
       user.save!
       visit "/"
