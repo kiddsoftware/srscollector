@@ -6,6 +6,10 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 
+# Needed to prevent "Circular dependency detected while autoloading
+# constant Card" when run under guard.
+require_relative "../app/controllers/api/v1/cards_controller"
+
 # Set up Capybara and Poltergeist for headless acceptance tests.
 require 'capybara/poltergeist'
 Capybara.javascript_driver = :poltergeist

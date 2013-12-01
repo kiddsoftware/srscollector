@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
 require "spec_helper"
-# Needed to prevent "Circular dependency detected while autoloading
-# constant Card" when run under guard.
-require_relative "../../app/controllers/api/v1/cards_controller"
 
 feature "Play a video and make cards", :js => true do
   let!(:fr) { FactoryGirl.create(:french) }

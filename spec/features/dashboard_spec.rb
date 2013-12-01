@@ -1,7 +1,4 @@
 require "spec_helper"
-# Needed to prevent "Circular dependency detected while autoloading
-# constant Card" when run under guard.
-require_relative "../../app/controllers/api/v1/cards_controller"
 
 feature "Admin dashboard", :js => true do
   scenario "Admin users should be able to see the dashboard" do
