@@ -27,6 +27,14 @@ gem 'turbolinks'
 gem 'ember-rails'
 gem 'emblem-rails'
 
+# Lock these to the exact versions we use in bower.json, or as close as we
+# can get, in the case of handlebars.  We're not supposed to use these
+# copies at all, but things like emblem-rails keep picking them up, so at
+# least get sane versions.
+gem 'handlebars-source', '~> 1.0.0'
+gem 'ember-source', '= 1.0.0'
+gem 'ember-data-source', '= 1.0.0.beta.3'
+
 # Used to remove suspicious junk from HTML on cards.
 gem 'sanitize'
 

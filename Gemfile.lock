@@ -108,7 +108,7 @@ GEM
       dotenv (= 0.9.0)
     easy_translate (0.3.3)
       json
-    ember-data-source (0.14)
+    ember-data-source (1.0.0.beta.3)
       ember-source
     ember-rails (0.14.1)
       active_model_serializers
@@ -119,12 +119,12 @@ GEM
       handlebars-source
       jquery-rails (>= 1.0.17)
       railties (>= 3.1)
-    ember-source (1.2.0.1)
-      handlebars-source (~> 1.1.2)
-    emblem-rails (0.1.1)
+    ember-source (1.0.0)
+      handlebars-source (= 1.0.12)
+    emblem-rails (0.2.1)
       barber-emblem (~> 0.1.1)
-      ember-rails (>= 0.11.1)
-    emblem-source (0.3.2)
+      ember-rails (>= 0.14.0)
+    emblem-source (0.3.4)
     erubis (2.7.0)
     execjs (2.0.2)
     factory_girl (4.2.0)
@@ -155,7 +155,7 @@ GEM
       activesupport (>= 3.1, < 4.1)
       haml (>= 3.1, < 4.1)
       railties (>= 3.1, < 4.1)
-    handlebars-source (1.1.2)
+    handlebars-source (1.0.12)
     has_scope (0.6.0.rc)
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
@@ -332,13 +332,16 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   dotenv-rails
   easy_translate
+  ember-data-source (= 1.0.0.beta.3)
   ember-rails
+  ember-source (= 1.0.0)
   emblem-rails
   factory_girl_rails
   foreman
   guard
   guard-rspec
   haml-rails
+  handlebars-source (~> 1.0.0)
   htmlentities
   http_accept_language
   httparty
