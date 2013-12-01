@@ -17,6 +17,7 @@ The production site currently uses the following addons:
     heroku-postgresql:dev
     newrelic:wayne
     pgbackups:auto-month
+    redistogo:nano
 
 ### Values needed for `heroku config:set`
 

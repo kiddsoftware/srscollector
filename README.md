@@ -23,6 +23,10 @@ credentials:
     AWS_ACCESS_KEY_ID=...
     AWS_SECRET_ACCESS_KEY=...
     GOOGLE_API_KEY=...
+    REDISTOGO_URL=redis://localhost:6379
+
+The code will use Redis database index 0 for the site, and index 15 for the
+unit tests.
 
 Once this is in place, run:
 
