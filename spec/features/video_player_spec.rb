@@ -18,7 +18,6 @@ feature "Play a video and make cards", :js => true do
     click_button "Play It"
 
     page.should have_text("blank.mp4")
-    pending
     page.should have_text("A la même seconde")
   end
 end
