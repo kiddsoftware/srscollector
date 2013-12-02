@@ -1,0 +1,12 @@
+.form-horizontal
+  .form-group
+    label.control-label.col-sm-2 for="url" Video URL:
+    .col-sm-10
+      = input#url classNames="form-control" value=url
+  .form-group
+    label.control-label.col-sm-2 for="subtitles_url" Subtitles URL:
+    .col-sm-10
+      = input#subtitles_url classNames="form-control" value=subtitles_url
+  .form-group
+    .col-sm-push-2.col-sm-10
+      button.btn.btn-primary{action create} Play It

@@ -8,5 +8,11 @@ SrsCollector.Router.map ()->
   @route('index', path: '/')
   @route('import', path: '/import')
   @route('export', path: '/export')
-  @route('sign_up', path: '/sign_up')
-  @route('sign_in', path: '/sign_in')
+  @route('signUp', path: '/sign_up')
+  @route('signIn', path: '/sign_in')
+  @resource 'playableMedia', path: '/media', ->
+    @route 'new'
+  # Normally this would be the singuar form "playableMedium" without
+  # ".show", but I decided that "media" in this sense is a collective noun,
+  # so we just append ".show" and hope Ember works it out.
+  @resource 'playableMedia.show', path: '/media/:playable_media_id'

@@ -23,4 +23,4 @@
   else
     p
       ' To save your card and export it to Anki, you can
-      ' #{linkTo 'sign_up' | Sign Up} or #{linkTo 'sign_in' | Sign In}.
+      ' #{linkTo 'signUp' | Sign Up} or #{linkTo 'signIn' | Sign In}.

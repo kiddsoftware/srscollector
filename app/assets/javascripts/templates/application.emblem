@@ -12,12 +12,14 @@ nav.navbar.navbar-inverse.navbar-fixed-top
         li: a href="http://about.srscollector.com/blog" Blog
         if auth.user
           li: linkTo 'import' | Bulk Import
+        if auth.enablePlayableMedia
+          li: linkTo 'playableMedia' | Media
       ul.nav.navbar-nav.navbar-right
         if auth.user
           li.last-child: a{action signOut} href="#" Sign Out
         else
-          li: linkTo 'sign_up' | Sign Up
-          li.last-child: linkTo 'sign_in' | Sign In
+          li: linkTo 'signUp' | Sign Up
+          li.last-child: linkTo 'signIn' | Sign In
 
 .container
   render flash

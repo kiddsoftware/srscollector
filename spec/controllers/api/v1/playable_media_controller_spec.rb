@@ -39,7 +39,6 @@ describe API::V1::PlayableMediaController do
       subtitles_url = stub_file_url("subtitles.srt")
       subtitles_en_url = stub_file_url("subtitles_en.srt")
       attrs = {
-        language_id: fr.to_param,
         url: video_url,
         subtitles_urls: [subtitles_url, subtitles_en_url]
       }

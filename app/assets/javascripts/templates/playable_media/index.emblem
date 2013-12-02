@@ -1,0 +1,5 @@
+linkTo 'playableMedia.new' classNames='btn btn-primary' | Add
+
+ul
+  each
+    li= url
