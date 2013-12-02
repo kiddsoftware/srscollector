@@ -33,6 +33,15 @@ describe API::V1::PlayableMediaController do
     end
   end  
 
+  describe "GET 'show'" do
+    it "returns a single PlayableMedia object" do
+      media = FactoryGirl.create(:playable_media, user: user)
+      get 'show', format: 'json', id: media.to_param
+      response.should be_success
+      json['playable_media']['id'].should == media.id
+    end
+  end
+
   describe "POST 'create'" do
     it "creates a media object" do
       video_url = stub_file_url("blank.mp4")

@@ -19,6 +19,4 @@ SrsCollector.PlayableMediaNewController = Ember.ObjectController.extend SrsColle
       @async "Couldn't save media information.", =>
         @get('model').save()
           .then =>
-            @transitionToRoute("playableMedia")
-            # TODO: Implement this:
-            #@transitionToRoute("playableMedia.show", @get('model'))
+            @transitionToRoute("playableMedia.show", @get('model'))

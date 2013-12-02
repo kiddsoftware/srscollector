@@ -7,6 +7,10 @@ class API::V1::PlayableMediaController < ApplicationController
     respond_with :api, :v1, user_playable_media
   end
 
+  def show
+    respond_with :api, :v1, user_playable_media.find(params.permit(:id)[:id])   
+  end
+
   def create
     respond_with :api, :v1, user_playable_media.create(playable_media_params)
   end
