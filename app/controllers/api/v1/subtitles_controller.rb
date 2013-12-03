@@ -10,7 +10,8 @@ class API::V1::SubtitlesController < ApplicationController
   private
 
   def user_playable_media_subtitles
-    id = params.permit(:playable_media_id)
-    current_user.playable_media(id: id).first.subtitles
+    id = params.permit(:playable_media_id)[:playable_media_id]
+    media = current_user.playable_media.where(id: id).first!
+    media.subtitles
   end
 end

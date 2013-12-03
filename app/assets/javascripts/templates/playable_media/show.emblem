@@ -1,3 +1,5 @@
 h3= url
 
+video src=url controls="controls"
+
 render subtitles

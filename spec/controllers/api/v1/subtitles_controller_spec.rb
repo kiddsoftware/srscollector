@@ -22,5 +22,14 @@ describe API::V1::SubtitlesController do
       json["subtitles"].length.should == 1
       json["subtitles"][0]["id"].should == subtitle.id
     end
+
+    it "does not confuse subtitles from different media" do
+      media2 = FactoryGirl.create(:playable_media, user: user)
+      subtitle2 = FactoryGirl.create(:subtitle, playable_media: media2)
+      get('index', playable_media_id: media2.to_param, format: 'json')
+      response.should be_success
+      json["subtitles"].length.should == 1
+      json["subtitles"][0]["id"].should == subtitle2.id
+    end
   end
 end
