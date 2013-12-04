@@ -13,11 +13,29 @@ feature "Play a video and make cards", :js => true do
     click_link "Media"
     click_link "Add"
 
+    fill_in "Video Title", with: "Blank"
     fill_in "Video URL", with: video_url
     fill_in "Subtitles URL", with: subtitles_url
     click_button "Play It"
 
-    page.should have_text("blank.mp4")
+    page.should have_text("Blank")
+    page.should have_xpath("//video[@src='#{video_url}']")
     page.should have_text("A la même seconde")
+
+    # Click on subtitles, rewind, etc.
+  end
+
+  context "with a pre-existing video" do
+    let(:video_url) { video_url = stub_file_url("blank.mp4") }
+    let!(:playable_media) do
+      FactoryGirl.create(:playable_media, title: "Blank",
+                         url: video_url, user: current_user)
+    end
+
+    scenario "look for an existing video" do
+      click_link "Media"
+      click_link "Blank"
+      page.should have_text("Blank")
+    end
   end
 end

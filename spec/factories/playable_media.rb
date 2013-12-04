@@ -6,5 +6,6 @@ FactoryGirl.define do
     language
     kind "video"
     url "http://www.example.com/vid.mp4"
+    title "My Video"
   end
 end

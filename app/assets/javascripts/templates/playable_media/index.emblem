@@ -2,4 +2,6 @@ linkTo 'playableMedia.new' classNames='btn btn-primary' | Add
 
 ul
   each
-    li= url
+    li
+      linkTo 'playableMedia.show' this
+        = title

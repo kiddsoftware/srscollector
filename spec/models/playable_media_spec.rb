@@ -15,6 +15,7 @@ describe PlayableMedia do
   it { should ensure_inclusion_of(:kind).in_array(['audio', 'video']) }
 
   it { should validate_presence_of(:url) }
+  it { should validate_presence_of(:title) }
 
   describe ".new" do
     let!(:fr) { FactoryGirl.create(:french) }

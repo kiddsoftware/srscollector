@@ -29,6 +29,7 @@ describe API::V1::PlayableMediaController do
       json['playable_media'].length.should == 1
       json['playable_media'][0]['id'].should == media.id
       json['playable_media'][0]['url'].should == media.url
+      json['playable_media'][0]['title'].should == media.title
       json['playable_media'][0]['subtitles'].should be_nil
     end
   end  
@@ -49,6 +50,7 @@ describe API::V1::PlayableMediaController do
       subtitles_en_url = stub_file_url("subtitles_en.srt")
       attrs = {
         url: video_url,
+        title: "Blank",
         subtitles_urls: [subtitles_url, subtitles_en_url]
       }
       post 'create', format: 'json', playable_media: attrs
@@ -57,6 +59,7 @@ describe API::V1::PlayableMediaController do
       media = PlayableMedia.where(url: video_url).first
       media.should_not be_nil
       media.kind.should == "video"
+      media.title.should == "Blank"
       media.language.should == fr
       media.subtitles.length.should == 20
     end

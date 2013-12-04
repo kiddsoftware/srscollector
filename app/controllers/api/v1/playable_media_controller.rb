@@ -20,7 +20,7 @@ class API::V1::PlayableMediaController < ApplicationController
   # Parameters which the user may pass in for PlayableMedia objects.
   def playable_media_params
     params.required(:playable_media).
-      permit(:url, :language_id, subtitles_urls: [])
+      permit(:url, :title, :language_id, subtitles_urls: [])
   end
 
   # Limit ourselves to the cards associated with this user.

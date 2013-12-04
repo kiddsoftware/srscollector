@@ -9,6 +9,7 @@ class PlayableMedia < ActiveRecord::Base
   validates :language, presence: true
   validates :kind, presence: true, inclusion: { in: ['audio', 'video'] }
   validates :url, presence: true
+  validates :title, presence: true
 
   attr_writer :subtitles_urls
 

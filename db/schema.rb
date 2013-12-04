@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131129232504) do
+ActiveRecord::Schema.define(version: 20131204003120) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(version: 20131129232504) do
     t.text     "url"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "title"
   end
 
   add_index "playable_media", ["language_id"], name: "index_playable_media_on_language_id"
