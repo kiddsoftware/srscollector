@@ -1,3 +1,5 @@
+**WARNING: This project currently relies on out-of-date libraries that may pose security risks. Do not deploy this without first updating the dependencies.**
+
 ## SRS Collector
 
 This is a web-based application for people who do a [lot of reading in
